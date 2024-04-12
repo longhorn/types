@@ -1,0 +1,50 @@
+#!/bin/bash
+
+set -e
+
+PROTOC_VER="${PROTOC_VER:-v24.3}"
+
+cd $(dirname $0)/..
+
+# check and download dependency for gRPC code generate
+if [ ! -e ./protobuf/vendor/protobuf/src/google/protobuf ]; then
+    rm -rf ./protobuf/vendor/protobuf/src/google/protobuf
+    DIR="./protobuf/vendor/protobuf/src/google/protobuf"
+    mkdir -p $DIR
+    wget https://raw.githubusercontent.com/protocolbuffers/protobuf/$PROTOC_VER/src/google/protobuf/empty.proto -P $DIR
+fi
+
+PY_BUILD_DIR_BASE=".pyprotobuild"
+GO_BUILD_DIR_BASE=".goprotobuild"
+mkdir -p "${PY_BUILD_DIR_BASE}" "${GO_BUILD_DIR_BASE}"
+
+for PROTO in ptypes imrpc bimrpc smrpc spdkrpc; do
+    for i in protobuf/${PROTO}/*.proto; do
+        python3 -m grpc_tools.protoc -I "protobuf/" -I "protobuf/vendor/" \
+            --python_out="${PY_BUILD_DIR_BASE}" \
+            --grpc_python_out="${PY_BUILD_DIR_BASE}" \
+            $i
+        protoc -I "protobuf/" -I "protobuf/vendor/" \
+            --go_out="${GO_BUILD_DIR_BASE}" --go_opt=paths=source_relative \
+            --go-grpc_out="${GO_BUILD_DIR_BASE}" --go-grpc_opt=paths=source_relative \
+            $i
+    done
+
+    mkdir -p generated-py/${PROTO}
+    for i in ${PY_BUILD_DIR_BASE}/${PROTO}/*.py; do
+        mv $i generated-py/${PROTO}/
+    done
+
+    mkdir -p pkg/generated/${PROTO}
+    for i in ${GO_BUILD_DIR_BASE}/${PROTO}/*.go; do
+        mv $i pkg/generated/${PROTO}/
+    done
+done
+
+# For backward compatible, we use ptypes as engine protobuf package name.
+# For golang, we would like to unify naming as <service>rpc, so we change it to enginerpc.
+mkdir -p pkg/generated/enginerpc
+mv pkg/generated/ptypes/* pkg/generated/enginerpc/
+rm -rf pkg/generated/ptypes
+
+rm -rf "${PY_BUILD_DIR_BASE}" "${GO_BUILD_DIR_BASE}"

@@ -1,0 +1,20 @@
+syntax="proto3";
+
+// When users upgrade LH, if a volume is not retached, it uses the old version smrpc grpc server.
+// We can not use a new grpc client with different package name, so we use the same package name to avoid the conflict.
+// Old smrpc protobuf: https://github.com/longhorn/longhorn-share-manager/blob/10b82112529f3d715faeefa91dd0eb83e15a6e48/pkg/rpc/smrpc.proto#L1-L15
+// package smrpc;
+
+option go_package = "github.com/longhorn/types/pkg/generated/smrpc";
+
+import "google/protobuf/empty.proto";
+
+service ShareManagerService {
+	rpc FilesystemTrim(FilesystemTrimRequest) returns (google.protobuf.Empty) {}
+	rpc Unmount(google.protobuf.Empty) returns (google.protobuf.Empty) {}
+	rpc Mount(google.protobuf.Empty) returns (google.protobuf.Empty) {}
+}
+
+message FilesystemTrimRequest {
+	bool encrypted_device = 1;
+}
