@@ -135,6 +135,11 @@ class SPDKServiceStub(object):
                 request_serializer=spdkrpc_dot_spdk__pb2.EngineGetRequest.SerializeToString,
                 response_deserializer=spdkrpc_dot_spdk__pb2.Engine.FromString,
                 )
+        self.EngineSuspend = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineSuspend',
+                request_serializer=spdkrpc_dot_spdk__pb2.EngineSuspendRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
         self.EngineSnapshotCreate = channel.unary_unary(
                 '/spdkrpc.SPDKService/EngineSnapshotCreate',
                 request_serializer=spdkrpc_dot_spdk__pb2.SnapshotRequest.SerializeToString,
@@ -389,6 +394,12 @@ class SPDKServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def EngineSuspend(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def EngineSnapshotCreate(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -637,6 +648,11 @@ def add_SPDKServiceServicer_to_server(servicer, server):
                     servicer.EngineGet,
                     request_deserializer=spdkrpc_dot_spdk__pb2.EngineGetRequest.FromString,
                     response_serializer=spdkrpc_dot_spdk__pb2.Engine.SerializeToString,
+            ),
+            'EngineSuspend': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineSuspend,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.EngineSuspendRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'EngineSnapshotCreate': grpc.unary_unary_rpc_method_handler(
                     servicer.EngineSnapshotCreate,
@@ -1158,6 +1174,23 @@ class SPDKService(object):
         return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineGet',
             spdkrpc_dot_spdk__pb2.EngineGetRequest.SerializeToString,
             spdkrpc_dot_spdk__pb2.Engine.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineSuspend(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineSuspend',
+            spdkrpc_dot_spdk__pb2.EngineSuspendRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
