@@ -77,6 +77,9 @@ message VolumeStartRequest {
 message VolumeSnapshotRequest {
     string name = 1;
     map<string, string> labels = 2;
+    // Freeze the filesystem on the root partition. May be implemented with fsfreeze -f,
+    // dmsetup suspend without --nolockfs, or similar.
+    bool freezeFilesystem = 3;
 }
 
 message VolumeSnapshotReply {
