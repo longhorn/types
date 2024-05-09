@@ -15,15 +15,18 @@ service SPDKService {
     rpc ReplicaSnapshotRevert(SnapshotRequest) returns (google.protobuf.Empty);
     rpc ReplicaList(google.protobuf.Empty) returns (ReplicaListResponse);
     rpc ReplicaWatch(google.protobuf.Empty) returns (stream google.protobuf.Empty) {}
-    rpc ReplicaRebuildingSrcStart(ReplicaRebuildingSrcStartRequest) returns (google.protobuf.Empty) {}
-    rpc ReplicaRebuildingSrcFinish(ReplicaRebuildingSrcFinishRequest) returns (google.protobuf.Empty) {}
-    rpc ReplicaRebuildingSrcAttach(ReplicaRebuildingSrcAttachRequest) returns (google.protobuf.Empty) {}
-    rpc ReplicaRebuildingSrcDetach(ReplicaRebuildingSrcDetachRequest) returns (google.protobuf.Empty) {}
-    rpc ReplicaSnapshotShallowCopy(ReplicaSnapshotShallowCopyRequest) returns (google.protobuf.Empty);
-    rpc ReplicaRebuildingDstStart(ReplicaRebuildingDstStartRequest) returns (ReplicaRebuildingDstStartResponse) {}
-    rpc ReplicaRebuildingDstFinish(ReplicaRebuildingDstFinishRequest) returns (google.protobuf.Empty) {}
+    rpc ReplicaRebuildingSrcStart(ReplicaRebuildingSrcStartRequest) returns (ReplicaRebuildingSrcStartResponse) {};
+    rpc ReplicaRebuildingSrcFinish(ReplicaRebuildingSrcFinishRequest) returns (google.protobuf.Empty) {};
+    rpc ReplicaRebuildingSrcAttach(ReplicaRebuildingSrcAttachRequest) returns (google.protobuf.Empty) {};
+    rpc ReplicaRebuildingSrcDetach(ReplicaRebuildingSrcDetachRequest) returns (google.protobuf.Empty) {};
+    rpc ReplicaRebuildingSrcShallowCopyStart(ReplicaRebuildingSrcShallowCopyStartRequest) returns (ReplicaRebuildingSrcShallowCopyStartResponse);
+    rpc ReplicaRebuildingSrcShallowCopyCheck(ReplicaRebuildingSrcShallowCopyCheckRequest) returns (ReplicaRebuildingSrcShallowCopyCheckResponse) {};
+    rpc ReplicaRebuildingDstStart(ReplicaRebuildingDstStartRequest) returns (ReplicaRebuildingDstStartResponse) {};
+    rpc ReplicaRebuildingDstFinish(ReplicaRebuildingDstFinishRequest) returns (google.protobuf.Empty) {};
+    rpc ReplicaRebuildingDstShallowCopyStart(ReplicaRebuildingDstShallowCopyStartRequest) returns (google.protobuf.Empty);
+    rpc ReplicaRebuildingDstShallowCopyCheck(ReplicaRebuildingDstShallowCopyCheckRequest) returns (ReplicaRebuildingDstShallowCopyCheckResponse) {};
     rpc ReplicaRebuildingDstSnapshotCreate(SnapshotRequest) returns (google.protobuf.Empty);
-    rpc ReplicaRebuildingDstSnapshotRevert(SnapshotRequest) returns (google.protobuf.Empty);
+    rpc ReplicaRebuildingDstSnapshotRevert(SnapshotRequest) returns (ReplicaRebuildingDstSnapshotRevertResponse) {};
     rpc ReplicaBackupCreate(BackupCreateRequest) returns (BackupCreateResponse) {}
     rpc ReplicaBackupStatus(BackupStatusRequest) returns (BackupStatusResponse) {}
     rpc ReplicaBackupRestore(ReplicaBackupRestoreRequest) returns (google.protobuf.Empty) {}
@@ -95,8 +98,7 @@ message ReplicaCreateRequest {
     string lvs_name = 2;
     string lvs_uuid = 3;
     uint64 spec_size = 4;
-    bool expose_required = 5;
-    int32 port_count = 6;
+    int32 port_count = 5;
 }
 
 message ReplicaDeleteRequest {
@@ -121,7 +123,12 @@ enum ReplicaMode {
 message ReplicaRebuildingSrcStartRequest {
     string name = 1;
     string dst_replica_name = 2;
-    string dst_rebuilding_lvol_address = 3;
+    string dst_replica_address = 3;
+    string exposed_snapshot_name = 4;
+}
+
+message ReplicaRebuildingSrcStartResponse {
+    string exposed_snapshot_lvol_address = 1;
 }
 
 message ReplicaRebuildingSrcFinishRequest {
@@ -140,23 +147,68 @@ message ReplicaRebuildingSrcDetachRequest {
     string dst_replica_name = 2;
 }
 
-message ReplicaSnapshotShallowCopyRequest {
+message ReplicaRebuildingSrcShallowCopyStartRequest {
     string name = 1;
     string snapshot_name = 2;
 }
 
+message ReplicaRebuildingSrcShallowCopyStartResponse {
+    uint32 shallow_copy_op_id = 1;
+}
+
+message ReplicaRebuildingSrcShallowCopyCheckRequest {
+    string name = 1;
+    string dst_replica_name = 2;
+    string snapshot_name = 3;
+    uint32 shallow_copy_op_id = 4;
+}
+
+message ReplicaRebuildingSrcShallowCopyCheckResponse {
+    string state = 1;
+    uint64 copied_clusters = 2;
+    uint64 total_clusters = 3;
+    string error_msg = 4;
+}
+
 message ReplicaRebuildingDstStartRequest {
     string name = 1;
-    bool expose_required = 2;
+    string src_replica_name = 2;
+    string src_replica_address = 3;
+    string external_snapshot_name = 4;
+    string external_snapshot_address = 5;
+    repeated Lvol rebuilding_snapshot_list = 6;
 }
 
 message ReplicaRebuildingDstStartResponse {
-    string address = 1;
+    string dst_head_lvol_address = 1;
 }
 
 message ReplicaRebuildingDstFinishRequest {
     string name = 1;
-    bool unexpose_required = 2;
+}
+
+message ReplicaRebuildingDstShallowCopyStartRequest {
+    string name = 1;
+    string snapshot_name = 2;
+}
+
+message ReplicaRebuildingDstShallowCopyCheckRequest {
+    string name = 1;
+}
+
+message ReplicaRebuildingDstShallowCopyCheckResponse {
+    string src_replica_name = 1;
+    string src_replica_address = 2;
+    string snapshot_name = 3;
+    string state = 4;
+    uint32 progress = 5;
+    string total_state = 6;
+    uint32 total_progress = 7;
+    string error = 8;
+}
+
+message ReplicaRebuildingDstSnapshotRevertResponse {
+    string dst_rebuilding_lvol_address = 1;
 }
 
 message Engine {
@@ -238,6 +290,21 @@ message EngineReplicaDeleteRequest {
     string engine_name = 1;
     string replica_name = 2;
     string replica_address = 3;
+}
+
+message EngineReplicaRebuildStatusRequest {
+    string engine_name = 1;
+    string replica_name = 2;
+}
+
+message EngineReplicaRebuildStatusResponse {
+    string replica_name = 1;
+    string snapshot_name = 2;
+    string state = 3;
+    int32 progress = 4;
+    string error = 5;
+    string src_replica_name = 6;
+    string src_replica_address = 7;
 }
 
 message SnapshotRequest {
