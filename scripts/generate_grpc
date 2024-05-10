@@ -18,7 +18,7 @@ PY_BUILD_DIR_BASE=".pyprotobuild"
 GO_BUILD_DIR_BASE=".goprotobuild"
 mkdir -p "${PY_BUILD_DIR_BASE}" "${GO_BUILD_DIR_BASE}"
 
-for PROTO in ptypes imrpc bimrpc smrpc spdkrpc; do
+for PROTO in ptypes imrpc bimrpc smrpc spdkrpc profilerrpc; do
     for i in protobuf/${PROTO}/*.proto; do
         python3 -m grpc_tools.protoc -I "protobuf/" -I "protobuf/vendor/" \
             --python_out="${PY_BUILD_DIR_BASE}" \
