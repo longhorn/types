@@ -146,6 +146,7 @@ message EngineSnapshotCloneRequest {
 	int32 file_sync_http_client_timeout = 5;
 	string from_engine_name = 6;
 	string from_volume_name = 7;
+	int64 grpc_timeout_seconds = 9;
 }
 
 message EngineSnapshotCloneStatusProxyResponse {
@@ -242,6 +243,7 @@ message EngineReplicaAddRequest {
 	bool fast_sync = 6;
 	int32 file_sync_http_client_timeout = 7;
 	string replica_name = 8;
+	int64 grpc_timeout_seconds = 9;
 }
 
 message EngineReplicaListProxyResponse {

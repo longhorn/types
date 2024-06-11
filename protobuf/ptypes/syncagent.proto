@@ -65,6 +65,7 @@ message FilesSyncRequest {
   repeated SyncFileInfo sync_file_info_list = 3;
   bool fast_sync = 4;
   int32 file_sync_http_client_timeout = 5;
+  int64 grpc_timeout_seconds = 6;
 }
 
 message SnapshotCloneRequest {
