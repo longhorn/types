@@ -217,6 +217,7 @@ message SnapshotRequest {
     string name = 1;
     string snapshot_name = 2;
     bool user_created = 3;
+    string snaphot_timestamp = 4;
 }
 
 message SnapshotResponse {
