@@ -66,6 +66,12 @@ message FilesSyncRequest {
   bool fast_sync = 4;
   int32 file_sync_http_client_timeout = 5;
   int64 grpc_timeout_seconds = 6;
+  FileLocalSync local_sync = 7;
+}
+
+message FileLocalSync {
+	string source_path = 1;
+	string target_path = 2;
 }
 
 message SnapshotCloneRequest {
