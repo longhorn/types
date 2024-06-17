@@ -245,6 +245,12 @@ message EngineReplicaAddRequest {
 	int32 file_sync_http_client_timeout = 7;
 	string replica_name = 8;
 	int64 grpc_timeout_seconds = 9;
+	EngineReplicaLocalSync local_sync = 10;
+}
+
+message EngineReplicaLocalSync {
+	string source_path = 1;
+	string target_path = 2;
 }
 
 message EngineReplicaListProxyResponse {
