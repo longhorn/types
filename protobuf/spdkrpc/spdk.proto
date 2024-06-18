@@ -67,6 +67,7 @@ message Lvol {
     map<string, bool> children = 6;
     string creation_time = 7;
     bool user_created = 8;
+    string snapshot_timestamp = 9;
 }
 
 message Replica {
@@ -217,6 +218,7 @@ message SnapshotRequest {
     string name = 1;
     string snapshot_name = 2;
     bool user_created = 3;
+    string snaphot_timestamp = 4;
 }
 
 message SnapshotResponse {
