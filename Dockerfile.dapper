@@ -1,4 +1,4 @@
-FROM registry.suse.com/bci/bci-base:15.6
+FROM registry.suse.com/bci/golang:1.22
 
 ARG DAPPER_HOST_ARCH=amd64
 ARG http_proxy
@@ -19,32 +19,16 @@ WORKDIR ${DAPPER_SOURCE}
 RUN zypper -n addrepo --refresh https://download.opensuse.org/repositories/system:/snappy/SLE_15/system:snappy.repo && \
     zypper --gpg-auto-import-keys ref
 
-# Install packages
-RUN if [ ${ARCH} == "amd64" ]; then \
-    zypper -n install autoconf libtool libunwind-devel; \
-    fi
-
 # TODO: replace python311 with python3 if SLE upgrade system python version to python3.10+
-RUN zypper -n install wget git tar gzip unzip \
-    python311 python311-devel python311-pip && \
+RUN zypper -n install wget git unzip python311 python311-devel python311-pip && \
     rm -rf rm -rf /var/cache/zypp/*
 
 # needed for ${!var} substitution
 RUN rm -f /bin/sh && ln -s /bin/bash /bin/sh
 
-RUN if [ ${ARCH} == "s390x" ]; then \
-    ln -s /usr/bin/gcc /usr/bin/s390x-linux-gnu-gcc;\
-    fi
-
-# Install Go
-ENV GOLANG_ARCH_amd64=amd64 GOLANG_ARCH_arm64=arm64 GOLANG_ARCH_s390x=s390x GOLANG_ARCH=GOLANG_ARCH_${ARCH} \
-    GOPATH=/go PATH=/go/bin:/usr/local/go/bin:${PATH} SHELL=/bin/bash
-RUN wget -O - https://storage.googleapis.com/golang/go1.21.7.linux-${!GOLANG_ARCH}.tar.gz | tar -xzf - -C /usr/local
-
 # protoc
 ENV PROTOC_amd64=https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOC_VER}/protoc-${PROTOC_VER}-linux-x86_64.zip \
     PROTOC_arm64=https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOC_VER}/protoc-${PROTOC_VER}-linux-aarch_64.zip \
-    PROTOC_s390x=https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOC_VER}/protoc-${PROTOC_VER}-linux-s390_64.zip \
     PROTOC=PROTOC_${ARCH}
 
 RUN cd /usr/src && \
@@ -79,12 +63,7 @@ RUN ln -sf /usr/bin/python3.11 /usr/bin/python3 & \
     ln -sf /usr/bin/pip3.11 /usr/bin/pip3
 
 # python grpc-tools
-RUN if [ "${ARCH}" == "s390x" ]; then \
-    zypper -n in libopenssl-devel && \
-    GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=True pip3 install grpcio==1.58.0 grpcio_tools==1.58.0 protobuf==${PROTOBUF_VER_PY}; \
-    else \
-    pip3 install grpcio==1.58.0 grpcio_tools==1.58.0 protobuf==${PROTOBUF_VER_PY}; \
-    fi
+RUN pip3 install grpcio==1.58.0 grpcio_tools==1.58.0 protobuf==${PROTOBUF_VER_PY}
 
 ENTRYPOINT ["./scripts/entry"]
 CMD ["ci"]
