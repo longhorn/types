@@ -16,6 +16,10 @@ service InstanceService {
 	rpc InstanceLog(InstanceLogRequest) returns (stream LogResponse) {}
 	rpc InstanceWatch(google.protobuf.Empty) returns (stream google.protobuf.Empty) {}
 	rpc InstanceReplace(InstanceReplaceRequest) returns (InstanceResponse) {}
+	rpc InstanceSuspend(InstanceSuspendRequest) returns (google.protobuf.Empty) {}
+	rpc InstanceResume(InstanceResumeRequest) returns (google.protobuf.Empty) {}
+	rpc InstanceSwitchOverTarget(InstanceSwitchOverTargetRequest) returns (google.protobuf.Empty) {}
+	rpc InstanceDeleteTarget(InstanceDeleteTargetRequest) returns (google.protobuf.Empty) {}
 
 	rpc LogSetLevel(LogSetLevelRequest) returns (google.protobuf.Empty);
 	rpc LogSetFlags(LogSetFlagsRequest) returns (google.protobuf.Empty);
@@ -31,7 +35,7 @@ message ProcessInstanceSpec {
 }
 
 message SpdkInstanceSpec {
-    map<string, string> replica_address_map = 1;
+	map<string, string> replica_address_map = 1;
 	string disk_name = 2;
 	string disk_uuid = 3;
 	uint64 size = 4;
@@ -52,6 +56,10 @@ message InstanceSpec {
 	ProcessInstanceSpec process_instance_spec = 7;
 	SpdkInstanceSpec spdk_instance_spec = 8;
 	DataEngine data_engine = 9;
+
+	bool upgrade_required = 10;
+	string initiator_address = 11;
+	string target_address = 12;
 }
 
 message InstanceStatus {
@@ -60,6 +68,8 @@ message InstanceStatus {
 	int32 port_start = 3;
 	int32 port_end = 4;
 	map<string, bool> conditions = 5;
+	int32 target_port_start = 6;
+	int32 target_port_end = 7;
 }
 
 message InstanceCreateRequest {
@@ -106,6 +116,31 @@ message InstanceLogRequest {
 message InstanceReplaceRequest {
 	InstanceSpec spec = 1;
 	string terminate_signal = 2;
+}
+
+message InstanceSuspendRequest {
+	DataEngine data_engine = 1;
+	string name = 2;
+	string type = 3;
+}
+
+message InstanceResumeRequest {
+	DataEngine data_engine = 1;
+	string name = 2;
+	string type = 3;
+}
+
+message InstanceSwitchOverTargetRequest {
+	DataEngine data_engine = 1;
+	string name = 2;
+	string type = 3;
+	string target_address = 4;
+}
+
+message InstanceDeleteTargetRequest {
+	DataEngine data_engine = 1;
+	string name = 2;
+	string type = 3;
 }
 
 message LogSetLevelRequest {
