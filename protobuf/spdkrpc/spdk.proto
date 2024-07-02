@@ -32,6 +32,10 @@ service SPDKService {
     rpc EngineCreate(EngineCreateRequest) returns (Engine);
     rpc EngineDelete(EngineDeleteRequest) returns (google.protobuf.Empty);
     rpc EngineGet(EngineGetRequest) returns (Engine);
+    rpc EngineSuspend(EngineSuspendRequest) returns (google.protobuf.Empty);
+    rpc EngineResume(EngineResumeRequest) returns (google.protobuf.Empty);
+    rpc EngineSwitchOverTarget(EngineSwitchOverTargetRequest) returns (google.protobuf.Empty);
+    rpc EngineDeleteTarget(EngineDeleteTargetRequest) returns (google.protobuf.Empty);
     rpc EngineSnapshotCreate(SnapshotRequest) returns (SnapshotResponse);
     rpc EngineSnapshotDelete(SnapshotRequest) returns (google.protobuf.Empty);
     rpc EngineSnapshotRevert(SnapshotRequest) returns (google.protobuf.Empty);
@@ -170,6 +174,8 @@ message Engine {
     string endpoint = 12;
     string state = 13;
     string error_msg = 14;
+    string target_ip = 15;
+    int32 target_port = 16;
 }
 
 message EngineCreateRequest {
@@ -179,6 +185,9 @@ message EngineCreateRequest {
     map<string, string> replica_address_map = 4;
     string frontend = 5;
     int32 port_count = 6;
+    bool upgrade_required = 7;
+    string initiator_address = 8;
+    string target_address = 9;
 }
 
 message EngineDeleteRequest {
@@ -186,6 +195,23 @@ message EngineDeleteRequest {
 }
 
 message EngineGetRequest {
+    string name = 1;
+}
+
+message EngineSuspendRequest {
+    string name = 1;
+}
+
+message EngineResumeRequest {
+    string name = 1;
+}
+
+message EngineSwitchOverTargetRequest {
+    string name = 1;
+    string target_address = 2;
+}
+
+message EngineDeleteTargetRequest {
     string name = 1;
 }
 

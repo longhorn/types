@@ -51,6 +51,26 @@ class InstanceServiceStub(object):
                 request_serializer=imrpc_dot_instance__pb2.InstanceReplaceRequest.SerializeToString,
                 response_deserializer=imrpc_dot_instance__pb2.InstanceResponse.FromString,
                 )
+        self.InstanceSuspend = channel.unary_unary(
+                '/imrpc.InstanceService/InstanceSuspend',
+                request_serializer=imrpc_dot_instance__pb2.InstanceSuspendRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.InstanceResume = channel.unary_unary(
+                '/imrpc.InstanceService/InstanceResume',
+                request_serializer=imrpc_dot_instance__pb2.InstanceResumeRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.InstanceSwitchOverTarget = channel.unary_unary(
+                '/imrpc.InstanceService/InstanceSwitchOverTarget',
+                request_serializer=imrpc_dot_instance__pb2.InstanceSwitchOverTargetRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.InstanceDeleteTarget = channel.unary_unary(
+                '/imrpc.InstanceService/InstanceDeleteTarget',
+                request_serializer=imrpc_dot_instance__pb2.InstanceDeleteTargetRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
         self.LogSetLevel = channel.unary_unary(
                 '/imrpc.InstanceService/LogSetLevel',
                 request_serializer=imrpc_dot_instance__pb2.LogSetLevelRequest.SerializeToString,
@@ -123,6 +143,30 @@ class InstanceServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def InstanceSuspend(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def InstanceResume(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def InstanceSwitchOverTarget(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def InstanceDeleteTarget(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def LogSetLevel(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -190,6 +234,26 @@ def add_InstanceServiceServicer_to_server(servicer, server):
                     servicer.InstanceReplace,
                     request_deserializer=imrpc_dot_instance__pb2.InstanceReplaceRequest.FromString,
                     response_serializer=imrpc_dot_instance__pb2.InstanceResponse.SerializeToString,
+            ),
+            'InstanceSuspend': grpc.unary_unary_rpc_method_handler(
+                    servicer.InstanceSuspend,
+                    request_deserializer=imrpc_dot_instance__pb2.InstanceSuspendRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'InstanceResume': grpc.unary_unary_rpc_method_handler(
+                    servicer.InstanceResume,
+                    request_deserializer=imrpc_dot_instance__pb2.InstanceResumeRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'InstanceSwitchOverTarget': grpc.unary_unary_rpc_method_handler(
+                    servicer.InstanceSwitchOverTarget,
+                    request_deserializer=imrpc_dot_instance__pb2.InstanceSwitchOverTargetRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'InstanceDeleteTarget': grpc.unary_unary_rpc_method_handler(
+                    servicer.InstanceDeleteTarget,
+                    request_deserializer=imrpc_dot_instance__pb2.InstanceDeleteTargetRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'LogSetLevel': grpc.unary_unary_rpc_method_handler(
                     servicer.LogSetLevel,
@@ -342,6 +406,74 @@ class InstanceService(object):
         return grpc.experimental.unary_unary(request, target, '/imrpc.InstanceService/InstanceReplace',
             imrpc_dot_instance__pb2.InstanceReplaceRequest.SerializeToString,
             imrpc_dot_instance__pb2.InstanceResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def InstanceSuspend(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/imrpc.InstanceService/InstanceSuspend',
+            imrpc_dot_instance__pb2.InstanceSuspendRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def InstanceResume(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/imrpc.InstanceService/InstanceResume',
+            imrpc_dot_instance__pb2.InstanceResumeRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def InstanceSwitchOverTarget(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/imrpc.InstanceService/InstanceSwitchOverTarget',
+            imrpc_dot_instance__pb2.InstanceSwitchOverTargetRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def InstanceDeleteTarget(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/imrpc.InstanceService/InstanceDeleteTarget',
+            imrpc_dot_instance__pb2.InstanceDeleteTargetRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
