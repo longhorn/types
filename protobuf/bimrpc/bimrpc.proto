@@ -101,6 +101,7 @@ message BackupCreateRequest {
   map<string, string> credential = 6;
   string compression_method = 7;
   int32 concurrent_limit = 8;
+  map<string, string> parameters = 9;
 }
 
 message BackupStatusRequest {
