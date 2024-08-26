@@ -235,11 +235,6 @@ class SPDKServiceStub(object):
                 request_serializer=spdkrpc_dot_spdk__pb2.EngineBackupRestoreRequest.SerializeToString,
                 response_deserializer=spdkrpc_dot_spdk__pb2.EngineBackupRestoreResponse.FromString,
                 )
-        self.EngineBackupRestoreFinish = channel.unary_unary(
-                '/spdkrpc.SPDKService/EngineBackupRestoreFinish',
-                request_serializer=spdkrpc_dot_spdk__pb2.EngineBackupRestoreFinishRequest.SerializeToString,
-                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-                )
         self.EngineRestoreStatus = channel.unary_unary(
                 '/spdkrpc.SPDKService/EngineRestoreStatus',
                 request_serializer=spdkrpc_dot_spdk__pb2.RestoreStatusRequest.SerializeToString,
@@ -554,12 +549,6 @@ class SPDKServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def EngineBackupRestoreFinish(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def EngineRestoreStatus(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -836,11 +825,6 @@ def add_SPDKServiceServicer_to_server(servicer, server):
                     servicer.EngineBackupRestore,
                     request_deserializer=spdkrpc_dot_spdk__pb2.EngineBackupRestoreRequest.FromString,
                     response_serializer=spdkrpc_dot_spdk__pb2.EngineBackupRestoreResponse.SerializeToString,
-            ),
-            'EngineBackupRestoreFinish': grpc.unary_unary_rpc_method_handler(
-                    servicer.EngineBackupRestoreFinish,
-                    request_deserializer=spdkrpc_dot_spdk__pb2.EngineBackupRestoreFinishRequest.FromString,
-                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'EngineRestoreStatus': grpc.unary_unary_rpc_method_handler(
                     servicer.EngineRestoreStatus,
@@ -1642,23 +1626,6 @@ class SPDKService(object):
         return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineBackupRestore',
             spdkrpc_dot_spdk__pb2.EngineBackupRestoreRequest.SerializeToString,
             spdkrpc_dot_spdk__pb2.EngineBackupRestoreResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def EngineBackupRestoreFinish(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineBackupRestoreFinish',
-            spdkrpc_dot_spdk__pb2.EngineBackupRestoreFinishRequest.SerializeToString,
-            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
