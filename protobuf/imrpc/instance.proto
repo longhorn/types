@@ -41,6 +41,7 @@ message SpdkInstanceSpec {
 	uint64 size = 4;
 	bool expose_required = 5;
 	string frontend = 6;
+	bool salvage_requested = 7;
 }
 
 message InstanceSpec {
