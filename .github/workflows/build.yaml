@@ -6,7 +6,7 @@ on:
   pull_request:
 jobs:
   build:
-    name: Build images
+    name: build
     runs-on: ubuntu-latest
     container:
       image: rancher/dapper:v0.6.0
