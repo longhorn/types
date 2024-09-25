@@ -52,7 +52,7 @@ service SPDKService {
     rpc EngineBackupCreate(BackupCreateRequest) returns (BackupCreateResponse) {}
     rpc EngineBackupStatus(BackupStatusRequest) returns (BackupStatusResponse) {}
     rpc EngineBackupRestore(EngineBackupRestoreRequest) returns (EngineBackupRestoreResponse) {}
-    rpc EngineBackupRestoreFinish(EngineBackupRestoreFinishRequest) returns (google.protobuf.Empty) {}
+    rpc EngineBackupRestoreFinish(EngineBackupRestoreFinishRequest) returns (google.protobuf.Empty) {}  // Deprecated: retained for compatibility with v1.7.x and earlier versions.
     rpc EngineRestoreStatus(RestoreStatusRequest) returns (RestoreStatusResponse) {}
 
     rpc DiskCreate(DiskCreateRequest) returns (Disk);
@@ -387,6 +387,7 @@ message EngineBackupRestoreResponse {
     map<string, string> errors = 4;
 }
 
+// Deprecated: retained for compatibility with v1.7.x and earlier versions.
 message EngineBackupRestoreFinishRequest {
     string engine_name = 1;
 }
