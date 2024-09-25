@@ -313,7 +313,8 @@ class ProxyEngineServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def BackupRestoreFinish(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Deprecated: retained for compatibility with v1.7.x and earlier versions.
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
