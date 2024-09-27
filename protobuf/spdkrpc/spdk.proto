@@ -252,6 +252,7 @@ message EngineDeleteRequest {
 
 message EngineGetRequest {
     string name = 1;
+    bool runtime_requested = 2;
 }
 
 message EngineSuspendRequest {
