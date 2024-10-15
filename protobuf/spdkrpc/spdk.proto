@@ -55,6 +55,14 @@ service SPDKService {
     rpc EngineBackupRestoreFinish(EngineBackupRestoreFinishRequest) returns (google.protobuf.Empty) {}  // Deprecated: retained for compatibility with v1.7.x and earlier versions.
     rpc EngineRestoreStatus(RestoreStatusRequest) returns (RestoreStatusResponse) {}
 
+    rpc BackingImageCreate(BackingImageCreateRequest) returns (BackingImage);
+    rpc BackingImageDelete(BackingImageDeleteRequest) returns (google.protobuf.Empty);
+    rpc BackingImageGet(BackingImageGetRequest) returns (BackingImage);
+    rpc BackingImageList(google.protobuf.Empty) returns (BackingImageListResponse);
+    rpc BackingImageWatch(google.protobuf.Empty) returns (stream google.protobuf.Empty) {}
+    rpc BackingImageExpose(BackingImageGetRequest) returns (BackingImageExposeResponse) {}
+    rpc BackingImageUnexpose(BackingImageGetRequest) returns (google.protobuf.Empty) {}
+
     rpc DiskCreate(DiskCreateRequest) returns (Disk);
     rpc DiskDelete(DiskDeleteRequest) returns (google.protobuf.Empty);
     rpc DiskGet(DiskGetRequest) returns (Disk);
@@ -93,6 +101,7 @@ message Replica {
     bool rebuilding = 11;
     string state = 12;
     string error_msg = 13;
+    string backing_image_name = 14;
 }
 
 message ReplicaCreateRequest {
@@ -101,6 +110,7 @@ message ReplicaCreateRequest {
     string lvs_uuid = 3;
     uint64 spec_size = 4;
     int32 port_count = 5;
+    string backing_image_name = 6;
 }
 
 message ReplicaDeleteRequest {
@@ -425,6 +435,48 @@ message ReplicaRestoreStatusResponse {
 
 message RestoreStatusResponse {
     map<string, ReplicaRestoreStatusResponse> status = 1;
+}
+
+message BackingImage {
+    string name = 1;
+    string backing_image_uuid = 2;
+    string lvs_name = 3;
+    string lvs_uuid = 4;
+    uint64 size = 5;
+    string expectedChecksum = 6;
+    Lvol snapshot = 7;
+    int32 progress = 8;
+    string state = 9;
+    string currentChecksum = 10;
+    string error_msg = 11;
+}
+
+message BackingImageCreateRequest {
+    string name = 1;
+    string backing_image_uuid = 2;
+    string lvs_uuid = 3;
+    uint64 size = 4;
+    string checksum = 5;
+    string from_address = 6;
+    string src_lvs_uuid = 7;
+}
+
+message BackingImageDeleteRequest {
+    string name = 1;
+    string lvs_uuid = 2;
+}
+
+message BackingImageGetRequest {
+    string name = 1;
+    string lvs_uuid = 2;
+}
+
+message BackingImageListResponse {
+    map<string, BackingImage> backing_images = 1;
+}
+
+message BackingImageExposeResponse {
+    string exposed_snapshot_lvol_address = 1;
 }
 
 message Disk {

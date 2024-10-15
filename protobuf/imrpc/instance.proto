@@ -42,6 +42,7 @@ message SpdkInstanceSpec {
 	bool expose_required = 5;
 	string frontend = 6;
 	bool salvage_requested = 7;
+	string backing_image_name = 8;
 }
 
 message InstanceSpec {

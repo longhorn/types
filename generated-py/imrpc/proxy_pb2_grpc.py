@@ -165,6 +165,31 @@ class ProxyEngineServiceStub(object):
                 request_serializer=imrpc_dot_proxy__pb2.EngineReplicaModeUpdateRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
+        self.SPDKBackingImageCreate = channel.unary_unary(
+                '/imrpc.ProxyEngineService/SPDKBackingImageCreate',
+                request_serializer=imrpc_dot_proxy__pb2.SPDKBackingImageCreateRequest.SerializeToString,
+                response_deserializer=imrpc_dot_proxy__pb2.SPDKBackingImageResponse.FromString,
+                )
+        self.SPDKBackingImageDelete = channel.unary_unary(
+                '/imrpc.ProxyEngineService/SPDKBackingImageDelete',
+                request_serializer=imrpc_dot_proxy__pb2.SPDKBackingImageDeleteRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.SPDKBackingImageGet = channel.unary_unary(
+                '/imrpc.ProxyEngineService/SPDKBackingImageGet',
+                request_serializer=imrpc_dot_proxy__pb2.SPDKBackingImageGetRequest.SerializeToString,
+                response_deserializer=imrpc_dot_proxy__pb2.SPDKBackingImageResponse.FromString,
+                )
+        self.SPDKBackingImageList = channel.unary_unary(
+                '/imrpc.ProxyEngineService/SPDKBackingImageList',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=imrpc_dot_proxy__pb2.SPDKBackingImageListResponse.FromString,
+                )
+        self.SPDKBackingImageWatch = channel.unary_stream(
+                '/imrpc.ProxyEngineService/SPDKBackingImageWatch',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
         self.MetricsGet = channel.unary_unary(
                 '/imrpc.ProxyEngineService/MetricsGet',
                 request_serializer=imrpc_dot_proxy__pb2.ProxyEngineRequest.SerializeToString,
@@ -361,6 +386,36 @@ class ProxyEngineServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def SPDKBackingImageCreate(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SPDKBackingImageDelete(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SPDKBackingImageGet(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SPDKBackingImageList(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SPDKBackingImageWatch(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def MetricsGet(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -524,6 +579,31 @@ def add_ProxyEngineServiceServicer_to_server(servicer, server):
             'ReplicaModeUpdate': grpc.unary_unary_rpc_method_handler(
                     servicer.ReplicaModeUpdate,
                     request_deserializer=imrpc_dot_proxy__pb2.EngineReplicaModeUpdateRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'SPDKBackingImageCreate': grpc.unary_unary_rpc_method_handler(
+                    servicer.SPDKBackingImageCreate,
+                    request_deserializer=imrpc_dot_proxy__pb2.SPDKBackingImageCreateRequest.FromString,
+                    response_serializer=imrpc_dot_proxy__pb2.SPDKBackingImageResponse.SerializeToString,
+            ),
+            'SPDKBackingImageDelete': grpc.unary_unary_rpc_method_handler(
+                    servicer.SPDKBackingImageDelete,
+                    request_deserializer=imrpc_dot_proxy__pb2.SPDKBackingImageDeleteRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'SPDKBackingImageGet': grpc.unary_unary_rpc_method_handler(
+                    servicer.SPDKBackingImageGet,
+                    request_deserializer=imrpc_dot_proxy__pb2.SPDKBackingImageGetRequest.FromString,
+                    response_serializer=imrpc_dot_proxy__pb2.SPDKBackingImageResponse.SerializeToString,
+            ),
+            'SPDKBackingImageList': grpc.unary_unary_rpc_method_handler(
+                    servicer.SPDKBackingImageList,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=imrpc_dot_proxy__pb2.SPDKBackingImageListResponse.SerializeToString,
+            ),
+            'SPDKBackingImageWatch': grpc.unary_stream_rpc_method_handler(
+                    servicer.SPDKBackingImageWatch,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'MetricsGet': grpc.unary_unary_rpc_method_handler(
@@ -1052,6 +1132,91 @@ class ProxyEngineService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/imrpc.ProxyEngineService/ReplicaModeUpdate',
             imrpc_dot_proxy__pb2.EngineReplicaModeUpdateRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SPDKBackingImageCreate(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/imrpc.ProxyEngineService/SPDKBackingImageCreate',
+            imrpc_dot_proxy__pb2.SPDKBackingImageCreateRequest.SerializeToString,
+            imrpc_dot_proxy__pb2.SPDKBackingImageResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SPDKBackingImageDelete(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/imrpc.ProxyEngineService/SPDKBackingImageDelete',
+            imrpc_dot_proxy__pb2.SPDKBackingImageDeleteRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SPDKBackingImageGet(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/imrpc.ProxyEngineService/SPDKBackingImageGet',
+            imrpc_dot_proxy__pb2.SPDKBackingImageGetRequest.SerializeToString,
+            imrpc_dot_proxy__pb2.SPDKBackingImageResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SPDKBackingImageList(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/imrpc.ProxyEngineService/SPDKBackingImageList',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            imrpc_dot_proxy__pb2.SPDKBackingImageListResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SPDKBackingImageWatch(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/imrpc.ProxyEngineService/SPDKBackingImageWatch',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
