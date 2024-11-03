@@ -10,6 +10,7 @@ option go_package = "github.com/longhorn/types/pkg/generated/smrpc";
 import "google/protobuf/empty.proto";
 
 service ShareManagerService {
+	rpc FilesystemResize(google.protobuf.Empty) returns (google.protobuf.Empty) {}
 	rpc FilesystemTrim(FilesystemTrimRequest) returns (google.protobuf.Empty) {}
 	rpc Unmount(google.protobuf.Empty) returns (google.protobuf.Empty) {}
 	rpc Mount(google.protobuf.Empty) returns (google.protobuf.Empty) {}
