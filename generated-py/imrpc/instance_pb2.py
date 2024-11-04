@@ -16,7 +16,7 @@ from imrpc import common_pb2 as imrpc_dot_common__pb2
 from imrpc import imrpc_pb2 as imrpc_dot_imrpc__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x14imrpc/instance.proto\x12\x05imrpc\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12imrpc/common.proto\x1a\x11imrpc/imrpc.proto\"3\n\x13ProcessInstanceSpec\x12\x0e\n\x06\x62inary\x18\x01 \x01(\t\x12\x0c\n\x04\x61rgs\x18\x02 \x03(\t\"\x93\x02\n\x10SpdkInstanceSpec\x12K\n\x13replica_address_map\x18\x01 \x03(\x0b\x32..imrpc.SpdkInstanceSpec.ReplicaAddressMapEntry\x12\x11\n\tdisk_name\x18\x02 \x01(\t\x12\x11\n\tdisk_uuid\x18\x03 \x01(\t\x12\x0c\n\x04size\x18\x04 \x01(\x04\x12\x17\n\x0f\x65xpose_required\x18\x05 \x01(\x08\x12\x10\n\x08\x66rontend\x18\x06 \x01(\t\x12\x19\n\x11salvage_requested\x18\x07 \x01(\x08\x1a\x38\n\x16ReplicaAddressMapEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\x88\x03\n\x0cInstanceSpec\x12;\n\x14\x62\x61\x63kend_store_driver\x18\x01 \x01(\x0e\x32\x19.imrpc.BackendStoreDriverB\x02\x18\x01\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x13\n\x0bvolume_name\x18\x04 \x01(\t\x12\x12\n\nport_count\x18\x05 \x01(\x05\x12\x11\n\tport_args\x18\x06 \x03(\t\x12\x39\n\x15process_instance_spec\x18\x07 \x01(\x0b\x32\x1a.imrpc.ProcessInstanceSpec\x12\x33\n\x12spdk_instance_spec\x18\x08 \x01(\x0b\x32\x17.imrpc.SpdkInstanceSpec\x12&\n\x0b\x64\x61ta_engine\x18\t \x01(\x0e\x32\x11.imrpc.DataEngine\x12\x18\n\x10upgrade_required\x18\n \x01(\x08\x12\x19\n\x11initiator_address\x18\x0b \x01(\t\x12\x16\n\x0etarget_address\x18\x0c \x01(\t\"\xfa\x01\n\x0eInstanceStatus\x12\r\n\x05state\x18\x01 \x01(\t\x12\x11\n\terror_msg\x18\x02 \x01(\t\x12\x12\n\nport_start\x18\x03 \x01(\x05\x12\x10\n\x08port_end\x18\x04 \x01(\x05\x12\x39\n\nconditions\x18\x05 \x03(\x0b\x32%.imrpc.InstanceStatus.ConditionsEntry\x12\x19\n\x11target_port_start\x18\x06 \x01(\x05\x12\x17\n\x0ftarget_port_end\x18\x07 \x01(\x05\x1a\x31\n\x0f\x43onditionsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x08:\x02\x38\x01\":\n\x15InstanceCreateRequest\x12!\n\x04spec\x18\x01 \x01(\x0b\x32\x13.imrpc.InstanceSpec\"\xc5\x01\n\x15InstanceDeleteRequest\x12;\n\x14\x62\x61\x63kend_store_driver\x18\x01 \x01(\x0e\x32\x19.imrpc.BackendStoreDriverB\x02\x18\x01\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x11\n\tdisk_uuid\x18\x04 \x01(\t\x12\x18\n\x10\x63leanup_required\x18\x05 \x01(\x08\x12&\n\x0b\x64\x61ta_engine\x18\x06 \x01(\x0e\x32\x11.imrpc.DataEngine\"\x95\x01\n\x12InstanceGetRequest\x12;\n\x14\x62\x61\x63kend_store_driver\x18\x01 \x01(\x0e\x32\x19.imrpc.BackendStoreDriverB\x02\x18\x01\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12&\n\x0b\x64\x61ta_engine\x18\x04 \x01(\x0e\x32\x11.imrpc.DataEngine\"m\n\x10InstanceResponse\x12!\n\x04spec\x18\x01 \x01(\x0b\x32\x13.imrpc.InstanceSpec\x12%\n\x06status\x18\x02 \x01(\x0b\x32\x15.imrpc.InstanceStatus\x12\x0f\n\x07\x64\x65leted\x18\x03 \x01(\x08\"\xa0\x01\n\x14InstanceListResponse\x12=\n\tinstances\x18\x01 \x03(\x0b\x32*.imrpc.InstanceListResponse.InstancesEntry\x1aI\n\x0eInstancesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12&\n\x05value\x18\x02 \x01(\x0b\x32\x17.imrpc.InstanceResponse:\x02\x38\x01\"\x95\x01\n\x12InstanceLogRequest\x12;\n\x14\x62\x61\x63kend_store_driver\x18\x01 \x01(\x0e\x32\x19.imrpc.BackendStoreDriverB\x02\x18\x01\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12&\n\x0b\x64\x61ta_engine\x18\x04 \x01(\x0e\x32\x11.imrpc.DataEngine\"U\n\x16InstanceReplaceRequest\x12!\n\x04spec\x18\x01 \x01(\x0b\x32\x13.imrpc.InstanceSpec\x12\x18\n\x10terminate_signal\x18\x02 \x01(\t\"\\\n\x16InstanceSuspendRequest\x12&\n\x0b\x64\x61ta_engine\x18\x01 \x01(\x0e\x32\x11.imrpc.DataEngine\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\"[\n\x15InstanceResumeRequest\x12&\n\x0b\x64\x61ta_engine\x18\x01 \x01(\x0e\x32\x11.imrpc.DataEngine\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\"}\n\x1fInstanceSwitchOverTargetRequest\x12&\n\x0b\x64\x61ta_engine\x18\x01 \x01(\x0e\x32\x11.imrpc.DataEngine\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x16\n\x0etarget_address\x18\x04 \x01(\t\"a\n\x1bInstanceDeleteTargetRequest\x12&\n\x0b\x64\x61ta_engine\x18\x01 \x01(\x0e\x32\x11.imrpc.DataEngine\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\"K\n\x12LogSetLevelRequest\x12&\n\x0b\x64\x61ta_engine\x18\x01 \x01(\x0e\x32\x11.imrpc.DataEngine\x12\r\n\x05level\x18\x02 \x01(\t\"K\n\x12LogSetFlagsRequest\x12&\n\x0b\x64\x61ta_engine\x18\x01 \x01(\x0e\x32\x11.imrpc.DataEngine\x12\r\n\x05\x66lags\x18\x02 \x01(\t\"<\n\x12LogGetLevelRequest\x12&\n\x0b\x64\x61ta_engine\x18\x01 \x01(\x0e\x32\x11.imrpc.DataEngine\"$\n\x13LogGetLevelResponse\x12\r\n\x05level\x18\x01 \x01(\t\"<\n\x12LogGetFlagsRequest\x12&\n\x0b\x64\x61ta_engine\x18\x01 \x01(\x0e\x32\x11.imrpc.DataEngine\"$\n\x13LogGetFlagsResponse\x12\r\n\x05\x66lags\x18\x01 \x01(\t2\x93\t\n\x0fInstanceService\x12I\n\x0eInstanceCreate\x12\x1c.imrpc.InstanceCreateRequest\x1a\x17.imrpc.InstanceResponse\"\x00\x12I\n\x0eInstanceDelete\x12\x1c.imrpc.InstanceDeleteRequest\x1a\x17.imrpc.InstanceResponse\"\x00\x12\x43\n\x0bInstanceGet\x12\x19.imrpc.InstanceGetRequest\x1a\x17.imrpc.InstanceResponse\"\x00\x12\x45\n\x0cInstanceList\x12\x16.google.protobuf.Empty\x1a\x1b.imrpc.InstanceListResponse\"\x00\x12:\n\x0bInstanceLog\x12\x19.imrpc.InstanceLogRequest\x1a\x0c.LogResponse\"\x00\x30\x01\x12\x43\n\rInstanceWatch\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.Empty\"\x00\x30\x01\x12K\n\x0fInstanceReplace\x12\x1d.imrpc.InstanceReplaceRequest\x1a\x17.imrpc.InstanceResponse\"\x00\x12J\n\x0fInstanceSuspend\x12\x1d.imrpc.InstanceSuspendRequest\x1a\x16.google.protobuf.Empty\"\x00\x12H\n\x0eInstanceResume\x12\x1c.imrpc.InstanceResumeRequest\x1a\x16.google.protobuf.Empty\"\x00\x12\\\n\x18InstanceSwitchOverTarget\x12&.imrpc.InstanceSwitchOverTargetRequest\x1a\x16.google.protobuf.Empty\"\x00\x12T\n\x14InstanceDeleteTarget\x12\".imrpc.InstanceDeleteTargetRequest\x1a\x16.google.protobuf.Empty\"\x00\x12@\n\x0bLogSetLevel\x12\x19.imrpc.LogSetLevelRequest\x1a\x16.google.protobuf.Empty\x12@\n\x0bLogSetFlags\x12\x19.imrpc.LogSetFlagsRequest\x1a\x16.google.protobuf.Empty\x12\x44\n\x0bLogGetLevel\x12\x19.imrpc.LogGetLevelRequest\x1a\x1a.imrpc.LogGetLevelResponse\x12\x44\n\x0bLogGetFlags\x12\x19.imrpc.LogGetFlagsRequest\x1a\x1a.imrpc.LogGetFlagsResponse\x12\x36\n\nVersionGet\x12\x16.google.protobuf.Empty\x1a\x10.VersionResponseB/Z-github.com/longhorn/types/pkg/generated/imrpcb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x14imrpc/instance.proto\x12\x05imrpc\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12imrpc/common.proto\x1a\x11imrpc/imrpc.proto\"3\n\x13ProcessInstanceSpec\x12\x0e\n\x06\x62inary\x18\x01 \x01(\t\x12\x0c\n\x04\x61rgs\x18\x02 \x03(\t\"\x93\x02\n\x10SpdkInstanceSpec\x12K\n\x13replica_address_map\x18\x01 \x03(\x0b\x32..imrpc.SpdkInstanceSpec.ReplicaAddressMapEntry\x12\x11\n\tdisk_name\x18\x02 \x01(\t\x12\x11\n\tdisk_uuid\x18\x03 \x01(\t\x12\x0c\n\x04size\x18\x04 \x01(\x04\x12\x17\n\x0f\x65xpose_required\x18\x05 \x01(\x08\x12\x10\n\x08\x66rontend\x18\x06 \x01(\t\x12\x19\n\x11salvage_requested\x18\x07 \x01(\x08\x1a\x38\n\x16ReplicaAddressMapEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\x88\x03\n\x0cInstanceSpec\x12;\n\x14\x62\x61\x63kend_store_driver\x18\x01 \x01(\x0e\x32\x19.imrpc.BackendStoreDriverB\x02\x18\x01\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x13\n\x0bvolume_name\x18\x04 \x01(\t\x12\x12\n\nport_count\x18\x05 \x01(\x05\x12\x11\n\tport_args\x18\x06 \x03(\t\x12\x39\n\x15process_instance_spec\x18\x07 \x01(\x0b\x32\x1a.imrpc.ProcessInstanceSpec\x12\x33\n\x12spdk_instance_spec\x18\x08 \x01(\x0b\x32\x17.imrpc.SpdkInstanceSpec\x12&\n\x0b\x64\x61ta_engine\x18\t \x01(\x0e\x32\x11.imrpc.DataEngine\x12\x18\n\x10upgrade_required\x18\n \x01(\x08\x12\x19\n\x11initiator_address\x18\x0b \x01(\t\x12\x16\n\x0etarget_address\x18\x0c \x01(\t\"\xbe\x02\n\x0eInstanceStatus\x12\r\n\x05state\x18\x01 \x01(\t\x12\x11\n\terror_msg\x18\x02 \x01(\t\x12\x12\n\nport_start\x18\x03 \x01(\x05\x12\x10\n\x08port_end\x18\x04 \x01(\x05\x12\x39\n\nconditions\x18\x05 \x03(\x0b\x32%.imrpc.InstanceStatus.ConditionsEntry\x12\x19\n\x11target_port_start\x18\x06 \x01(\x05\x12\x17\n\x0ftarget_port_end\x18\x07 \x01(\x05\x12!\n\x19standby_target_port_start\x18\x08 \x01(\x05\x12\x1f\n\x17standby_target_port_end\x18\t \x01(\x05\x1a\x31\n\x0f\x43onditionsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x08:\x02\x38\x01\":\n\x15InstanceCreateRequest\x12!\n\x04spec\x18\x01 \x01(\x0b\x32\x13.imrpc.InstanceSpec\"\xc5\x01\n\x15InstanceDeleteRequest\x12;\n\x14\x62\x61\x63kend_store_driver\x18\x01 \x01(\x0e\x32\x19.imrpc.BackendStoreDriverB\x02\x18\x01\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x11\n\tdisk_uuid\x18\x04 \x01(\t\x12\x18\n\x10\x63leanup_required\x18\x05 \x01(\x08\x12&\n\x0b\x64\x61ta_engine\x18\x06 \x01(\x0e\x32\x11.imrpc.DataEngine\"\x95\x01\n\x12InstanceGetRequest\x12;\n\x14\x62\x61\x63kend_store_driver\x18\x01 \x01(\x0e\x32\x19.imrpc.BackendStoreDriverB\x02\x18\x01\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12&\n\x0b\x64\x61ta_engine\x18\x04 \x01(\x0e\x32\x11.imrpc.DataEngine\"m\n\x10InstanceResponse\x12!\n\x04spec\x18\x01 \x01(\x0b\x32\x13.imrpc.InstanceSpec\x12%\n\x06status\x18\x02 \x01(\x0b\x32\x15.imrpc.InstanceStatus\x12\x0f\n\x07\x64\x65leted\x18\x03 \x01(\x08\"\xa0\x01\n\x14InstanceListResponse\x12=\n\tinstances\x18\x01 \x03(\x0b\x32*.imrpc.InstanceListResponse.InstancesEntry\x1aI\n\x0eInstancesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12&\n\x05value\x18\x02 \x01(\x0b\x32\x17.imrpc.InstanceResponse:\x02\x38\x01\"\x95\x01\n\x12InstanceLogRequest\x12;\n\x14\x62\x61\x63kend_store_driver\x18\x01 \x01(\x0e\x32\x19.imrpc.BackendStoreDriverB\x02\x18\x01\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12&\n\x0b\x64\x61ta_engine\x18\x04 \x01(\x0e\x32\x11.imrpc.DataEngine\"U\n\x16InstanceReplaceRequest\x12!\n\x04spec\x18\x01 \x01(\x0b\x32\x13.imrpc.InstanceSpec\x12\x18\n\x10terminate_signal\x18\x02 \x01(\t\"\\\n\x16InstanceSuspendRequest\x12&\n\x0b\x64\x61ta_engine\x18\x01 \x01(\x0e\x32\x11.imrpc.DataEngine\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\"[\n\x15InstanceResumeRequest\x12&\n\x0b\x64\x61ta_engine\x18\x01 \x01(\x0e\x32\x11.imrpc.DataEngine\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\"}\n\x1fInstanceSwitchOverTargetRequest\x12&\n\x0b\x64\x61ta_engine\x18\x01 \x01(\x0e\x32\x11.imrpc.DataEngine\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x16\n\x0etarget_address\x18\x04 \x01(\t\"a\n\x1bInstanceDeleteTargetRequest\x12&\n\x0b\x64\x61ta_engine\x18\x01 \x01(\x0e\x32\x11.imrpc.DataEngine\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\"K\n\x12LogSetLevelRequest\x12&\n\x0b\x64\x61ta_engine\x18\x01 \x01(\x0e\x32\x11.imrpc.DataEngine\x12\r\n\x05level\x18\x02 \x01(\t\"K\n\x12LogSetFlagsRequest\x12&\n\x0b\x64\x61ta_engine\x18\x01 \x01(\x0e\x32\x11.imrpc.DataEngine\x12\r\n\x05\x66lags\x18\x02 \x01(\t\"<\n\x12LogGetLevelRequest\x12&\n\x0b\x64\x61ta_engine\x18\x01 \x01(\x0e\x32\x11.imrpc.DataEngine\"$\n\x13LogGetLevelResponse\x12\r\n\x05level\x18\x01 \x01(\t\"<\n\x12LogGetFlagsRequest\x12&\n\x0b\x64\x61ta_engine\x18\x01 \x01(\x0e\x32\x11.imrpc.DataEngine\"$\n\x13LogGetFlagsResponse\x12\r\n\x05\x66lags\x18\x01 \x01(\t2\x93\t\n\x0fInstanceService\x12I\n\x0eInstanceCreate\x12\x1c.imrpc.InstanceCreateRequest\x1a\x17.imrpc.InstanceResponse\"\x00\x12I\n\x0eInstanceDelete\x12\x1c.imrpc.InstanceDeleteRequest\x1a\x17.imrpc.InstanceResponse\"\x00\x12\x43\n\x0bInstanceGet\x12\x19.imrpc.InstanceGetRequest\x1a\x17.imrpc.InstanceResponse\"\x00\x12\x45\n\x0cInstanceList\x12\x16.google.protobuf.Empty\x1a\x1b.imrpc.InstanceListResponse\"\x00\x12:\n\x0bInstanceLog\x12\x19.imrpc.InstanceLogRequest\x1a\x0c.LogResponse\"\x00\x30\x01\x12\x43\n\rInstanceWatch\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.Empty\"\x00\x30\x01\x12K\n\x0fInstanceReplace\x12\x1d.imrpc.InstanceReplaceRequest\x1a\x17.imrpc.InstanceResponse\"\x00\x12J\n\x0fInstanceSuspend\x12\x1d.imrpc.InstanceSuspendRequest\x1a\x16.google.protobuf.Empty\"\x00\x12H\n\x0eInstanceResume\x12\x1c.imrpc.InstanceResumeRequest\x1a\x16.google.protobuf.Empty\"\x00\x12\\\n\x18InstanceSwitchOverTarget\x12&.imrpc.InstanceSwitchOverTargetRequest\x1a\x16.google.protobuf.Empty\"\x00\x12T\n\x14InstanceDeleteTarget\x12\".imrpc.InstanceDeleteTargetRequest\x1a\x16.google.protobuf.Empty\"\x00\x12@\n\x0bLogSetLevel\x12\x19.imrpc.LogSetLevelRequest\x1a\x16.google.protobuf.Empty\x12@\n\x0bLogSetFlags\x12\x19.imrpc.LogSetFlagsRequest\x1a\x16.google.protobuf.Empty\x12\x44\n\x0bLogGetLevel\x12\x19.imrpc.LogGetLevelRequest\x1a\x1a.imrpc.LogGetLevelResponse\x12\x44\n\x0bLogGetFlags\x12\x19.imrpc.LogGetFlagsRequest\x1a\x1a.imrpc.LogGetFlagsResponse\x12\x36\n\nVersionGet\x12\x16.google.protobuf.Empty\x1a\x10.VersionResponseB/Z-github.com/longhorn/types/pkg/generated/imrpcb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -48,45 +48,45 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_INSTANCESPEC']._serialized_start=431
   _globals['_INSTANCESPEC']._serialized_end=823
   _globals['_INSTANCESTATUS']._serialized_start=826
-  _globals['_INSTANCESTATUS']._serialized_end=1076
-  _globals['_INSTANCESTATUS_CONDITIONSENTRY']._serialized_start=1027
-  _globals['_INSTANCESTATUS_CONDITIONSENTRY']._serialized_end=1076
-  _globals['_INSTANCECREATEREQUEST']._serialized_start=1078
-  _globals['_INSTANCECREATEREQUEST']._serialized_end=1136
-  _globals['_INSTANCEDELETEREQUEST']._serialized_start=1139
-  _globals['_INSTANCEDELETEREQUEST']._serialized_end=1336
-  _globals['_INSTANCEGETREQUEST']._serialized_start=1339
-  _globals['_INSTANCEGETREQUEST']._serialized_end=1488
-  _globals['_INSTANCERESPONSE']._serialized_start=1490
-  _globals['_INSTANCERESPONSE']._serialized_end=1599
-  _globals['_INSTANCELISTRESPONSE']._serialized_start=1602
-  _globals['_INSTANCELISTRESPONSE']._serialized_end=1762
-  _globals['_INSTANCELISTRESPONSE_INSTANCESENTRY']._serialized_start=1689
-  _globals['_INSTANCELISTRESPONSE_INSTANCESENTRY']._serialized_end=1762
-  _globals['_INSTANCELOGREQUEST']._serialized_start=1765
-  _globals['_INSTANCELOGREQUEST']._serialized_end=1914
-  _globals['_INSTANCEREPLACEREQUEST']._serialized_start=1916
-  _globals['_INSTANCEREPLACEREQUEST']._serialized_end=2001
-  _globals['_INSTANCESUSPENDREQUEST']._serialized_start=2003
-  _globals['_INSTANCESUSPENDREQUEST']._serialized_end=2095
-  _globals['_INSTANCERESUMEREQUEST']._serialized_start=2097
-  _globals['_INSTANCERESUMEREQUEST']._serialized_end=2188
-  _globals['_INSTANCESWITCHOVERTARGETREQUEST']._serialized_start=2190
-  _globals['_INSTANCESWITCHOVERTARGETREQUEST']._serialized_end=2315
-  _globals['_INSTANCEDELETETARGETREQUEST']._serialized_start=2317
-  _globals['_INSTANCEDELETETARGETREQUEST']._serialized_end=2414
-  _globals['_LOGSETLEVELREQUEST']._serialized_start=2416
-  _globals['_LOGSETLEVELREQUEST']._serialized_end=2491
-  _globals['_LOGSETFLAGSREQUEST']._serialized_start=2493
-  _globals['_LOGSETFLAGSREQUEST']._serialized_end=2568
-  _globals['_LOGGETLEVELREQUEST']._serialized_start=2570
-  _globals['_LOGGETLEVELREQUEST']._serialized_end=2630
-  _globals['_LOGGETLEVELRESPONSE']._serialized_start=2632
-  _globals['_LOGGETLEVELRESPONSE']._serialized_end=2668
-  _globals['_LOGGETFLAGSREQUEST']._serialized_start=2670
-  _globals['_LOGGETFLAGSREQUEST']._serialized_end=2730
-  _globals['_LOGGETFLAGSRESPONSE']._serialized_start=2732
-  _globals['_LOGGETFLAGSRESPONSE']._serialized_end=2768
-  _globals['_INSTANCESERVICE']._serialized_start=2771
-  _globals['_INSTANCESERVICE']._serialized_end=3942
+  _globals['_INSTANCESTATUS']._serialized_end=1144
+  _globals['_INSTANCESTATUS_CONDITIONSENTRY']._serialized_start=1095
+  _globals['_INSTANCESTATUS_CONDITIONSENTRY']._serialized_end=1144
+  _globals['_INSTANCECREATEREQUEST']._serialized_start=1146
+  _globals['_INSTANCECREATEREQUEST']._serialized_end=1204
+  _globals['_INSTANCEDELETEREQUEST']._serialized_start=1207
+  _globals['_INSTANCEDELETEREQUEST']._serialized_end=1404
+  _globals['_INSTANCEGETREQUEST']._serialized_start=1407
+  _globals['_INSTANCEGETREQUEST']._serialized_end=1556
+  _globals['_INSTANCERESPONSE']._serialized_start=1558
+  _globals['_INSTANCERESPONSE']._serialized_end=1667
+  _globals['_INSTANCELISTRESPONSE']._serialized_start=1670
+  _globals['_INSTANCELISTRESPONSE']._serialized_end=1830
+  _globals['_INSTANCELISTRESPONSE_INSTANCESENTRY']._serialized_start=1757
+  _globals['_INSTANCELISTRESPONSE_INSTANCESENTRY']._serialized_end=1830
+  _globals['_INSTANCELOGREQUEST']._serialized_start=1833
+  _globals['_INSTANCELOGREQUEST']._serialized_end=1982
+  _globals['_INSTANCEREPLACEREQUEST']._serialized_start=1984
+  _globals['_INSTANCEREPLACEREQUEST']._serialized_end=2069
+  _globals['_INSTANCESUSPENDREQUEST']._serialized_start=2071
+  _globals['_INSTANCESUSPENDREQUEST']._serialized_end=2163
+  _globals['_INSTANCERESUMEREQUEST']._serialized_start=2165
+  _globals['_INSTANCERESUMEREQUEST']._serialized_end=2256
+  _globals['_INSTANCESWITCHOVERTARGETREQUEST']._serialized_start=2258
+  _globals['_INSTANCESWITCHOVERTARGETREQUEST']._serialized_end=2383
+  _globals['_INSTANCEDELETETARGETREQUEST']._serialized_start=2385
+  _globals['_INSTANCEDELETETARGETREQUEST']._serialized_end=2482
+  _globals['_LOGSETLEVELREQUEST']._serialized_start=2484
+  _globals['_LOGSETLEVELREQUEST']._serialized_end=2559
+  _globals['_LOGSETFLAGSREQUEST']._serialized_start=2561
+  _globals['_LOGSETFLAGSREQUEST']._serialized_end=2636
+  _globals['_LOGGETLEVELREQUEST']._serialized_start=2638
+  _globals['_LOGGETLEVELREQUEST']._serialized_end=2698
+  _globals['_LOGGETLEVELRESPONSE']._serialized_start=2700
+  _globals['_LOGGETLEVELRESPONSE']._serialized_end=2736
+  _globals['_LOGGETFLAGSREQUEST']._serialized_start=2738
+  _globals['_LOGGETFLAGSREQUEST']._serialized_end=2798
+  _globals['_LOGGETFLAGSRESPONSE']._serialized_start=2800
+  _globals['_LOGGETFLAGSRESPONSE']._serialized_end=2836
+  _globals['_INSTANCESERVICE']._serialized_start=2839
+  _globals['_INSTANCESERVICE']._serialized_end=4010
 # @@protoc_insertion_point(module_scope)
