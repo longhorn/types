@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11smrpc/smrpc.proto\x1a\x1bgoogle/protobuf/empty.proto\"1\n\x15\x46ilesystemTrimRequest\x12\x18\n\x10\x65ncrypted_device\x18\x01 \x01(\x08\x32\xd1\x01\n\x13ShareManagerService\x12\x42\n\x0e\x46ilesystemTrim\x12\x16.FilesystemTrimRequest\x1a\x16.google.protobuf.Empty\"\x00\x12;\n\x07Unmount\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.Empty\"\x00\x12\x39\n\x05Mount\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.Empty\"\x00\x42/Z-github.com/longhorn/types/pkg/generated/smrpcb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11smrpc/smrpc.proto\x1a\x1bgoogle/protobuf/empty.proto\"1\n\x15\x46ilesystemTrimRequest\x12\x18\n\x10\x65ncrypted_device\x18\x01 \x01(\x08\x32\x97\x02\n\x13ShareManagerService\x12\x44\n\x10\x46ilesystemResize\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.Empty\"\x00\x12\x42\n\x0e\x46ilesystemTrim\x12\x16.FilesystemTrimRequest\x1a\x16.google.protobuf.Empty\"\x00\x12;\n\x07Unmount\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.Empty\"\x00\x12\x39\n\x05Mount\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.Empty\"\x00\x42/Z-github.com/longhorn/types/pkg/generated/smrpcb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -26,5 +26,5 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_FILESYSTEMTRIMREQUEST']._serialized_start=50
   _globals['_FILESYSTEMTRIMREQUEST']._serialized_end=99
   _globals['_SHAREMANAGERSERVICE']._serialized_start=102
-  _globals['_SHAREMANAGERSERVICE']._serialized_end=311
+  _globals['_SHAREMANAGERSERVICE']._serialized_end=381
 # @@protoc_insertion_point(module_scope)

@@ -15,6 +15,11 @@ class ShareManagerServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
+        self.FilesystemResize = channel.unary_unary(
+                '/ShareManagerService/FilesystemResize',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
         self.FilesystemTrim = channel.unary_unary(
                 '/ShareManagerService/FilesystemTrim',
                 request_serializer=smrpc_dot_smrpc__pb2.FilesystemTrimRequest.SerializeToString,
@@ -34,6 +39,12 @@ class ShareManagerServiceStub(object):
 
 class ShareManagerServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
+
+    def FilesystemResize(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def FilesystemTrim(self, request, context):
         """Missing associated documentation comment in .proto file."""
@@ -56,6 +67,11 @@ class ShareManagerServiceServicer(object):
 
 def add_ShareManagerServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
+            'FilesystemResize': grpc.unary_unary_rpc_method_handler(
+                    servicer.FilesystemResize,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
             'FilesystemTrim': grpc.unary_unary_rpc_method_handler(
                     servicer.FilesystemTrim,
                     request_deserializer=smrpc_dot_smrpc__pb2.FilesystemTrimRequest.FromString,
@@ -80,6 +96,23 @@ def add_ShareManagerServiceServicer_to_server(servicer, server):
  # This class is part of an EXPERIMENTAL API.
 class ShareManagerService(object):
     """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def FilesystemResize(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ShareManagerService/FilesystemResize',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def FilesystemTrim(request,
