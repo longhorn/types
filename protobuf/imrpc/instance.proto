@@ -147,15 +147,18 @@ message InstanceDeleteTargetRequest {
 message LogSetLevelRequest {
 	DataEngine data_engine = 1;
 	string level = 2;
+    string component = 3;
 }
 
 message LogSetFlagsRequest {
 	DataEngine data_engine = 1;
 	string flags = 2;
+    string component = 3;
 }
 
 message LogGetLevelRequest {
 	DataEngine data_engine = 1;
+    string component = 2;
 }
 
 message LogGetLevelResponse {
@@ -164,6 +167,7 @@ message LogGetLevelResponse {
 
 message LogGetFlagsRequest {
 	DataEngine data_engine = 1;
+    string component = 2;
 }
 
 message LogGetFlagsResponse {
