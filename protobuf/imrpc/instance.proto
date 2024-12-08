@@ -71,6 +71,8 @@ message InstanceStatus {
 	map<string, bool> conditions = 5;
 	int32 target_port_start = 6;
 	int32 target_port_end = 7;
+	int32 standby_target_port_start = 8;
+	int32 standby_target_port_end = 9;
 }
 
 message InstanceCreateRequest {

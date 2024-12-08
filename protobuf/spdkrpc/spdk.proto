@@ -230,6 +230,7 @@ message Engine {
     string error_msg = 14;
     string target_ip = 15;
     int32 target_port = 16;
+    int32 standby_target_port = 17;
 }
 
 message EngineCreateRequest {
