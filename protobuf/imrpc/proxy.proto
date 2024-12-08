@@ -45,6 +45,12 @@ service ProxyEngineService {
 	rpc ReplicaRemove(EngineReplicaRemoveRequest) returns (google.protobuf.Empty);
 	rpc ReplicaModeUpdate(EngineReplicaModeUpdateRequest) returns (google.protobuf.Empty);
 
+    rpc SPDKBackingImageCreate(SPDKBackingImageCreateRequest) returns (SPDKBackingImageResponse);
+    rpc SPDKBackingImageDelete(SPDKBackingImageDeleteRequest) returns (google.protobuf.Empty);
+    rpc SPDKBackingImageGet(SPDKBackingImageGetRequest) returns (SPDKBackingImageResponse);
+    rpc SPDKBackingImageList(google.protobuf.Empty) returns (SPDKBackingImageListResponse);
+    rpc SPDKBackingImageWatch(google.protobuf.Empty) returns (stream google.protobuf.Empty) {}
+
 	rpc MetricsGet(ProxyEngineRequest) returns (EngineMetricsGetProxyResponse);
 	rpc RemountReadOnlyVolume(RemountVolumeRequest) returns (google.protobuf.Empty);
 }
@@ -306,4 +312,48 @@ message EngineMetricsGetProxyResponse {
 
 message RemountVolumeRequest {
 	string volume_name = 1;
+}
+
+message SPDKBackingImageCreateRequest {
+    string name = 1;
+    string backing_image_uuid = 2;
+	string disk_uuid = 3;
+	uint64 size = 4;
+    string checksum = 5;
+    string from_address = 6;
+	string src_lvs_uuid = 7;
+}
+
+message SPDKBackingImageDeleteRequest {
+    string name = 1;
+    string disk_uuid = 2;
+}
+
+message SPDKBackingImageGetRequest {
+    string name = 1;
+    string disk_uuid = 2;
+}
+
+message SPDKBackingImageSpec {
+	string name = 1;
+	string backing_image_uuid = 2;
+    string disk_uuid = 3;
+	uint64 size = 4;
+	string checksum = 5;	
+}
+
+message SPDKBackingImageStatus {
+	int32 progress = 1;
+	string state = 2;
+	string checksum = 3;
+	string error_msg = 4;
+}
+
+message SPDKBackingImageResponse {
+	SPDKBackingImageSpec spec = 1;
+	SPDKBackingImageStatus status = 2;
+}
+
+message SPDKBackingImageListResponse {
+    map<string, SPDKBackingImageResponse> backing_images = 1;
 }

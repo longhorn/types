@@ -245,6 +245,41 @@ class SPDKServiceStub(object):
                 request_serializer=spdkrpc_dot_spdk__pb2.RestoreStatusRequest.SerializeToString,
                 response_deserializer=spdkrpc_dot_spdk__pb2.RestoreStatusResponse.FromString,
                 )
+        self.BackingImageCreate = channel.unary_unary(
+                '/spdkrpc.SPDKService/BackingImageCreate',
+                request_serializer=spdkrpc_dot_spdk__pb2.BackingImageCreateRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_spdk__pb2.BackingImage.FromString,
+                )
+        self.BackingImageDelete = channel.unary_unary(
+                '/spdkrpc.SPDKService/BackingImageDelete',
+                request_serializer=spdkrpc_dot_spdk__pb2.BackingImageDeleteRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.BackingImageGet = channel.unary_unary(
+                '/spdkrpc.SPDKService/BackingImageGet',
+                request_serializer=spdkrpc_dot_spdk__pb2.BackingImageGetRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_spdk__pb2.BackingImage.FromString,
+                )
+        self.BackingImageList = channel.unary_unary(
+                '/spdkrpc.SPDKService/BackingImageList',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=spdkrpc_dot_spdk__pb2.BackingImageListResponse.FromString,
+                )
+        self.BackingImageWatch = channel.unary_stream(
+                '/spdkrpc.SPDKService/BackingImageWatch',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.BackingImageExpose = channel.unary_unary(
+                '/spdkrpc.SPDKService/BackingImageExpose',
+                request_serializer=spdkrpc_dot_spdk__pb2.BackingImageGetRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_spdk__pb2.BackingImageExposeResponse.FromString,
+                )
+        self.BackingImageUnexpose = channel.unary_unary(
+                '/spdkrpc.SPDKService/BackingImageUnexpose',
+                request_serializer=spdkrpc_dot_spdk__pb2.BackingImageGetRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
         self.DiskCreate = channel.unary_unary(
                 '/spdkrpc.SPDKService/DiskCreate',
                 request_serializer=spdkrpc_dot_spdk__pb2.DiskCreateRequest.SerializeToString,
@@ -566,6 +601,48 @@ class SPDKServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def BackingImageCreate(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def BackingImageDelete(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def BackingImageGet(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def BackingImageList(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def BackingImageWatch(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def BackingImageExpose(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def BackingImageUnexpose(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def DiskCreate(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -846,6 +923,41 @@ def add_SPDKServiceServicer_to_server(servicer, server):
                     servicer.EngineRestoreStatus,
                     request_deserializer=spdkrpc_dot_spdk__pb2.RestoreStatusRequest.FromString,
                     response_serializer=spdkrpc_dot_spdk__pb2.RestoreStatusResponse.SerializeToString,
+            ),
+            'BackingImageCreate': grpc.unary_unary_rpc_method_handler(
+                    servicer.BackingImageCreate,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.BackingImageCreateRequest.FromString,
+                    response_serializer=spdkrpc_dot_spdk__pb2.BackingImage.SerializeToString,
+            ),
+            'BackingImageDelete': grpc.unary_unary_rpc_method_handler(
+                    servicer.BackingImageDelete,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.BackingImageDeleteRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'BackingImageGet': grpc.unary_unary_rpc_method_handler(
+                    servicer.BackingImageGet,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.BackingImageGetRequest.FromString,
+                    response_serializer=spdkrpc_dot_spdk__pb2.BackingImage.SerializeToString,
+            ),
+            'BackingImageList': grpc.unary_unary_rpc_method_handler(
+                    servicer.BackingImageList,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=spdkrpc_dot_spdk__pb2.BackingImageListResponse.SerializeToString,
+            ),
+            'BackingImageWatch': grpc.unary_stream_rpc_method_handler(
+                    servicer.BackingImageWatch,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'BackingImageExpose': grpc.unary_unary_rpc_method_handler(
+                    servicer.BackingImageExpose,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.BackingImageGetRequest.FromString,
+                    response_serializer=spdkrpc_dot_spdk__pb2.BackingImageExposeResponse.SerializeToString,
+            ),
+            'BackingImageUnexpose': grpc.unary_unary_rpc_method_handler(
+                    servicer.BackingImageUnexpose,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.BackingImageGetRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'DiskCreate': grpc.unary_unary_rpc_method_handler(
                     servicer.DiskCreate,
@@ -1676,6 +1788,125 @@ class SPDKService(object):
         return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineRestoreStatus',
             spdkrpc_dot_spdk__pb2.RestoreStatusRequest.SerializeToString,
             spdkrpc_dot_spdk__pb2.RestoreStatusResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def BackingImageCreate(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/BackingImageCreate',
+            spdkrpc_dot_spdk__pb2.BackingImageCreateRequest.SerializeToString,
+            spdkrpc_dot_spdk__pb2.BackingImage.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def BackingImageDelete(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/BackingImageDelete',
+            spdkrpc_dot_spdk__pb2.BackingImageDeleteRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def BackingImageGet(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/BackingImageGet',
+            spdkrpc_dot_spdk__pb2.BackingImageGetRequest.SerializeToString,
+            spdkrpc_dot_spdk__pb2.BackingImage.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def BackingImageList(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/BackingImageList',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            spdkrpc_dot_spdk__pb2.BackingImageListResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def BackingImageWatch(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/spdkrpc.SPDKService/BackingImageWatch',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def BackingImageExpose(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/BackingImageExpose',
+            spdkrpc_dot_spdk__pb2.BackingImageGetRequest.SerializeToString,
+            spdkrpc_dot_spdk__pb2.BackingImageExposeResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def BackingImageUnexpose(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/BackingImageUnexpose',
+            spdkrpc_dot_spdk__pb2.BackingImageGetRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
