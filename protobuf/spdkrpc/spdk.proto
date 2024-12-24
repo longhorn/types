@@ -82,6 +82,7 @@ message Lvol {
     string creation_time = 7;
     bool user_created = 8;
     string snapshot_timestamp = 9;
+    string snapshot_checksum = 10;
 }
 
 message Replica {
