@@ -322,6 +322,9 @@ message SPDKBackingImageCreateRequest {
     string checksum = 5;
     string from_address = 6;
     string src_lvs_uuid = 7;
+    string src_backing_image_name = 8;
+    string encryption = 9;
+    map<string, string> credential = 10;
 }
 
 message SPDKBackingImageDeleteRequest {
