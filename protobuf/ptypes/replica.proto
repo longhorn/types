@@ -190,6 +190,7 @@ message Replica {
   bool unmap_mark_disk_chain_removed = 16;
   int32 snapshot_count_usage = 17;
   int64 snapshot_size_usage = 18;
+  int32 snapshot_count_total = 19;
 }
 
 message PrepareRemoveAction {
