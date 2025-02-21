@@ -14,6 +14,10 @@ service SPDKService {
     rpc ReplicaSnapshotDelete(SnapshotRequest) returns (google.protobuf.Empty);
     rpc ReplicaSnapshotRevert(SnapshotRequest) returns (google.protobuf.Empty);
     rpc ReplicaSnapshotPurge(SnapshotRequest) returns (google.protobuf.Empty);
+    rpc ReplicaSnapshotHash(SnapshotHashRequest) returns (google.protobuf.Empty) {};
+    rpc ReplicaSnapshotHashStatus(SnapshotHashStatusRequest) returns (ReplicaSnapshotHashStatusResponse) {};
+    rpc ReplicaSnapshotHashCancel(SnapshotHashCancelRequest) returns (google.protobuf.Empty) {};
+    rpc ReplicaSnapshotHashLockState(SnapshotHashLockStateRequest) returns (SnapshotHashLockStateResponse) {};
     rpc ReplicaList(google.protobuf.Empty) returns (ReplicaListResponse);
     rpc ReplicaWatch(google.protobuf.Empty) returns (stream google.protobuf.Empty) {}
     rpc ReplicaRebuildingSrcStart(ReplicaRebuildingSrcStartRequest) returns (ReplicaRebuildingSrcStartResponse) {};
@@ -41,6 +45,10 @@ service SPDKService {
     rpc EngineSnapshotDelete(SnapshotRequest) returns (google.protobuf.Empty);
     rpc EngineSnapshotRevert(SnapshotRequest) returns (google.protobuf.Empty);
     rpc EngineSnapshotPurge(SnapshotRequest) returns (google.protobuf.Empty);
+    rpc EngineSnapshotHash(SnapshotHashRequest) returns (google.protobuf.Empty) {};
+    rpc EngineSnapshotHashStatus(SnapshotHashStatusRequest) returns (EngineSnapshotHashStatusResponse) {};
+    rpc EngineSnapshotHashCancel(SnapshotHashCancelRequest) returns (google.protobuf.Empty) {};
+    rpc EngineSnapshotHashLockState(SnapshotHashLockStateRequest) returns (SnapshotHashLockStateResponse) {};
     rpc EngineList(google.protobuf.Empty) returns (EngineListResponse);
     rpc EngineWatch(google.protobuf.Empty) returns (stream google.protobuf.Empty) {}
     rpc EngineReplicaList(EngineReplicaListRequest) returns (EngineReplicaListResponse) {}
@@ -310,6 +318,41 @@ message SnapshotRequest {
 
 message SnapshotResponse {
     string snapshot_name = 1;
+}
+
+message SnapshotHashRequest {
+    string name = 1;
+    string snapshot_name = 2;
+    bool rehash = 3;
+}
+
+message SnapshotHashStatusRequest {
+    string name = 1;
+    string snapshot_name = 2;
+}
+
+message ReplicaSnapshotHashStatusResponse {
+    string state = 1;
+    string checksum = 2;
+    string error = 3;
+    bool silently_corrupted = 4;
+}
+
+message EngineSnapshotHashStatusResponse {
+    map<string, ReplicaSnapshotHashStatusResponse> status = 1;
+}
+
+message SnapshotHashCancelRequest {
+    string name = 1;
+    string snapshot_name = 2;
+}
+
+message SnapshotHashLockStateRequest {
+    string name = 1;
+}
+
+message SnapshotHashLockStateResponse {
+    bool is_locked = 1;
 }
 
 message VersionOutput {

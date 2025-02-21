@@ -50,6 +50,26 @@ class SPDKServiceStub(object):
                 request_serializer=spdkrpc_dot_spdk__pb2.SnapshotRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
+        self.ReplicaSnapshotHash = channel.unary_unary(
+                '/spdkrpc.SPDKService/ReplicaSnapshotHash',
+                request_serializer=spdkrpc_dot_spdk__pb2.SnapshotHashRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.ReplicaSnapshotHashStatus = channel.unary_unary(
+                '/spdkrpc.SPDKService/ReplicaSnapshotHashStatus',
+                request_serializer=spdkrpc_dot_spdk__pb2.SnapshotHashStatusRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_spdk__pb2.ReplicaSnapshotHashStatusResponse.FromString,
+                )
+        self.ReplicaSnapshotHashCancel = channel.unary_unary(
+                '/spdkrpc.SPDKService/ReplicaSnapshotHashCancel',
+                request_serializer=spdkrpc_dot_spdk__pb2.SnapshotHashCancelRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.ReplicaSnapshotHashLockState = channel.unary_unary(
+                '/spdkrpc.SPDKService/ReplicaSnapshotHashLockState',
+                request_serializer=spdkrpc_dot_spdk__pb2.SnapshotHashLockStateRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_spdk__pb2.SnapshotHashLockStateResponse.FromString,
+                )
         self.ReplicaList = channel.unary_unary(
                 '/spdkrpc.SPDKService/ReplicaList',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
@@ -179,6 +199,26 @@ class SPDKServiceStub(object):
                 '/spdkrpc.SPDKService/EngineSnapshotPurge',
                 request_serializer=spdkrpc_dot_spdk__pb2.SnapshotRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.EngineSnapshotHash = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineSnapshotHash',
+                request_serializer=spdkrpc_dot_spdk__pb2.SnapshotHashRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.EngineSnapshotHashStatus = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineSnapshotHashStatus',
+                request_serializer=spdkrpc_dot_spdk__pb2.SnapshotHashStatusRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_spdk__pb2.EngineSnapshotHashStatusResponse.FromString,
+                )
+        self.EngineSnapshotHashCancel = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineSnapshotHashCancel',
+                request_serializer=spdkrpc_dot_spdk__pb2.SnapshotHashCancelRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.EngineSnapshotHashLockState = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineSnapshotHashLockState',
+                request_serializer=spdkrpc_dot_spdk__pb2.SnapshotHashLockStateRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_spdk__pb2.SnapshotHashLockStateResponse.FromString,
                 )
         self.EngineList = channel.unary_unary(
                 '/spdkrpc.SPDKService/EngineList',
@@ -357,6 +397,30 @@ class SPDKServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ReplicaSnapshotHash(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ReplicaSnapshotHashStatus(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ReplicaSnapshotHashCancel(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ReplicaSnapshotHashLockState(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def ReplicaList(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -508,6 +572,30 @@ class SPDKServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def EngineSnapshotPurge(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EngineSnapshotHash(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EngineSnapshotHashStatus(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EngineSnapshotHashCancel(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EngineSnapshotHashLockState(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -707,6 +795,26 @@ def add_SPDKServiceServicer_to_server(servicer, server):
                     request_deserializer=spdkrpc_dot_spdk__pb2.SnapshotRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
+            'ReplicaSnapshotHash': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReplicaSnapshotHash,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.SnapshotHashRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'ReplicaSnapshotHashStatus': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReplicaSnapshotHashStatus,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.SnapshotHashStatusRequest.FromString,
+                    response_serializer=spdkrpc_dot_spdk__pb2.ReplicaSnapshotHashStatusResponse.SerializeToString,
+            ),
+            'ReplicaSnapshotHashCancel': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReplicaSnapshotHashCancel,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.SnapshotHashCancelRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'ReplicaSnapshotHashLockState': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReplicaSnapshotHashLockState,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.SnapshotHashLockStateRequest.FromString,
+                    response_serializer=spdkrpc_dot_spdk__pb2.SnapshotHashLockStateResponse.SerializeToString,
+            ),
             'ReplicaList': grpc.unary_unary_rpc_method_handler(
                     servicer.ReplicaList,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
@@ -836,6 +944,26 @@ def add_SPDKServiceServicer_to_server(servicer, server):
                     servicer.EngineSnapshotPurge,
                     request_deserializer=spdkrpc_dot_spdk__pb2.SnapshotRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'EngineSnapshotHash': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineSnapshotHash,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.SnapshotHashRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'EngineSnapshotHashStatus': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineSnapshotHashStatus,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.SnapshotHashStatusRequest.FromString,
+                    response_serializer=spdkrpc_dot_spdk__pb2.EngineSnapshotHashStatusResponse.SerializeToString,
+            ),
+            'EngineSnapshotHashCancel': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineSnapshotHashCancel,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.SnapshotHashCancelRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'EngineSnapshotHashLockState': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineSnapshotHashLockState,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.SnapshotHashLockStateRequest.FromString,
+                    response_serializer=spdkrpc_dot_spdk__pb2.SnapshotHashLockStateResponse.SerializeToString,
             ),
             'EngineList': grpc.unary_unary_rpc_method_handler(
                     servicer.EngineList,
@@ -1093,6 +1221,74 @@ class SPDKService(object):
         return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ReplicaSnapshotPurge',
             spdkrpc_dot_spdk__pb2.SnapshotRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ReplicaSnapshotHash(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ReplicaSnapshotHash',
+            spdkrpc_dot_spdk__pb2.SnapshotHashRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ReplicaSnapshotHashStatus(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ReplicaSnapshotHashStatus',
+            spdkrpc_dot_spdk__pb2.SnapshotHashStatusRequest.SerializeToString,
+            spdkrpc_dot_spdk__pb2.ReplicaSnapshotHashStatusResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ReplicaSnapshotHashCancel(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ReplicaSnapshotHashCancel',
+            spdkrpc_dot_spdk__pb2.SnapshotHashCancelRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ReplicaSnapshotHashLockState(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ReplicaSnapshotHashLockState',
+            spdkrpc_dot_spdk__pb2.SnapshotHashLockStateRequest.SerializeToString,
+            spdkrpc_dot_spdk__pb2.SnapshotHashLockStateResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -1535,6 +1731,74 @@ class SPDKService(object):
         return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineSnapshotPurge',
             spdkrpc_dot_spdk__pb2.SnapshotRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineSnapshotHash(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineSnapshotHash',
+            spdkrpc_dot_spdk__pb2.SnapshotHashRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineSnapshotHashStatus(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineSnapshotHashStatus',
+            spdkrpc_dot_spdk__pb2.SnapshotHashStatusRequest.SerializeToString,
+            spdkrpc_dot_spdk__pb2.EngineSnapshotHashStatusResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineSnapshotHashCancel(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineSnapshotHashCancel',
+            spdkrpc_dot_spdk__pb2.SnapshotHashCancelRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineSnapshotHashLockState(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineSnapshotHashLockState',
+            spdkrpc_dot_spdk__pb2.SnapshotHashLockStateRequest.SerializeToString,
+            spdkrpc_dot_spdk__pb2.SnapshotHashLockStateResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
