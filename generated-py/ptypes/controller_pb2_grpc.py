@@ -70,6 +70,11 @@ class ControllerServiceStub(object):
                 request_serializer=ptypes_dot_controller__pb2.VolumeSnapshotMaxSizeSetRequest.SerializeToString,
                 response_deserializer=ptypes_dot_controller__pb2.Volume.FromString,
                 )
+        self.VolumeIO = channel.unary_unary(
+                '/ptypes.ControllerService/VolumeIO',
+                request_serializer=ptypes_dot_controller__pb2.VolumeIORequest.SerializeToString,
+                response_deserializer=ptypes_dot_controller__pb2.VolumeIOResponse.FromString,
+                )
         self.ReplicaList = channel.unary_unary(
                 '/ptypes.ControllerService/ReplicaList',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
@@ -186,6 +191,12 @@ class ControllerServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def VolumeSnapshotMaxSizeSet(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def VolumeIO(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -308,6 +319,11 @@ def add_ControllerServiceServicer_to_server(servicer, server):
                     servicer.VolumeSnapshotMaxSizeSet,
                     request_deserializer=ptypes_dot_controller__pb2.VolumeSnapshotMaxSizeSetRequest.FromString,
                     response_serializer=ptypes_dot_controller__pb2.Volume.SerializeToString,
+            ),
+            'VolumeIO': grpc.unary_unary_rpc_method_handler(
+                    servicer.VolumeIO,
+                    request_deserializer=ptypes_dot_controller__pb2.VolumeIORequest.FromString,
+                    response_serializer=ptypes_dot_controller__pb2.VolumeIOResponse.SerializeToString,
             ),
             'ReplicaList': grpc.unary_unary_rpc_method_handler(
                     servicer.ReplicaList,
@@ -553,6 +569,23 @@ class ControllerService(object):
         return grpc.experimental.unary_unary(request, target, '/ptypes.ControllerService/VolumeSnapshotMaxSizeSet',
             ptypes_dot_controller__pb2.VolumeSnapshotMaxSizeSetRequest.SerializeToString,
             ptypes_dot_controller__pb2.Volume.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def VolumeIO(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ptypes.ControllerService/VolumeIO',
+            ptypes_dot_controller__pb2.VolumeIORequest.SerializeToString,
+            ptypes_dot_controller__pb2.VolumeIOResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

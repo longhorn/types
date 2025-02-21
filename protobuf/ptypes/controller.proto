@@ -19,6 +19,7 @@ service ControllerService {
     rpc VolumeUnmapMarkSnapChainRemovedSet(VolumeUnmapMarkSnapChainRemovedSetRequest) returns (Volume);
     rpc VolumeSnapshotMaxCountSet(VolumeSnapshotMaxCountSetRequest) returns (Volume);
     rpc VolumeSnapshotMaxSizeSet(VolumeSnapshotMaxSizeSetRequest) returns (Volume);
+    rpc VolumeIO(VolumeIORequest) returns (VolumeIOResponse);
 
     rpc ReplicaList(google.protobuf.Empty) returns (ReplicaListReply);
     rpc ReplicaGet(ReplicaAddress) returns (ControllerReplica);
@@ -116,6 +117,18 @@ message VolumePrepareRestoreRequest {
 
 message VolumeFinishRestoreRequest {
     string currentRestored = 1;
+}
+
+message VolumeIORequest {
+    string type = 1;
+    string data = 2;
+    int64 offset = 3;
+    int64 length = 4;
+}
+
+message VolumeIOResponse {
+    bytes data = 1;
+    int64 size = 2;
 }
 
 message ReplicaListReply {
