@@ -305,6 +305,11 @@ class SPDKServiceStub(object):
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
                 response_deserializer=spdkrpc_dot_spdk__pb2.VersionDetailGetReply.FromString,
                 )
+        self.MetricsGet = channel.unary_unary(
+                '/spdkrpc.SPDKService/MetricsGet',
+                request_serializer=spdkrpc_dot_spdk__pb2.MetricsRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_spdk__pb2.Metrics.FromString,
+                )
 
 
 class SPDKServiceServicer(object):
@@ -658,6 +663,12 @@ class SPDKServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def MetricsGet(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_SPDKServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -950,6 +961,11 @@ def add_SPDKServiceServicer_to_server(servicer, server):
                     servicer.VersionDetailGet,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                     response_serializer=spdkrpc_dot_spdk__pb2.VersionDetailGetReply.SerializeToString,
+            ),
+            'MetricsGet': grpc.unary_unary_rpc_method_handler(
+                    servicer.MetricsGet,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.MetricsRequest.FromString,
+                    response_serializer=spdkrpc_dot_spdk__pb2.Metrics.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -1944,5 +1960,22 @@ class SPDKService(object):
         return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/VersionDetailGet',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             spdkrpc_dot_spdk__pb2.VersionDetailGetReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def MetricsGet(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/MetricsGet',
+            spdkrpc_dot_spdk__pb2.MetricsRequest.SerializeToString,
+            spdkrpc_dot_spdk__pb2.Metrics.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
