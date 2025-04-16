@@ -229,6 +229,7 @@ message Engine {
     string target_ip = 15;
     int32 target_port = 16;
     int32 standby_target_port = 17;
+    int32 ublk_id = 18;
 }
 
 message EngineCreateRequest {

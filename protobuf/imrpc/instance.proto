@@ -74,6 +74,7 @@ message InstanceStatus {
 	int32 target_port_end = 7;
 	int32 standby_target_port_start = 8;
 	int32 standby_target_port_end = 9;
+	int32 ublk_id = 10;
 }
 
 message InstanceCreateRequest {
