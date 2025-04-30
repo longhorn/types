@@ -125,6 +125,11 @@ class SPDKServiceStub(object):
                 request_serializer=spdkrpc_dot_spdk__pb2.SnapshotRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
+        self.ReplicaRebuildingDstSetQosLimit = channel.unary_unary(
+                '/spdkrpc.SPDKService/ReplicaRebuildingDstSetQosLimit',
+                request_serializer=spdkrpc_dot_spdk__pb2.ReplicaRebuildingDstSetQosLimitRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
         self.ReplicaBackupCreate = channel.unary_unary(
                 '/spdkrpc.SPDKService/ReplicaBackupCreate',
                 request_serializer=spdkrpc_dot_spdk__pb2.BackupCreateRequest.SerializeToString,
@@ -482,6 +487,12 @@ class SPDKServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def ReplicaRebuildingDstSnapshotCreate(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ReplicaRebuildingDstSetQosLimit(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -868,6 +879,11 @@ def add_SPDKServiceServicer_to_server(servicer, server):
             'ReplicaRebuildingDstSnapshotCreate': grpc.unary_unary_rpc_method_handler(
                     servicer.ReplicaRebuildingDstSnapshotCreate,
                     request_deserializer=spdkrpc_dot_spdk__pb2.SnapshotRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'ReplicaRebuildingDstSetQosLimit': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReplicaRebuildingDstSetQosLimit,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.ReplicaRebuildingDstSetQosLimitRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'ReplicaBackupCreate': grpc.unary_unary_rpc_method_handler(
@@ -1475,6 +1491,23 @@ class SPDKService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ReplicaRebuildingDstSnapshotCreate',
             spdkrpc_dot_spdk__pb2.SnapshotRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ReplicaRebuildingDstSetQosLimit(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ReplicaRebuildingDstSetQosLimit',
+            spdkrpc_dot_spdk__pb2.ReplicaRebuildingDstSetQosLimitRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
