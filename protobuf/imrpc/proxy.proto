@@ -41,6 +41,7 @@ service ProxyEngineService {
     rpc ReplicaAdd(EngineReplicaAddRequest) returns (google.protobuf.Empty);
     rpc ReplicaList(ProxyEngineRequest) returns (EngineReplicaListProxyResponse);
     rpc ReplicaRebuildingStatus(ProxyEngineRequest) returns (EngineReplicaRebuildStatusProxyResponse);
+    rpc ReplicaRebuildingQosSet(EngineReplicaRebuildingQosSetRequest) returns (google.protobuf.Empty);
     rpc ReplicaVerifyRebuild(EngineReplicaVerifyRebuildRequest) returns (google.protobuf.Empty);
     rpc ReplicaRemove(EngineReplicaRemoveRequest) returns (google.protobuf.Empty);
     rpc ReplicaModeUpdate(EngineReplicaModeUpdateRequest) returns (google.protobuf.Empty);
@@ -269,6 +270,12 @@ message EngineReplicaVerifyRebuildRequest {
 
     string replica_address = 2;
     string replica_name = 3;
+}
+
+message EngineReplicaRebuildingQosSetRequest {
+    ProxyEngineRequest proxy_engine_request = 1;
+
+    int64 qos_limit_mbps = 2;
 }
 
 message EngineReplicaRebuildStatusProxyResponse {

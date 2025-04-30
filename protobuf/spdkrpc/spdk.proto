@@ -29,6 +29,7 @@ service SPDKService {
     rpc ReplicaRebuildingDstShallowCopyStart(ReplicaRebuildingDstShallowCopyStartRequest) returns (google.protobuf.Empty);
     rpc ReplicaRebuildingDstShallowCopyCheck(ReplicaRebuildingDstShallowCopyCheckRequest) returns (ReplicaRebuildingDstShallowCopyCheckResponse) {};
     rpc ReplicaRebuildingDstSnapshotCreate(SnapshotRequest) returns (google.protobuf.Empty);
+    rpc ReplicaRebuildingDstSetQosLimit(ReplicaRebuildingDstSetQosLimitRequest) returns (google.protobuf.Empty);
     rpc ReplicaBackupCreate(BackupCreateRequest) returns (BackupCreateResponse) {}
     rpc ReplicaBackupStatus(BackupStatusRequest) returns (BackupStatusResponse) {}
     rpc ReplicaBackupRestore(ReplicaBackupRestoreRequest) returns (google.protobuf.Empty) {}
@@ -210,6 +211,11 @@ message ReplicaRebuildingDstShallowCopyCheckResponse {
     string total_state = 6;
     uint32 total_progress = 7;
     string error = 8;
+}
+
+message ReplicaRebuildingDstSetQosLimitRequest {
+    string name = 1;
+    int64 qos_limit_mbps = 2;
 }
 
 message Engine {
