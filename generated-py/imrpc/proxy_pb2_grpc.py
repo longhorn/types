@@ -150,6 +150,11 @@ class ProxyEngineServiceStub(object):
                 request_serializer=imrpc_dot_proxy__pb2.ProxyEngineRequest.SerializeToString,
                 response_deserializer=imrpc_dot_proxy__pb2.EngineReplicaRebuildStatusProxyResponse.FromString,
                 )
+        self.ReplicaRebuildingQosSet = channel.unary_unary(
+                '/imrpc.ProxyEngineService/ReplicaRebuildingQosSet',
+                request_serializer=imrpc_dot_proxy__pb2.EngineReplicaRebuildingQosSetRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
         self.ReplicaVerifyRebuild = channel.unary_unary(
                 '/imrpc.ProxyEngineService/ReplicaVerifyRebuild',
                 request_serializer=imrpc_dot_proxy__pb2.EngineReplicaVerifyRebuildRequest.SerializeToString,
@@ -368,6 +373,12 @@ class ProxyEngineServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ReplicaRebuildingQosSet(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def ReplicaVerifyRebuild(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -565,6 +576,11 @@ def add_ProxyEngineServiceServicer_to_server(servicer, server):
                     servicer.ReplicaRebuildingStatus,
                     request_deserializer=imrpc_dot_proxy__pb2.ProxyEngineRequest.FromString,
                     response_serializer=imrpc_dot_proxy__pb2.EngineReplicaRebuildStatusProxyResponse.SerializeToString,
+            ),
+            'ReplicaRebuildingQosSet': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReplicaRebuildingQosSet,
+                    request_deserializer=imrpc_dot_proxy__pb2.EngineReplicaRebuildingQosSetRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'ReplicaVerifyRebuild': grpc.unary_unary_rpc_method_handler(
                     servicer.ReplicaVerifyRebuild,
@@ -1082,6 +1098,23 @@ class ProxyEngineService(object):
         return grpc.experimental.unary_unary(request, target, '/imrpc.ProxyEngineService/ReplicaRebuildingStatus',
             imrpc_dot_proxy__pb2.ProxyEngineRequest.SerializeToString,
             imrpc_dot_proxy__pb2.EngineReplicaRebuildStatusProxyResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ReplicaRebuildingQosSet(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/imrpc.ProxyEngineService/ReplicaRebuildingQosSet',
+            imrpc_dot_proxy__pb2.EngineReplicaRebuildingQosSetRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
