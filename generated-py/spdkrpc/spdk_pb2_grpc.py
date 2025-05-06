@@ -70,6 +70,11 @@ class SPDKServiceStub(object):
                 request_serializer=spdkrpc_dot_spdk__pb2.SnapshotHashLockStateRequest.SerializeToString,
                 response_deserializer=spdkrpc_dot_spdk__pb2.SnapshotHashLockStateResponse.FromString,
                 )
+        self.ReplicaSnapshotRangeHashGet = channel.unary_unary(
+                '/spdkrpc.SPDKService/ReplicaSnapshotRangeHashGet',
+                request_serializer=spdkrpc_dot_spdk__pb2.ReplicaSnapshotRangeHashGetRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_spdk__pb2.ReplicaSnapshotRangeHashGetResponse.FromString,
+                )
         self.ReplicaList = channel.unary_unary(
                 '/spdkrpc.SPDKService/ReplicaList',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
@@ -93,6 +98,11 @@ class SPDKServiceStub(object):
         self.ReplicaRebuildingSrcShallowCopyStart = channel.unary_unary(
                 '/spdkrpc.SPDKService/ReplicaRebuildingSrcShallowCopyStart',
                 request_serializer=spdkrpc_dot_spdk__pb2.ReplicaRebuildingSrcShallowCopyStartRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.ReplicaRebuildingSrcRangeShallowCopyStart = channel.unary_unary(
+                '/spdkrpc.SPDKService/ReplicaRebuildingSrcRangeShallowCopyStart',
+                request_serializer=spdkrpc_dot_spdk__pb2.ReplicaRebuildingSrcRangeShallowCopyStartRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
         self.ReplicaRebuildingSrcShallowCopyCheck = channel.unary_unary(
@@ -426,6 +436,12 @@ class SPDKServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ReplicaSnapshotRangeHashGet(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def ReplicaList(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -451,6 +467,12 @@ class SPDKServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def ReplicaRebuildingSrcShallowCopyStart(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ReplicaRebuildingSrcRangeShallowCopyStart(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -826,6 +848,11 @@ def add_SPDKServiceServicer_to_server(servicer, server):
                     request_deserializer=spdkrpc_dot_spdk__pb2.SnapshotHashLockStateRequest.FromString,
                     response_serializer=spdkrpc_dot_spdk__pb2.SnapshotHashLockStateResponse.SerializeToString,
             ),
+            'ReplicaSnapshotRangeHashGet': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReplicaSnapshotRangeHashGet,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.ReplicaSnapshotRangeHashGetRequest.FromString,
+                    response_serializer=spdkrpc_dot_spdk__pb2.ReplicaSnapshotRangeHashGetResponse.SerializeToString,
+            ),
             'ReplicaList': grpc.unary_unary_rpc_method_handler(
                     servicer.ReplicaList,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
@@ -849,6 +876,11 @@ def add_SPDKServiceServicer_to_server(servicer, server):
             'ReplicaRebuildingSrcShallowCopyStart': grpc.unary_unary_rpc_method_handler(
                     servicer.ReplicaRebuildingSrcShallowCopyStart,
                     request_deserializer=spdkrpc_dot_spdk__pb2.ReplicaRebuildingSrcShallowCopyStartRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'ReplicaRebuildingSrcRangeShallowCopyStart': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReplicaRebuildingSrcRangeShallowCopyStart,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.ReplicaRebuildingSrcRangeShallowCopyStartRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'ReplicaRebuildingSrcShallowCopyCheck': grpc.unary_unary_rpc_method_handler(
@@ -1309,6 +1341,23 @@ class SPDKService(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def ReplicaSnapshotRangeHashGet(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ReplicaSnapshotRangeHashGet',
+            spdkrpc_dot_spdk__pb2.ReplicaSnapshotRangeHashGetRequest.SerializeToString,
+            spdkrpc_dot_spdk__pb2.ReplicaSnapshotRangeHashGetResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def ReplicaList(request,
             target,
             options=(),
@@ -1389,6 +1438,23 @@ class SPDKService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ReplicaRebuildingSrcShallowCopyStart',
             spdkrpc_dot_spdk__pb2.ReplicaRebuildingSrcShallowCopyStartRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ReplicaRebuildingSrcRangeShallowCopyStart(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ReplicaRebuildingSrcRangeShallowCopyStart',
+            spdkrpc_dot_spdk__pb2.ReplicaRebuildingSrcRangeShallowCopyStartRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
