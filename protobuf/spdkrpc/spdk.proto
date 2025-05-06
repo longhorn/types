@@ -18,11 +18,13 @@ service SPDKService {
     rpc ReplicaSnapshotHashStatus(SnapshotHashStatusRequest) returns (ReplicaSnapshotHashStatusResponse) {};
     rpc ReplicaSnapshotHashCancel(SnapshotHashCancelRequest) returns (google.protobuf.Empty) {};
     rpc ReplicaSnapshotHashLockState(SnapshotHashLockStateRequest) returns (SnapshotHashLockStateResponse) {};
+    rpc ReplicaSnapshotRangeHashGet(ReplicaSnapshotRangeHashGetRequest) returns (ReplicaSnapshotRangeHashGetResponse) {};
     rpc ReplicaList(google.protobuf.Empty) returns (ReplicaListResponse);
     rpc ReplicaWatch(google.protobuf.Empty) returns (stream google.protobuf.Empty) {}
     rpc ReplicaRebuildingSrcStart(ReplicaRebuildingSrcStartRequest) returns (ReplicaRebuildingSrcStartResponse) {};
     rpc ReplicaRebuildingSrcFinish(ReplicaRebuildingSrcFinishRequest) returns (google.protobuf.Empty) {};
     rpc ReplicaRebuildingSrcShallowCopyStart(ReplicaRebuildingSrcShallowCopyStartRequest) returns (google.protobuf.Empty);
+    rpc ReplicaRebuildingSrcRangeShallowCopyStart(ReplicaRebuildingSrcRangeShallowCopyStartRequest) returns (google.protobuf.Empty);
     rpc ReplicaRebuildingSrcShallowCopyCheck(ReplicaRebuildingSrcShallowCopyCheckRequest) returns (ReplicaRebuildingSrcShallowCopyCheckResponse) {};
     rpc ReplicaRebuildingDstStart(ReplicaRebuildingDstStartRequest) returns (ReplicaRebuildingDstStartResponse) {};
     rpc ReplicaRebuildingDstFinish(ReplicaRebuildingDstFinishRequest) returns (google.protobuf.Empty) {};
@@ -163,6 +165,13 @@ message ReplicaRebuildingSrcShallowCopyStartRequest {
     string dst_rebuilding_lvol_address = 3;
 }
 
+message ReplicaRebuildingSrcRangeShallowCopyStartRequest {
+    string name = 1;
+    string snapshot_name = 2;
+    string dst_rebuilding_lvol_address = 3;
+    repeated uint64 mismatching_cluster_list = 4;
+}
+
 message ReplicaRebuildingSrcShallowCopyCheckRequest {
     string name = 1;
     string dst_replica_name = 2;
@@ -171,9 +180,12 @@ message ReplicaRebuildingSrcShallowCopyCheckRequest {
 
 message ReplicaRebuildingSrcShallowCopyCheckResponse {
     string state = 1;
-    uint64 copied_clusters = 2;
     uint64 total_clusters = 3;
     string error_msg = 4;
+    uint64 handled_clusters = 5;
+
+    // copied_clusters is deprecated and replaced by handled_clusters.
+    uint64 copied_clusters = 2;
 }
 
 message ReplicaRebuildingDstStartRequest {
@@ -359,6 +371,17 @@ message SnapshotHashCancelRequest {
 
 message SnapshotHashLockStateRequest {
     string name = 1;
+}
+
+message ReplicaSnapshotRangeHashGetRequest {
+    string name = 1;
+    string snapshot_name = 2;
+    uint64 cluster_start_index = 3;
+    uint64 cluster_count = 4;
+}
+
+message ReplicaSnapshotRangeHashGetResponse {
+    map<uint64, uint64> range_hash_map = 1;
 }
 
 message SnapshotHashLockStateResponse {
