@@ -44,6 +44,7 @@ message ProcessCreateRequest {
 
 message ProcessDeleteRequest {
 	string name = 1;
+	string uuid = 2;
 }
 
 message ProcessGetRequest {

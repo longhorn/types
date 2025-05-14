@@ -91,6 +91,7 @@ message InstanceDeleteRequest {
 	string disk_uuid = 4;
 	bool cleanup_required = 5;
 	DataEngine data_engine = 6;
+	string uuid = 7;	
 }
 
 message InstanceGetRequest {
