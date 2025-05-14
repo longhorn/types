@@ -35,6 +35,7 @@ message ProcessStatus {
 	int32 port_start = 3;
 	int32 port_end = 4;
 	map<string, bool> conditions = 5;
+	string uuid = 6;
 }
 
 message ProcessCreateRequest {
