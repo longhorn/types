@@ -40,6 +40,11 @@ class DiskServiceStub(object):
                 request_serializer=imrpc_dot_disk__pb2.DiskReplicaInstanceDeleteRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
+        self.MetricsGet = channel.unary_unary(
+                '/imrpc.DiskService/MetricsGet',
+                request_serializer=imrpc_dot_disk__pb2.DiskGetRequest.SerializeToString,
+                response_deserializer=imrpc_dot_disk__pb2.DiskMetricsGetReply.FromString,
+                )
         self.VersionGet = channel.unary_unary(
                 '/imrpc.DiskService/VersionGet',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
@@ -80,6 +85,12 @@ class DiskServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def MetricsGet(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def VersionGet(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -113,6 +124,11 @@ def add_DiskServiceServicer_to_server(servicer, server):
                     servicer.DiskReplicaInstanceDelete,
                     request_deserializer=imrpc_dot_disk__pb2.DiskReplicaInstanceDeleteRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'MetricsGet': grpc.unary_unary_rpc_method_handler(
+                    servicer.MetricsGet,
+                    request_deserializer=imrpc_dot_disk__pb2.DiskGetRequest.FromString,
+                    response_serializer=imrpc_dot_disk__pb2.DiskMetricsGetReply.SerializeToString,
             ),
             'VersionGet': grpc.unary_unary_rpc_method_handler(
                     servicer.VersionGet,
@@ -211,6 +227,23 @@ class DiskService(object):
         return grpc.experimental.unary_unary(request, target, '/imrpc.DiskService/DiskReplicaInstanceDelete',
             imrpc_dot_disk__pb2.DiskReplicaInstanceDeleteRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def MetricsGet(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/imrpc.DiskService/MetricsGet',
+            imrpc_dot_disk__pb2.DiskGetRequest.SerializeToString,
+            imrpc_dot_disk__pb2.DiskMetricsGetReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
