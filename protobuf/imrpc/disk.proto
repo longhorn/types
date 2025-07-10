@@ -5,6 +5,7 @@ package imrpc;
 option go_package = "github.com/longhorn/types/pkg/generated/imrpc";
 
 import "google/protobuf/empty.proto";
+import "ptypes/controller.proto";
 
 service DiskService {
     rpc DiskCreate(DiskCreateRequest) returns (Disk);
@@ -12,6 +13,7 @@ service DiskService {
     rpc DiskGet(DiskGetRequest) returns (Disk);
     rpc DiskReplicaInstanceList(DiskReplicaInstanceListRequest) returns (DiskReplicaInstanceListResponse);
     rpc DiskReplicaInstanceDelete(DiskReplicaInstanceDeleteRequest) returns (google.protobuf.Empty);
+    rpc MetricsGet(DiskGetRequest) returns (DiskMetricsGetReply);
 
     rpc VersionGet(google.protobuf.Empty) returns(DiskVersionResponse);
 }
@@ -103,4 +105,8 @@ message DiskVersionResponse {
 
     int64 instanceManagerDiskServiceAPIVersion = 4;
     int64 instanceManagerDiskServiceAPIMinVersion = 5;
+}
+
+message DiskMetricsGetReply {
+    ptypes.Metrics metrics = 1;
 }
