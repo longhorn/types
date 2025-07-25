@@ -30,6 +30,11 @@ class SPDKServiceStub(object):
                 request_serializer=spdkrpc_dot_spdk__pb2.ReplicaGetRequest.SerializeToString,
                 response_deserializer=spdkrpc_dot_spdk__pb2.Replica.FromString,
                 )
+        self.ReplicaExpand = channel.unary_unary(
+                '/spdkrpc.SPDKService/ReplicaExpand',
+                request_serializer=spdkrpc_dot_spdk__pb2.ReplicaExpandRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
         self.ReplicaSnapshotCreate = channel.unary_unary(
                 '/spdkrpc.SPDKService/ReplicaSnapshotCreate',
                 request_serializer=spdkrpc_dot_spdk__pb2.SnapshotRequest.SerializeToString,
@@ -208,6 +213,11 @@ class SPDKServiceStub(object):
         self.EngineResume = channel.unary_unary(
                 '/spdkrpc.SPDKService/EngineResume',
                 request_serializer=spdkrpc_dot_spdk__pb2.EngineResumeRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.EngineExpand = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineExpand',
+                request_serializer=spdkrpc_dot_spdk__pb2.EngineExpandRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
         self.EngineSwitchOverTarget = channel.unary_unary(
@@ -413,6 +423,12 @@ class SPDKServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def ReplicaGet(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ReplicaExpand(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -629,6 +645,12 @@ class SPDKServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def EngineResume(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EngineExpand(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -874,6 +896,11 @@ def add_SPDKServiceServicer_to_server(servicer, server):
                     request_deserializer=spdkrpc_dot_spdk__pb2.ReplicaGetRequest.FromString,
                     response_serializer=spdkrpc_dot_spdk__pb2.Replica.SerializeToString,
             ),
+            'ReplicaExpand': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReplicaExpand,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.ReplicaExpandRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
             'ReplicaSnapshotCreate': grpc.unary_unary_rpc_method_handler(
                     servicer.ReplicaSnapshotCreate,
                     request_deserializer=spdkrpc_dot_spdk__pb2.SnapshotRequest.FromString,
@@ -1052,6 +1079,11 @@ def add_SPDKServiceServicer_to_server(servicer, server):
             'EngineResume': grpc.unary_unary_rpc_method_handler(
                     servicer.EngineResume,
                     request_deserializer=spdkrpc_dot_spdk__pb2.EngineResumeRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'EngineExpand': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineExpand,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.EngineExpandRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'EngineSwitchOverTarget': grpc.unary_unary_rpc_method_handler(
@@ -1297,6 +1329,23 @@ class SPDKService(object):
         return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ReplicaGet',
             spdkrpc_dot_spdk__pb2.ReplicaGetRequest.SerializeToString,
             spdkrpc_dot_spdk__pb2.Replica.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ReplicaExpand(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ReplicaExpand',
+            spdkrpc_dot_spdk__pb2.ReplicaExpandRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -1908,6 +1957,23 @@ class SPDKService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineResume',
             spdkrpc_dot_spdk__pb2.EngineResumeRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineExpand(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineExpand',
+            spdkrpc_dot_spdk__pb2.EngineExpandRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
