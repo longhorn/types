@@ -11,6 +11,7 @@ service SPDKService {
     rpc ReplicaCreate(ReplicaCreateRequest) returns (Replica);
     rpc ReplicaDelete(ReplicaDeleteRequest) returns (google.protobuf.Empty);
     rpc ReplicaGet(ReplicaGetRequest) returns (Replica);
+    rpc ReplicaExpand(ReplicaExpandRequest) returns (google.protobuf.Empty);
     rpc ReplicaSnapshotCreate(SnapshotRequest) returns (Replica);
     rpc ReplicaSnapshotDelete(SnapshotRequest) returns (google.protobuf.Empty);
     rpc ReplicaSnapshotRevert(SnapshotRequest) returns (google.protobuf.Empty);
@@ -48,6 +49,7 @@ service SPDKService {
     rpc EngineGet(EngineGetRequest) returns (Engine);
     rpc EngineSuspend(EngineSuspendRequest) returns (google.protobuf.Empty);
     rpc EngineResume(EngineResumeRequest) returns (google.protobuf.Empty);
+    rpc EngineExpand(EngineExpandRequest) returns (google.protobuf.Empty);
     rpc EngineSwitchOverTarget(EngineSwitchOverTargetRequest) returns (google.protobuf.Empty);
     rpc EngineDeleteTarget(EngineDeleteTargetRequest) returns (google.protobuf.Empty);
     rpc EngineSnapshotCreate(SnapshotRequest) returns (SnapshotResponse);
@@ -138,6 +140,11 @@ message ReplicaDeleteRequest {
 
 message ReplicaGetRequest {
     string name = 1;
+}
+
+message ReplicaExpandRequest{
+    string name = 1;
+    uint64 size = 2;
 }
 
 message ReplicaListResponse {
@@ -341,6 +348,11 @@ message EngineSuspendRequest {
 
 message EngineResumeRequest {
     string name = 1;
+}
+
+message EngineExpandRequest{
+    string name = 1;
+    uint64 size = 2;
 }
 
 message EngineSwitchOverTargetRequest {
