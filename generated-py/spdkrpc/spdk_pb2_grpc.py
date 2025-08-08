@@ -160,6 +160,31 @@ class SPDKServiceStub(object):
                 request_serializer=spdkrpc_dot_spdk__pb2.ReplicaRestoreStatusRequest.SerializeToString,
                 response_deserializer=spdkrpc_dot_spdk__pb2.ReplicaRestoreStatusResponse.FromString,
                 )
+        self.ReplicaSnapshotCloneDstStart = channel.unary_unary(
+                '/spdkrpc.SPDKService/ReplicaSnapshotCloneDstStart',
+                request_serializer=spdkrpc_dot_spdk__pb2.ReplicaSnapshotCloneDstStartRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.ReplicaSnapshotCloneDstStatusCheck = channel.unary_unary(
+                '/spdkrpc.SPDKService/ReplicaSnapshotCloneDstStatusCheck',
+                request_serializer=spdkrpc_dot_spdk__pb2.ReplicaSnapshotCloneDstStatusCheckRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_spdk__pb2.ReplicaSnapshotCloneDstStatusCheckResponse.FromString,
+                )
+        self.ReplicaSnapshotCloneSrcStart = channel.unary_unary(
+                '/spdkrpc.SPDKService/ReplicaSnapshotCloneSrcStart',
+                request_serializer=spdkrpc_dot_spdk__pb2.ReplicaSnapshotCloneSrcStartRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.ReplicaSnapshotCloneSrcStatusCheck = channel.unary_unary(
+                '/spdkrpc.SPDKService/ReplicaSnapshotCloneSrcStatusCheck',
+                request_serializer=spdkrpc_dot_spdk__pb2.ReplicaSnapshotCloneSrcStatusCheckRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_spdk__pb2.ReplicaSnapshotCloneSrcStatusCheckResponse.FromString,
+                )
+        self.ReplicaSnapshotCloneSrcFinish = channel.unary_unary(
+                '/spdkrpc.SPDKService/ReplicaSnapshotCloneSrcFinish',
+                request_serializer=spdkrpc_dot_spdk__pb2.ReplicaSnapshotCloneSrcFinishRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
         self.EngineCreate = channel.unary_unary(
                 '/spdkrpc.SPDKService/EngineCreate',
                 request_serializer=spdkrpc_dot_spdk__pb2.EngineCreateRequest.SerializeToString,
@@ -234,6 +259,11 @@ class SPDKServiceStub(object):
                 '/spdkrpc.SPDKService/EngineSnapshotHashLockState',
                 request_serializer=spdkrpc_dot_spdk__pb2.SnapshotHashLockStateRequest.SerializeToString,
                 response_deserializer=spdkrpc_dot_spdk__pb2.SnapshotHashLockStateResponse.FromString,
+                )
+        self.EngineSnapshotClone = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineSnapshotClone',
+                request_serializer=spdkrpc_dot_spdk__pb2.EngineSnapshotCloneRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
         self.EngineList = channel.unary_unary(
                 '/spdkrpc.SPDKService/EngineList',
@@ -544,6 +574,36 @@ class SPDKServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ReplicaSnapshotCloneDstStart(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ReplicaSnapshotCloneDstStatusCheck(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ReplicaSnapshotCloneSrcStart(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ReplicaSnapshotCloneSrcStatusCheck(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ReplicaSnapshotCloneSrcFinish(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def EngineCreate(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -629,6 +689,12 @@ class SPDKServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def EngineSnapshotHashLockState(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EngineSnapshotClone(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -938,6 +1004,31 @@ def add_SPDKServiceServicer_to_server(servicer, server):
                     request_deserializer=spdkrpc_dot_spdk__pb2.ReplicaRestoreStatusRequest.FromString,
                     response_serializer=spdkrpc_dot_spdk__pb2.ReplicaRestoreStatusResponse.SerializeToString,
             ),
+            'ReplicaSnapshotCloneDstStart': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReplicaSnapshotCloneDstStart,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.ReplicaSnapshotCloneDstStartRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'ReplicaSnapshotCloneDstStatusCheck': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReplicaSnapshotCloneDstStatusCheck,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.ReplicaSnapshotCloneDstStatusCheckRequest.FromString,
+                    response_serializer=spdkrpc_dot_spdk__pb2.ReplicaSnapshotCloneDstStatusCheckResponse.SerializeToString,
+            ),
+            'ReplicaSnapshotCloneSrcStart': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReplicaSnapshotCloneSrcStart,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.ReplicaSnapshotCloneSrcStartRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'ReplicaSnapshotCloneSrcStatusCheck': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReplicaSnapshotCloneSrcStatusCheck,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.ReplicaSnapshotCloneSrcStatusCheckRequest.FromString,
+                    response_serializer=spdkrpc_dot_spdk__pb2.ReplicaSnapshotCloneSrcStatusCheckResponse.SerializeToString,
+            ),
+            'ReplicaSnapshotCloneSrcFinish': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReplicaSnapshotCloneSrcFinish,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.ReplicaSnapshotCloneSrcFinishRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
             'EngineCreate': grpc.unary_unary_rpc_method_handler(
                     servicer.EngineCreate,
                     request_deserializer=spdkrpc_dot_spdk__pb2.EngineCreateRequest.FromString,
@@ -1012,6 +1103,11 @@ def add_SPDKServiceServicer_to_server(servicer, server):
                     servicer.EngineSnapshotHashLockState,
                     request_deserializer=spdkrpc_dot_spdk__pb2.SnapshotHashLockStateRequest.FromString,
                     response_serializer=spdkrpc_dot_spdk__pb2.SnapshotHashLockStateResponse.SerializeToString,
+            ),
+            'EngineSnapshotClone': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineSnapshotClone,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.EngineSnapshotCloneRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'EngineList': grpc.unary_unary_rpc_method_handler(
                     servicer.EngineList,
@@ -1647,6 +1743,91 @@ class SPDKService(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def ReplicaSnapshotCloneDstStart(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ReplicaSnapshotCloneDstStart',
+            spdkrpc_dot_spdk__pb2.ReplicaSnapshotCloneDstStartRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ReplicaSnapshotCloneDstStatusCheck(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ReplicaSnapshotCloneDstStatusCheck',
+            spdkrpc_dot_spdk__pb2.ReplicaSnapshotCloneDstStatusCheckRequest.SerializeToString,
+            spdkrpc_dot_spdk__pb2.ReplicaSnapshotCloneDstStatusCheckResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ReplicaSnapshotCloneSrcStart(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ReplicaSnapshotCloneSrcStart',
+            spdkrpc_dot_spdk__pb2.ReplicaSnapshotCloneSrcStartRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ReplicaSnapshotCloneSrcStatusCheck(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ReplicaSnapshotCloneSrcStatusCheck',
+            spdkrpc_dot_spdk__pb2.ReplicaSnapshotCloneSrcStatusCheckRequest.SerializeToString,
+            spdkrpc_dot_spdk__pb2.ReplicaSnapshotCloneSrcStatusCheckResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ReplicaSnapshotCloneSrcFinish(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ReplicaSnapshotCloneSrcFinish',
+            spdkrpc_dot_spdk__pb2.ReplicaSnapshotCloneSrcFinishRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def EngineCreate(request,
             target,
             options=(),
@@ -1898,6 +2079,23 @@ class SPDKService(object):
         return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineSnapshotHashLockState',
             spdkrpc_dot_spdk__pb2.SnapshotHashLockStateRequest.SerializeToString,
             spdkrpc_dot_spdk__pb2.SnapshotHashLockStateResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineSnapshotClone(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineSnapshotClone',
+            spdkrpc_dot_spdk__pb2.EngineSnapshotCloneRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
