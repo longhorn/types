@@ -14,3 +14,10 @@ enum DataEngine {
     DATA_ENGINE_V1 = 0;
     DATA_ENGINE_V2 = 1;
 }
+
+enum CloneMode {
+    // Full copy; new volume is independent of the source.
+    CLONE_MODE_FULL_COPY     = 0; // aka "full-copy"
+    // Snapshot-based; fast and space-efficient but depends on the source.
+    CLONE_MODE_SNAPSHOT_LINKED = 1; // aka "linked-clone"
+}

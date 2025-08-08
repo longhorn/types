@@ -5,6 +5,7 @@ package spdkrpc;
 option go_package = "github.com/longhorn/types/pkg/generated/spdkrpc";
 
 import "google/protobuf/empty.proto";
+import "imrpc/common.proto";
 
 service SPDKService {
     rpc ReplicaCreate(ReplicaCreateRequest) returns (Replica);
@@ -32,10 +33,15 @@ service SPDKService {
     rpc ReplicaRebuildingDstShallowCopyCheck(ReplicaRebuildingDstShallowCopyCheckRequest) returns (ReplicaRebuildingDstShallowCopyCheckResponse) {};
     rpc ReplicaRebuildingDstSnapshotCreate(SnapshotRequest) returns (google.protobuf.Empty);
     rpc ReplicaRebuildingDstSetQosLimit(ReplicaRebuildingDstSetQosLimitRequest) returns (google.protobuf.Empty);
-    rpc ReplicaBackupCreate(BackupCreateRequest) returns (BackupCreateResponse) {}
-    rpc ReplicaBackupStatus(BackupStatusRequest) returns (BackupStatusResponse) {}
-    rpc ReplicaBackupRestore(ReplicaBackupRestoreRequest) returns (google.protobuf.Empty) {}
-    rpc ReplicaRestoreStatus(ReplicaRestoreStatusRequest) returns (ReplicaRestoreStatusResponse) {}
+    rpc ReplicaBackupCreate(BackupCreateRequest) returns (BackupCreateResponse) {};
+    rpc ReplicaBackupStatus(BackupStatusRequest) returns (BackupStatusResponse) {};
+    rpc ReplicaBackupRestore(ReplicaBackupRestoreRequest) returns (google.protobuf.Empty) {};
+    rpc ReplicaRestoreStatus(ReplicaRestoreStatusRequest) returns (ReplicaRestoreStatusResponse) {};
+    rpc ReplicaSnapshotCloneDstStart(ReplicaSnapshotCloneDstStartRequest) returns (google.protobuf.Empty){};
+    rpc ReplicaSnapshotCloneDstStatusCheck(ReplicaSnapshotCloneDstStatusCheckRequest) returns (ReplicaSnapshotCloneDstStatusCheckResponse){};
+    rpc ReplicaSnapshotCloneSrcStart(ReplicaSnapshotCloneSrcStartRequest) returns (google.protobuf.Empty){};
+    rpc ReplicaSnapshotCloneSrcStatusCheck(ReplicaSnapshotCloneSrcStatusCheckRequest) returns (ReplicaSnapshotCloneSrcStatusCheckResponse){};
+    rpc ReplicaSnapshotCloneSrcFinish(ReplicaSnapshotCloneSrcFinishRequest) returns (google.protobuf.Empty){};
 
     rpc EngineCreate(EngineCreateRequest) returns (Engine);
     rpc EngineDelete(EngineDeleteRequest) returns (google.protobuf.Empty);
@@ -52,16 +58,17 @@ service SPDKService {
     rpc EngineSnapshotHashStatus(SnapshotHashStatusRequest) returns (EngineSnapshotHashStatusResponse) {};
     rpc EngineSnapshotHashCancel(SnapshotHashCancelRequest) returns (google.protobuf.Empty) {};
     rpc EngineSnapshotHashLockState(SnapshotHashLockStateRequest) returns (SnapshotHashLockStateResponse) {};
+    rpc EngineSnapshotClone(EngineSnapshotCloneRequest) returns (google.protobuf.Empty) {};
     rpc EngineList(google.protobuf.Empty) returns (EngineListResponse);
-    rpc EngineWatch(google.protobuf.Empty) returns (stream google.protobuf.Empty) {}
-    rpc EngineReplicaList(EngineReplicaListRequest) returns (EngineReplicaListResponse) {}
-    rpc EngineReplicaAdd(EngineReplicaAddRequest) returns (google.protobuf.Empty) {}
-    rpc EngineReplicaDelete(EngineReplicaDeleteRequest) returns (google.protobuf.Empty) {}
-    rpc EngineBackupCreate(BackupCreateRequest) returns (BackupCreateResponse) {}
-    rpc EngineBackupStatus(BackupStatusRequest) returns (BackupStatusResponse) {}
-    rpc EngineBackupRestore(EngineBackupRestoreRequest) returns (EngineBackupRestoreResponse) {}
-    rpc EngineBackupRestoreFinish(EngineBackupRestoreFinishRequest) returns (google.protobuf.Empty) {}  // Deprecated: retained for compatibility with v1.7.x and earlier versions.
-    rpc EngineRestoreStatus(RestoreStatusRequest) returns (RestoreStatusResponse) {}
+    rpc EngineWatch(google.protobuf.Empty) returns (stream google.protobuf.Empty) {};
+    rpc EngineReplicaList(EngineReplicaListRequest) returns (EngineReplicaListResponse) {};
+    rpc EngineReplicaAdd(EngineReplicaAddRequest) returns (google.protobuf.Empty) {};
+    rpc EngineReplicaDelete(EngineReplicaDeleteRequest) returns (google.protobuf.Empty) {};
+    rpc EngineBackupCreate(BackupCreateRequest) returns (BackupCreateResponse) {};
+    rpc EngineBackupStatus(BackupStatusRequest) returns (BackupStatusResponse) {};
+    rpc EngineBackupRestore(EngineBackupRestoreRequest) returns (EngineBackupRestoreResponse) {};
+    rpc EngineBackupRestoreFinish(EngineBackupRestoreFinishRequest) returns (google.protobuf.Empty) {};  // Deprecated: retained for compatibility with v1.7.x and earlier versions.
+    rpc EngineRestoreStatus(RestoreStatusRequest) returns (RestoreStatusResponse) {};
 
     rpc BackingImageCreate(BackingImageCreateRequest) returns (BackingImage);
     rpc BackingImageDelete(BackingImageDeleteRequest) returns (google.protobuf.Empty);
@@ -230,6 +237,61 @@ message ReplicaRebuildingDstSetQosLimitRequest {
     int64 qos_limit_mbps = 2;
 }
 
+message ReplicaSnapshotCloneDstStartRequest {
+    string name = 1;
+    string snapshot_name = 2;
+    string src_replica_name = 3;
+    string src_replica_address = 4;
+    CloneMode clone_mode = 5;
+}
+
+enum CloneMode {
+    // Full copy; new volume is independent of the source.
+    CLONE_MODE_FULL_COPY     = 0; // aka "full-copy"
+    // Snapshot-based; fast and space-efficient but depends on the source.
+    CLONE_MODE_SNAPSHOT_LINKED = 1; // aka "linked-clone"
+}
+
+message ReplicaSnapshotCloneDstStatusCheckRequest {
+    string name = 1;
+}
+
+message ReplicaSnapshotCloneDstStatusCheckResponse {
+    bool is_cloning = 1;
+    string src_replica_name = 2;
+    string src_replica_address = 3;
+    string snapshot_name = 4;
+    string state = 5;
+    uint32 progress = 6;
+    string error = 7;
+}
+
+message ReplicaSnapshotCloneSrcStartRequest {
+    string name = 1;
+    string snapshot_name = 2;
+    string dst_replica_name = 3;
+    string dst_cloning_lvol_address = 4;
+    CloneMode clone_mode = 5;
+}
+
+message ReplicaSnapshotCloneSrcStatusCheckRequest {
+    string name = 1;
+    string snapshot_name = 2;
+    string dst_replica_name = 3;
+}
+
+message ReplicaSnapshotCloneSrcStatusCheckResponse {
+    string state = 1;
+    uint64 processed_clusters = 2;
+    uint64 total_clusters = 3;
+    string error_msg = 4;
+}
+
+message ReplicaSnapshotCloneSrcFinishRequest {
+    string name = 1;
+    string dst_replica_name = 2;
+}
+
 message Engine {
     string name = 1;
     string volume_name = 2;
@@ -386,6 +448,16 @@ message ReplicaSnapshotRangeHashGetResponse {
 
 message SnapshotHashLockStateResponse {
     bool is_locked = 1;
+}
+
+message EngineSnapshotCloneRequest {
+    string name = 1;
+    string snapshot_name = 2;
+    string src_replica_name = 3;
+    string src_replica_address = 4;
+    string dst_replica_name = 5;
+    string dst_replica_address = 6;
+    CloneMode clone_mode = 7;
 }
 
 message VersionOutput {
