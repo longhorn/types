@@ -3,7 +3,7 @@ module github.com/longhorn/types
 go 1.22.7
 
 require (
-	google.golang.org/grpc v1.73.0
+	google.golang.org/grpc v1.74.2
 	google.golang.org/protobuf v1.36.7
 )
 
