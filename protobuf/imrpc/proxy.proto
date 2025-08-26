@@ -154,11 +154,7 @@ message EngineSnapshotCloneRequest {
     string from_engine_name = 6;
     string from_volume_name = 7;
     int64 grpc_timeout_seconds = 9;
-    string src_replica_name = 10;
-    string src_replica_address = 11;
-    string dst_replica_name = 12;
-    string dst_replica_address = 13;
-    CloneMode clone_mode = 14;
+    CloneMode clone_mode = 10;
 }
 
 message EngineSnapshotCloneStatusProxyResponse {
