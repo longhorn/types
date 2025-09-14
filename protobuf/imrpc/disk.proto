@@ -35,6 +35,8 @@ message Disk {
 
     string driver = 11;
     string name = 12;
+
+    string state = 13;
 }
 
 message ReplicaInstance {
