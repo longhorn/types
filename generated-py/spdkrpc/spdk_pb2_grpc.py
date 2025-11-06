@@ -375,6 +375,11 @@ class SPDKServiceStub(object):
                 request_serializer=spdkrpc_dot_spdk__pb2.DiskGetRequest.SerializeToString,
                 response_deserializer=spdkrpc_dot_spdk__pb2.Disk.FromString,
                 )
+        self.DiskHealthGet = channel.unary_unary(
+                '/spdkrpc.SPDKService/DiskHealthGet',
+                request_serializer=spdkrpc_dot_spdk__pb2.DiskHealthGetRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_spdk__pb2.DiskHealthGetResponse.FromString,
+                )
         self.LogSetLevel = channel.unary_unary(
                 '/spdkrpc.SPDKService/LogSetLevel',
                 request_serializer=spdkrpc_dot_spdk__pb2.LogSetLevelRequest.SerializeToString,
@@ -842,6 +847,14 @@ class SPDKServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def DiskHealthGet(self, request, context):
+        """DiskHealthGet returns typed NVMe controller health information for the
+        specified disk. Field names and types mirror SPDK's health output.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def LogSetLevel(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -1240,6 +1253,11 @@ def add_SPDKServiceServicer_to_server(servicer, server):
                     servicer.DiskGet,
                     request_deserializer=spdkrpc_dot_spdk__pb2.DiskGetRequest.FromString,
                     response_serializer=spdkrpc_dot_spdk__pb2.Disk.SerializeToString,
+            ),
+            'DiskHealthGet': grpc.unary_unary_rpc_method_handler(
+                    servicer.DiskHealthGet,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.DiskHealthGetRequest.FromString,
+                    response_serializer=spdkrpc_dot_spdk__pb2.DiskHealthGetResponse.SerializeToString,
             ),
             'LogSetLevel': grpc.unary_unary_rpc_method_handler(
                     servicer.LogSetLevel,
@@ -2502,6 +2520,23 @@ class SPDKService(object):
         return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/DiskGet',
             spdkrpc_dot_spdk__pb2.DiskGetRequest.SerializeToString,
             spdkrpc_dot_spdk__pb2.Disk.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DiskHealthGet(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/DiskHealthGet',
+            spdkrpc_dot_spdk__pb2.DiskHealthGetRequest.SerializeToString,
+            spdkrpc_dot_spdk__pb2.DiskHealthGetResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
