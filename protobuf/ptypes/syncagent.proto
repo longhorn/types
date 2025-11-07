@@ -60,6 +60,7 @@ message FileSendRequest {
 }
 
 message FilesSyncRequest {
+  // Deprecated: Replaced by `from_address_map`.
   string from_address = 1;
   string to_host = 2;
   repeated SyncFileInfo sync_file_info_list = 3;
@@ -67,6 +68,7 @@ message FilesSyncRequest {
   int32 file_sync_http_client_timeout = 5;
   int64 grpc_timeout_seconds = 6;
   FileLocalSync local_sync = 7;
+  map<string, bool> from_address_map = 8;
 }
 
 message FileLocalSync {
