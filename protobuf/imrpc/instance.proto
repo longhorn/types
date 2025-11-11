@@ -43,6 +43,8 @@ message SpdkInstanceSpec {
 	string frontend = 6;
 	bool salvage_requested = 7;
 	string backing_image_name = 8;
+	int32 ublk_queue_depth = 9;
+	int32 ublk_number_of_queue = 10;
 }
 
 message InstanceSpec {
