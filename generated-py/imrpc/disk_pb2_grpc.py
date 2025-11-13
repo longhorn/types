@@ -30,6 +30,11 @@ class DiskServiceStub(object):
                 request_serializer=imrpc_dot_disk__pb2.DiskGetRequest.SerializeToString,
                 response_deserializer=imrpc_dot_disk__pb2.Disk.FromString,
                 )
+        self.DiskHealthGet = channel.unary_unary(
+                '/imrpc.DiskService/DiskHealthGet',
+                request_serializer=imrpc_dot_disk__pb2.DiskHealthGetRequest.SerializeToString,
+                response_deserializer=imrpc_dot_disk__pb2.DiskHealthGetResponse.FromString,
+                )
         self.DiskReplicaInstanceList = channel.unary_unary(
                 '/imrpc.DiskService/DiskReplicaInstanceList',
                 request_serializer=imrpc_dot_disk__pb2.DiskReplicaInstanceListRequest.SerializeToString,
@@ -68,6 +73,12 @@ class DiskServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def DiskGet(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DiskHealthGet(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -114,6 +125,11 @@ def add_DiskServiceServicer_to_server(servicer, server):
                     servicer.DiskGet,
                     request_deserializer=imrpc_dot_disk__pb2.DiskGetRequest.FromString,
                     response_serializer=imrpc_dot_disk__pb2.Disk.SerializeToString,
+            ),
+            'DiskHealthGet': grpc.unary_unary_rpc_method_handler(
+                    servicer.DiskHealthGet,
+                    request_deserializer=imrpc_dot_disk__pb2.DiskHealthGetRequest.FromString,
+                    response_serializer=imrpc_dot_disk__pb2.DiskHealthGetResponse.SerializeToString,
             ),
             'DiskReplicaInstanceList': grpc.unary_unary_rpc_method_handler(
                     servicer.DiskReplicaInstanceList,
@@ -193,6 +209,23 @@ class DiskService(object):
         return grpc.experimental.unary_unary(request, target, '/imrpc.DiskService/DiskGet',
             imrpc_dot_disk__pb2.DiskGetRequest.SerializeToString,
             imrpc_dot_disk__pb2.Disk.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DiskHealthGet(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/imrpc.DiskService/DiskHealthGet',
+            imrpc_dot_disk__pb2.DiskHealthGetRequest.SerializeToString,
+            imrpc_dot_disk__pb2.DiskHealthGetResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
