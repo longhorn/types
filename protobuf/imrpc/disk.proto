@@ -11,6 +11,7 @@ service DiskService {
     rpc DiskCreate(DiskCreateRequest) returns (Disk);
     rpc DiskDelete(DiskDeleteRequest) returns (google.protobuf.Empty);
     rpc DiskGet(DiskGetRequest) returns (Disk);
+    rpc DiskHealthGet(DiskHealthGetRequest) returns (DiskHealthGetResponse);
     rpc DiskReplicaInstanceList(DiskReplicaInstanceListRequest) returns (DiskReplicaInstanceListResponse);
     rpc DiskReplicaInstanceDelete(DiskReplicaInstanceDeleteRequest) returns (google.protobuf.Empty);
     rpc MetricsGet(DiskGetRequest) returns (DiskMetricsGetReply);
@@ -80,6 +81,15 @@ message DiskDeleteRequest {
     string disk_driver = 5;
 }
 
+// Request to fetch generic disk health info. Mirrors DiskGetRequest for selection.
+message DiskHealthGetRequest {
+    DiskType disk_type = 1;
+
+    string disk_name = 2;
+    string disk_path = 3;
+    string disk_driver = 4;
+}
+
 message DiskReplicaInstanceListRequest {
     DiskType disk_type = 1;
 
@@ -111,4 +121,34 @@ message DiskVersionResponse {
 
 message DiskMetricsGetReply {
     ptypes.Metrics metrics = 1;
+}
+
+// DiskHealthGetResponse contains typed health information for a disk.
+message DiskHealthGetResponse {
+    string model_number = 1;
+    string serial_number = 2;
+    string firmware_revision = 3;
+    string traddr = 4;
+
+    uint32 critical_warning = 5;
+    double temperature_celsius = 6;
+
+    uint32 available_spare_percentage = 7;
+    uint32 available_spare_threshold_percentage = 8;
+    uint32 percentage_used = 9;
+
+    uint64 data_units_read = 10;
+    uint64 data_units_written = 11;
+    uint64 host_read_commands = 12;
+    uint64 host_write_commands = 13;
+    uint64 controller_busy_time = 14;
+
+    uint64 power_cycles = 15;
+    uint64 power_on_hours = 16;
+    uint64 unsafe_shutdowns = 17;
+    uint64 media_errors = 18;
+    uint64 num_err_log_entries = 19;
+
+    uint64 warning_temperature_time_minutes = 20;
+    uint64 critical_composite_temperature_time_minutes = 21;
 }
