@@ -83,6 +83,9 @@ service SPDKService {
     rpc DiskCreate(DiskCreateRequest) returns (Disk);
     rpc DiskDelete(DiskDeleteRequest) returns (google.protobuf.Empty);
     rpc DiskGet(DiskGetRequest) returns (Disk);
+    // DiskHealthGet returns typed NVMe controller health information for the
+    // specified disk. Field names and types mirror SPDK's health output.
+    rpc DiskHealthGet(DiskHealthGetRequest) returns (DiskHealthGetResponse);
 
     rpc LogSetLevel(LogSetLevelRequest) returns (google.protobuf.Empty);
     rpc LogSetFlags(LogSetFlagsRequest) returns (google.protobuf.Empty);
@@ -661,6 +664,13 @@ message DiskDeleteRequest {
     string disk_driver = 4;
 }
 
+// Request to fetch generic disk health info. Mirrors DiskGetRequest for selection.
+message DiskHealthGetRequest {
+    string disk_name = 1;
+    string disk_driver = 2;
+    string disk_path = 3;
+}
+
 message LogSetLevelRequest {
 	string level = 1;
 }
@@ -688,4 +698,36 @@ message Metrics {
   uint64 writeLatency    = 4;
   uint64 readIOPS        = 5;
   uint64 writeIOPS       = 6;
+}
+
+// DiskHealthGetResponse contains typed NVMe controller health information for
+// a disk. The fields are aligned with SPDK's bdev_nvme_get_controller_health_info
+// output.
+message DiskHealthGetResponse {
+    string model_number = 1;
+    string serial_number = 2;
+    string firmware_revision = 3;
+    string traddr = 4;
+
+    uint32 critical_warning = 5;
+    double temperature_celsius = 6;
+
+    uint32 available_spare_percentage = 7;
+    uint32 available_spare_threshold_percentage = 8;
+    uint32 percentage_used = 9;
+
+    uint64 data_units_read = 10;
+    uint64 data_units_written = 11;
+    uint64 host_read_commands = 12;
+    uint64 host_write_commands = 13;
+    uint64 controller_busy_time = 14;
+
+    uint64 power_cycles = 15;
+    uint64 power_on_hours = 16;
+    uint64 unsafe_shutdowns = 17;
+    uint64 media_errors = 18;
+    uint64 num_err_log_entries = 19;
+
+    uint64 warning_temperature_time_minutes = 20;
+    uint64 critical_composite_temperature_time_minutes = 21;
 }
