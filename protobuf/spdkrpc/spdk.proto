@@ -678,14 +678,14 @@ message LogGetFlagsResponse {
 }
 
 message MetricsRequest {
-  string name = 1; 
+  string name = 1;
 }
 
 message Metrics {
-  uint64 readThroughput  = 1; 
-  uint64 writeThroughput = 2; 
-  uint64 readLatency     = 3; 
-  uint64 writeLatency    = 4; 
+  uint64 readThroughput  = 1;
+  uint64 writeThroughput = 2;
+  uint64 readLatency     = 3;
+  uint64 writeLatency    = 4;
   uint64 readIOPS        = 5;
   uint64 writeIOPS       = 6;
 }
