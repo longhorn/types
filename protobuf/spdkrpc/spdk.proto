@@ -646,6 +646,7 @@ message DiskCreateRequest {
     string disk_path = 3;
     int64 block_size = 4;
     string disk_driver = 5;
+    bool deny_in_use_disk = 6;
 }
 
 message DiskGetRequest {
