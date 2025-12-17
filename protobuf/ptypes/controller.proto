@@ -28,8 +28,10 @@ service ControllerService {
     rpc ReplicaUpdate(ControllerReplica) returns (ControllerReplica);
     rpc ReplicaPrepareRebuild(ReplicaAddress) returns (ReplicaPrepareRebuildReply);
     rpc ReplicaVerifyRebuild(ReplicaAddress) returns (ControllerReplica);
+    rpc ReplicaRebuildConcurrentSyncLimitSet(ReplicaRebuildConcurrentSyncLimitSetRequest) returns (google.protobuf.Empty);
+    rpc ReplicaRebuildConcurrentSyncLimitGet(google.protobuf.Empty) returns (ReplicaRebuildConcurrentSyncLimitGetReply);
 
-    rpc JournalList(JournalListRequest) returns (google.protobuf.Empty);
+  rpc JournalList(JournalListRequest) returns (google.protobuf.Empty);
 
     rpc VersionDetailGet(google.protobuf.Empty) returns(VersionDetailGetReply);
 
@@ -144,6 +146,14 @@ message ControllerReplicaCreateRequest {
 message ReplicaPrepareRebuildReply {
     ControllerReplica replica = 1;
     repeated SyncFileInfo sync_file_info_list = 2;
+}
+
+message ReplicaRebuildConcurrentSyncLimitSetRequest {
+    int32 limit = 1;
+}
+
+message ReplicaRebuildConcurrentSyncLimitGetReply {
+    int32 limit = 1;
 }
 
 message JournalListRequest {

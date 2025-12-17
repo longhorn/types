@@ -45,6 +45,8 @@ service ProxyEngineService {
     rpc ReplicaVerifyRebuild(EngineReplicaVerifyRebuildRequest) returns (google.protobuf.Empty);
     rpc ReplicaRemove(EngineReplicaRemoveRequest) returns (google.protobuf.Empty);
     rpc ReplicaModeUpdate(EngineReplicaModeUpdateRequest) returns (google.protobuf.Empty);
+    rpc ReplicaRebuildConcurrentSyncLimitSet(EngineReplicaRebuildConcurrentSyncLimitSetRequest) returns (google.protobuf.Empty);
+    rpc ReplicaRebuildConcurrentSyncLimitGet(ProxyEngineRequest) returns (EngineReplicaRebuildConcurrentSyncLimitGetResponse);
 
     rpc SPDKBackingImageCreate(SPDKBackingImageCreateRequest) returns (SPDKBackingImageResponse);
     rpc SPDKBackingImageDelete(SPDKBackingImageDeleteRequest) returns (google.protobuf.Empty);
@@ -295,6 +297,16 @@ message EngineReplicaModeUpdateRequest {
 
     string replica_address = 2;
     ptypes.ReplicaMode mode = 3;
+}
+
+message EngineReplicaRebuildConcurrentSyncLimitSetRequest {
+    ProxyEngineRequest proxy_engine_request = 1;
+
+    int32 limit = 2;
+}
+
+message EngineReplicaRebuildConcurrentSyncLimitGetResponse {
+    int32 limit = 1;
 }
 
 message EngineSnapshotHashRequest {

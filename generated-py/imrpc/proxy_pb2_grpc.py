@@ -170,6 +170,16 @@ class ProxyEngineServiceStub(object):
                 request_serializer=imrpc_dot_proxy__pb2.EngineReplicaModeUpdateRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
+        self.ReplicaRebuildConcurrentSyncLimitSet = channel.unary_unary(
+                '/imrpc.ProxyEngineService/ReplicaRebuildConcurrentSyncLimitSet',
+                request_serializer=imrpc_dot_proxy__pb2.EngineReplicaRebuildConcurrentSyncLimitSetRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.ReplicaRebuildConcurrentSyncLimitGet = channel.unary_unary(
+                '/imrpc.ProxyEngineService/ReplicaRebuildConcurrentSyncLimitGet',
+                request_serializer=imrpc_dot_proxy__pb2.ProxyEngineRequest.SerializeToString,
+                response_deserializer=imrpc_dot_proxy__pb2.EngineReplicaRebuildConcurrentSyncLimitGetResponse.FromString,
+                )
         self.SPDKBackingImageCreate = channel.unary_unary(
                 '/imrpc.ProxyEngineService/SPDKBackingImageCreate',
                 request_serializer=imrpc_dot_proxy__pb2.SPDKBackingImageCreateRequest.SerializeToString,
@@ -397,6 +407,18 @@ class ProxyEngineServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ReplicaRebuildConcurrentSyncLimitSet(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ReplicaRebuildConcurrentSyncLimitGet(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def SPDKBackingImageCreate(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -596,6 +618,16 @@ def add_ProxyEngineServiceServicer_to_server(servicer, server):
                     servicer.ReplicaModeUpdate,
                     request_deserializer=imrpc_dot_proxy__pb2.EngineReplicaModeUpdateRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'ReplicaRebuildConcurrentSyncLimitSet': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReplicaRebuildConcurrentSyncLimitSet,
+                    request_deserializer=imrpc_dot_proxy__pb2.EngineReplicaRebuildConcurrentSyncLimitSetRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'ReplicaRebuildConcurrentSyncLimitGet': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReplicaRebuildConcurrentSyncLimitGet,
+                    request_deserializer=imrpc_dot_proxy__pb2.ProxyEngineRequest.FromString,
+                    response_serializer=imrpc_dot_proxy__pb2.EngineReplicaRebuildConcurrentSyncLimitGetResponse.SerializeToString,
             ),
             'SPDKBackingImageCreate': grpc.unary_unary_rpc_method_handler(
                     servicer.SPDKBackingImageCreate,
@@ -1166,6 +1198,40 @@ class ProxyEngineService(object):
         return grpc.experimental.unary_unary(request, target, '/imrpc.ProxyEngineService/ReplicaModeUpdate',
             imrpc_dot_proxy__pb2.EngineReplicaModeUpdateRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ReplicaRebuildConcurrentSyncLimitSet(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/imrpc.ProxyEngineService/ReplicaRebuildConcurrentSyncLimitSet',
+            imrpc_dot_proxy__pb2.EngineReplicaRebuildConcurrentSyncLimitSetRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ReplicaRebuildConcurrentSyncLimitGet(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/imrpc.ProxyEngineService/ReplicaRebuildConcurrentSyncLimitGet',
+            imrpc_dot_proxy__pb2.ProxyEngineRequest.SerializeToString,
+            imrpc_dot_proxy__pb2.EngineReplicaRebuildConcurrentSyncLimitGetResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
