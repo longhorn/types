@@ -168,7 +168,9 @@ message ReplicaRebuildStatusResponse {
   string error = 2;
   int32 progress = 3;
   string state = 4;
+  // Deprecated: Replaced by `from_replica_address_list`.
   string from_replica_address = 5;
+  repeated string from_replica_address_list = 6;
 }
 
 message SnapshotCloneStatusResponse {
