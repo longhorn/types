@@ -5,6 +5,7 @@
 *.pyo
 *.swp
 .python-version
+Dockerfile.dapper[0-9]*
 
 integration/.tox/
 integration/.venv/
