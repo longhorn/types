@@ -225,6 +225,7 @@ message ReplicaRebuildingDstFinishRequest {
 message ReplicaRebuildingDstShallowCopyStartRequest {
     string name = 1;
     string snapshot_name = 2;
+    bool fast_sync = 3;
 }
 
 message ReplicaRebuildingDstShallowCopyCheckRequest {
@@ -377,6 +378,7 @@ message EngineReplicaAddRequest {
     string engine_name = 1;
     string replica_name = 2;
     string replica_address = 3;
+    bool fast_sync = 4;
 }
 
 
