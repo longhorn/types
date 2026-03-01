@@ -81,6 +81,8 @@ message InstanceStatus {
 	string uuid = 11;
 	string engine_name = 12;
 	string engine_ip = 13;
+	string endpoint = 14;
+	string frontend = 15;
 }
 
 message InstanceCreateRequest {
