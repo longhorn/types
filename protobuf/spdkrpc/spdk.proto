@@ -50,7 +50,7 @@ service SPDKService {
     rpc EngineSuspend(EngineSuspendRequest) returns (google.protobuf.Empty);
     rpc EngineResume(EngineResumeRequest) returns (google.protobuf.Empty);
     rpc EngineExpand(EngineExpandRequest) returns (google.protobuf.Empty);
-    rpc EngineSwitchOverTarget(EngineSwitchOverTargetRequest) returns (google.protobuf.Empty);
+    rpc EngineExpandPrecheck(EngineExpandPrecheckRequest) returns (EngineExpandPrecheckResponse);
     rpc EngineDeleteTarget(EngineDeleteTargetRequest) returns (google.protobuf.Empty);
     rpc EngineSnapshotCreate(SnapshotRequest) returns (SnapshotResponse);
     rpc EngineSnapshotDelete(SnapshotRequest) returns (google.protobuf.Empty);
@@ -71,6 +71,21 @@ service SPDKService {
     rpc EngineBackupRestore(EngineBackupRestoreRequest) returns (EngineBackupRestoreResponse) {};
     rpc EngineBackupRestoreFinish(EngineBackupRestoreFinishRequest) returns (google.protobuf.Empty) {};  // Deprecated: retained for compatibility with v1.7.x and earlier versions.
     rpc EngineRestoreStatus(RestoreStatusRequest) returns (RestoreStatusResponse) {};
+
+    rpc EngineFrontendCreate(EngineFrontendCreateRequest) returns (EngineFrontend);
+    rpc EngineFrontendDelete(EngineFrontendDeleteRequest) returns (google.protobuf.Empty);
+    rpc EngineFrontendGet(EngineFrontendGetRequest) returns (EngineFrontend);
+    rpc EngineFrontendList(google.protobuf.Empty) returns (EngineFrontendListResponse);
+    rpc EngineFrontendWatch(google.protobuf.Empty) returns (stream google.protobuf.Empty) {};
+    rpc EngineFrontendSuspend(EngineFrontendSuspendRequest) returns (google.protobuf.Empty);
+    rpc EngineFrontendResume(EngineFrontendResumeRequest) returns (google.protobuf.Empty);
+    rpc EngineFrontendExpand(EngineFrontendExpandRequest) returns (google.protobuf.Empty);
+    rpc EngineFrontendSnapshotCreate(SnapshotRequest) returns (SnapshotResponse);
+    rpc EngineFrontendSnapshotDelete(SnapshotRequest) returns (google.protobuf.Empty);
+    rpc EngineFrontendSnapshotRevert(SnapshotRequest) returns (google.protobuf.Empty);
+    rpc EngineFrontendSnapshotPurge(SnapshotRequest) returns (google.protobuf.Empty);
+    rpc EngineFrontendReplicaAdd(EngineFrontendReplicaAddRequest) returns (google.protobuf.Empty) {};
+    rpc EngineFrontendSwitchOver(EngineFrontendSwitchOverRequest) returns (google.protobuf.Empty);
 
     rpc BackingImageCreate(BackingImageCreateRequest) returns (BackingImage);
     rpc BackingImageDelete(BackingImageDeleteRequest) returns (google.protobuf.Empty);
@@ -361,9 +376,13 @@ message EngineExpandRequest{
     uint64 size = 2;
 }
 
-message EngineSwitchOverTargetRequest {
+message EngineExpandPrecheckRequest{
     string name = 1;
-    string target_address = 2;
+    uint64 size = 2;
+}
+
+message EngineExpandPrecheckResponse{
+    bool expansion_required = 1;
 }
 
 message EngineDeleteTargetRequest {
@@ -380,7 +399,6 @@ message EngineReplicaAddRequest {
     string replica_address = 3;
     bool fast_sync = 4;
 }
-
 
 message EngineReplicaListRequest {
     string engine_name = 1;
@@ -409,6 +427,72 @@ message EngineReplicaRebuildStatusResponse {
     string error = 5;
     string src_replica_name = 6;
     string src_replica_address = 7;
+}
+
+message EngineFrontend {
+    string name = 1;
+    string volume_name = 2;
+    uint64 spec_size = 3;
+    uint64 actual_size = 4;
+    string frontend = 5;
+    string target_ip = 6;
+    int32 target_port = 7;
+    string endpoint = 8;
+    string state = 9;
+    string error_msg = 10;
+    int32 ublk_id = 11;
+    string uuid = 12;
+    string engine_name = 13;
+    string engine_ip   = 14;
+}
+
+message EngineFrontendCreateRequest {
+    string name = 1;
+    string volume_name = 2;
+    string engine_name = 3;
+    uint64 spec_size = 4;
+    string target_address = 5;
+    string frontend = 6;
+    int32 ublk_queue_depth = 7;
+    int32 ublk_number_of_queue = 8;
+}
+
+message EngineFrontendDeleteRequest {
+    string name = 1;
+}
+
+message EngineFrontendGetRequest {
+    string name = 1;
+}
+
+message EngineFrontendListResponse {
+	map<string, EngineFrontend> engine_frontends = 1;
+}
+
+message EngineFrontendSuspendRequest {
+    string name = 1;
+}
+
+message EngineFrontendResumeRequest {
+    string name = 1;
+}
+
+message EngineFrontendExpandRequest {
+    string name = 1;
+    uint64 size = 2;
+}
+
+message EngineFrontendReplicaAddRequest {
+    string engine_frontend_name = 1;
+    string replica_name = 2;
+    string replica_address = 3;
+    bool fast_sync = 4;
+}
+
+message EngineFrontendSwitchOverRequest {
+    string name = 1;
+    string engine_name = 2;
+    string target_address = 3;
 }
 
 message SnapshotRequest {
