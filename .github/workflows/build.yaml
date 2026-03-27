@@ -15,6 +15,6 @@ jobs:
     - name: Add Git
       run: apk add -U git
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
     - name: Run dapper ci
       run: dapper ci
