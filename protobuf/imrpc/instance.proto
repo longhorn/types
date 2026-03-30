@@ -64,6 +64,7 @@ message InstanceSpec {
 	bool upgrade_required = 10;
 	string initiator_address = 11;
 	string target_address = 12;
+	string engine_name = 13;
 }
 
 message InstanceStatus {
@@ -78,6 +79,10 @@ message InstanceStatus {
 	int32 standby_target_port_end = 9;
 	int32 ublk_id = 10;
 	string uuid = 11;
+	string engine_name = 12;
+	string engine_ip = 13;
+	string endpoint = 14;
+	string frontend = 15;
 }
 
 message InstanceCreateRequest {
@@ -144,6 +149,7 @@ message InstanceSwitchOverTargetRequest {
 	string name = 2;
 	string type = 3;
 	string target_address = 4;
+	string engine_name = 5;
 }
 
 message InstanceDeleteTargetRequest {
