@@ -220,10 +220,10 @@ class SPDKServiceStub(object):
                 request_serializer=spdkrpc_dot_spdk__pb2.EngineExpandRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
-        self.EngineSwitchOverTarget = channel.unary_unary(
-                '/spdkrpc.SPDKService/EngineSwitchOverTarget',
-                request_serializer=spdkrpc_dot_spdk__pb2.EngineSwitchOverTargetRequest.SerializeToString,
-                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+        self.EngineExpandPrecheck = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineExpandPrecheck',
+                request_serializer=spdkrpc_dot_spdk__pb2.EngineExpandPrecheckRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_spdk__pb2.EngineExpandPrecheckResponse.FromString,
                 )
         self.EngineDeleteTarget = channel.unary_unary(
                 '/spdkrpc.SPDKService/EngineDeleteTarget',
@@ -324,6 +324,76 @@ class SPDKServiceStub(object):
                 '/spdkrpc.SPDKService/EngineRestoreStatus',
                 request_serializer=spdkrpc_dot_spdk__pb2.RestoreStatusRequest.SerializeToString,
                 response_deserializer=spdkrpc_dot_spdk__pb2.RestoreStatusResponse.FromString,
+                )
+        self.EngineFrontendCreate = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineFrontendCreate',
+                request_serializer=spdkrpc_dot_spdk__pb2.EngineFrontendCreateRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_spdk__pb2.EngineFrontend.FromString,
+                )
+        self.EngineFrontendDelete = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineFrontendDelete',
+                request_serializer=spdkrpc_dot_spdk__pb2.EngineFrontendDeleteRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.EngineFrontendGet = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineFrontendGet',
+                request_serializer=spdkrpc_dot_spdk__pb2.EngineFrontendGetRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_spdk__pb2.EngineFrontend.FromString,
+                )
+        self.EngineFrontendList = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineFrontendList',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=spdkrpc_dot_spdk__pb2.EngineFrontendListResponse.FromString,
+                )
+        self.EngineFrontendWatch = channel.unary_stream(
+                '/spdkrpc.SPDKService/EngineFrontendWatch',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.EngineFrontendSuspend = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineFrontendSuspend',
+                request_serializer=spdkrpc_dot_spdk__pb2.EngineFrontendSuspendRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.EngineFrontendResume = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineFrontendResume',
+                request_serializer=spdkrpc_dot_spdk__pb2.EngineFrontendResumeRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.EngineFrontendExpand = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineFrontendExpand',
+                request_serializer=spdkrpc_dot_spdk__pb2.EngineFrontendExpandRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.EngineFrontendSnapshotCreate = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineFrontendSnapshotCreate',
+                request_serializer=spdkrpc_dot_spdk__pb2.SnapshotRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_spdk__pb2.SnapshotResponse.FromString,
+                )
+        self.EngineFrontendSnapshotDelete = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineFrontendSnapshotDelete',
+                request_serializer=spdkrpc_dot_spdk__pb2.SnapshotRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.EngineFrontendSnapshotRevert = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineFrontendSnapshotRevert',
+                request_serializer=spdkrpc_dot_spdk__pb2.SnapshotRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.EngineFrontendSnapshotPurge = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineFrontendSnapshotPurge',
+                request_serializer=spdkrpc_dot_spdk__pb2.SnapshotRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.EngineFrontendReplicaAdd = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineFrontendReplicaAdd',
+                request_serializer=spdkrpc_dot_spdk__pb2.EngineFrontendReplicaAddRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.EngineFrontendSwitchOver = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineFrontendSwitchOver',
+                request_serializer=spdkrpc_dot_spdk__pb2.EngineFrontendSwitchOverRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
         self.BackingImageCreate = channel.unary_unary(
                 '/spdkrpc.SPDKService/BackingImageCreate',
@@ -661,7 +731,7 @@ class SPDKServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def EngineSwitchOverTarget(self, request, context):
+    def EngineExpandPrecheck(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -782,6 +852,90 @@ class SPDKServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def EngineRestoreStatus(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EngineFrontendCreate(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EngineFrontendDelete(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EngineFrontendGet(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EngineFrontendList(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EngineFrontendWatch(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EngineFrontendSuspend(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EngineFrontendResume(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EngineFrontendExpand(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EngineFrontendSnapshotCreate(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EngineFrontendSnapshotDelete(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EngineFrontendSnapshotRevert(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EngineFrontendSnapshotPurge(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EngineFrontendReplicaAdd(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EngineFrontendSwitchOver(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -1099,10 +1253,10 @@ def add_SPDKServiceServicer_to_server(servicer, server):
                     request_deserializer=spdkrpc_dot_spdk__pb2.EngineExpandRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
-            'EngineSwitchOverTarget': grpc.unary_unary_rpc_method_handler(
-                    servicer.EngineSwitchOverTarget,
-                    request_deserializer=spdkrpc_dot_spdk__pb2.EngineSwitchOverTargetRequest.FromString,
-                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            'EngineExpandPrecheck': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineExpandPrecheck,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.EngineExpandPrecheckRequest.FromString,
+                    response_serializer=spdkrpc_dot_spdk__pb2.EngineExpandPrecheckResponse.SerializeToString,
             ),
             'EngineDeleteTarget': grpc.unary_unary_rpc_method_handler(
                     servicer.EngineDeleteTarget,
@@ -1203,6 +1357,76 @@ def add_SPDKServiceServicer_to_server(servicer, server):
                     servicer.EngineRestoreStatus,
                     request_deserializer=spdkrpc_dot_spdk__pb2.RestoreStatusRequest.FromString,
                     response_serializer=spdkrpc_dot_spdk__pb2.RestoreStatusResponse.SerializeToString,
+            ),
+            'EngineFrontendCreate': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineFrontendCreate,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.EngineFrontendCreateRequest.FromString,
+                    response_serializer=spdkrpc_dot_spdk__pb2.EngineFrontend.SerializeToString,
+            ),
+            'EngineFrontendDelete': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineFrontendDelete,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.EngineFrontendDeleteRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'EngineFrontendGet': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineFrontendGet,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.EngineFrontendGetRequest.FromString,
+                    response_serializer=spdkrpc_dot_spdk__pb2.EngineFrontend.SerializeToString,
+            ),
+            'EngineFrontendList': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineFrontendList,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=spdkrpc_dot_spdk__pb2.EngineFrontendListResponse.SerializeToString,
+            ),
+            'EngineFrontendWatch': grpc.unary_stream_rpc_method_handler(
+                    servicer.EngineFrontendWatch,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'EngineFrontendSuspend': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineFrontendSuspend,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.EngineFrontendSuspendRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'EngineFrontendResume': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineFrontendResume,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.EngineFrontendResumeRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'EngineFrontendExpand': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineFrontendExpand,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.EngineFrontendExpandRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'EngineFrontendSnapshotCreate': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineFrontendSnapshotCreate,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.SnapshotRequest.FromString,
+                    response_serializer=spdkrpc_dot_spdk__pb2.SnapshotResponse.SerializeToString,
+            ),
+            'EngineFrontendSnapshotDelete': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineFrontendSnapshotDelete,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.SnapshotRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'EngineFrontendSnapshotRevert': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineFrontendSnapshotRevert,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.SnapshotRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'EngineFrontendSnapshotPurge': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineFrontendSnapshotPurge,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.SnapshotRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'EngineFrontendReplicaAdd': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineFrontendReplicaAdd,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.EngineFrontendReplicaAddRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'EngineFrontendSwitchOver': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineFrontendSwitchOver,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.EngineFrontendSwitchOverRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'BackingImageCreate': grpc.unary_unary_rpc_method_handler(
                     servicer.BackingImageCreate,
@@ -1997,7 +2221,7 @@ class SPDKService(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def EngineSwitchOverTarget(request,
+    def EngineExpandPrecheck(request,
             target,
             options=(),
             channel_credentials=None,
@@ -2007,9 +2231,9 @@ class SPDKService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineSwitchOverTarget',
-            spdkrpc_dot_spdk__pb2.EngineSwitchOverTargetRequest.SerializeToString,
-            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineExpandPrecheck',
+            spdkrpc_dot_spdk__pb2.EngineExpandPrecheckRequest.SerializeToString,
+            spdkrpc_dot_spdk__pb2.EngineExpandPrecheckResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -2350,6 +2574,244 @@ class SPDKService(object):
         return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineRestoreStatus',
             spdkrpc_dot_spdk__pb2.RestoreStatusRequest.SerializeToString,
             spdkrpc_dot_spdk__pb2.RestoreStatusResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineFrontendCreate(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineFrontendCreate',
+            spdkrpc_dot_spdk__pb2.EngineFrontendCreateRequest.SerializeToString,
+            spdkrpc_dot_spdk__pb2.EngineFrontend.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineFrontendDelete(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineFrontendDelete',
+            spdkrpc_dot_spdk__pb2.EngineFrontendDeleteRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineFrontendGet(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineFrontendGet',
+            spdkrpc_dot_spdk__pb2.EngineFrontendGetRequest.SerializeToString,
+            spdkrpc_dot_spdk__pb2.EngineFrontend.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineFrontendList(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineFrontendList',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            spdkrpc_dot_spdk__pb2.EngineFrontendListResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineFrontendWatch(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/spdkrpc.SPDKService/EngineFrontendWatch',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineFrontendSuspend(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineFrontendSuspend',
+            spdkrpc_dot_spdk__pb2.EngineFrontendSuspendRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineFrontendResume(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineFrontendResume',
+            spdkrpc_dot_spdk__pb2.EngineFrontendResumeRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineFrontendExpand(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineFrontendExpand',
+            spdkrpc_dot_spdk__pb2.EngineFrontendExpandRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineFrontendSnapshotCreate(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineFrontendSnapshotCreate',
+            spdkrpc_dot_spdk__pb2.SnapshotRequest.SerializeToString,
+            spdkrpc_dot_spdk__pb2.SnapshotResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineFrontendSnapshotDelete(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineFrontendSnapshotDelete',
+            spdkrpc_dot_spdk__pb2.SnapshotRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineFrontendSnapshotRevert(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineFrontendSnapshotRevert',
+            spdkrpc_dot_spdk__pb2.SnapshotRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineFrontendSnapshotPurge(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineFrontendSnapshotPurge',
+            spdkrpc_dot_spdk__pb2.SnapshotRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineFrontendReplicaAdd(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineFrontendReplicaAdd',
+            spdkrpc_dot_spdk__pb2.EngineFrontendReplicaAddRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineFrontendSwitchOver(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineFrontendSwitchOver',
+            spdkrpc_dot_spdk__pb2.EngineFrontendSwitchOverRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

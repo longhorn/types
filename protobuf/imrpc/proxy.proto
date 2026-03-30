@@ -65,6 +65,7 @@ message ProxyEngineRequest{
     string engine_name = 3;
     string volume_name = 4;
     DataEngine data_engine = 5;
+    string engine_frontend_name = 6;
 }
 
 message EngineVersionProxyResponse {
