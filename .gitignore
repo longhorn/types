@@ -1,6 +1,6 @@
-/.dapper
 /.trash-cache
 /bin
+/validate.done
 *.pyc
 *.pyo
 *.swp
@@ -24,3 +24,6 @@ integration/MANIFEST
 # build folders
 .pyprotobuild/
 .goprotobuild/
+
+cscope*
+.dapper
