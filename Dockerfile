@@ -1,27 +1,22 @@
-FROM registry.suse.com/bci/golang:1.26
+# syntax=docker/dockerfile:1.22.0
+FROM registry.suse.com/bci/golang:1.26 AS base
 
-ARG DAPPER_HOST_ARCH=amd64
+ARG TARGETARCH
 ARG http_proxy
 ARG https_proxy
-ENV HOST_ARCH=${DAPPER_HOST_ARCH} ARCH=${DAPPER_HOST_ARCH}
+
+ENV ARCH=${TARGETARCH}
 ENV PROTOC_VER=24.3
 ENV PROTOBUF_VER_PY=4.24.3
 ENV PROTOC_GEN_GO_VER=v1.31.0
 ENV PROTOC_GEN_GO_GRPC_VER=v1.3.0
-
-# Setup environment
-ENV PATH /go/bin:$PATH
-ENV DAPPER_DOCKER_SOCKET true
-ENV DAPPER_SOURCE /go/src/github.com/longhorn/types
-ENV DAPPER_OUTPUT ./pkg ./generated-py
-WORKDIR ${DAPPER_SOURCE}
 
 RUN zypper -n addrepo --refresh https://download.opensuse.org/repositories/system:/snappy/SLE_15/system:snappy.repo && \
     zypper --gpg-auto-import-keys ref
 
 # TODO: replace python311 with python3 if SLE upgrade system python version to python3.10+
 RUN zypper -n install wget git unzip python311 python311-devel python311-pip && \
-    rm -rf rm -rf /var/cache/zypp/*
+    rm -rf /var/cache/zypp/*
 
 # needed for ${!var} substitution
 RUN rm -f /bin/sh && ln -s /bin/bash /bin/sh
@@ -49,7 +44,7 @@ RUN mkdir -p /go/src/github.com && \
 
 # protoc-gen-go-grpc
 RUN cd /go/src/github.com/ && \
-    mkdir grpc/ && \
+    mkdir -p grpc/ && \
     cd grpc && \
     git clone https://github.com/grpc/grpc-go.git && \
     cd grpc-go && \
@@ -65,5 +60,18 @@ RUN ln -sf /usr/bin/python3.11 /usr/bin/python3 & \
 # python grpc-tools
 RUN pip3 install grpcio==1.58.0 grpcio_tools==1.58.0 protobuf==${PROTOBUF_VER_PY}
 
-ENTRYPOINT ["./scripts/entry"]
-CMD ["ci"]
+WORKDIR /go/src/github.com/longhorn/types
+COPY . .
+
+FROM base AS generate
+RUN ./scripts/generate_grpc
+
+FROM base AS validate
+RUN ./scripts/ci && touch /validate.done
+
+FROM scratch AS generate-artifacts
+COPY --from=generate /go/src/github.com/longhorn/types/pkg/ /pkg/
+COPY --from=generate /go/src/github.com/longhorn/types/generated-py/ /generated-py/
+
+FROM scratch AS ci-artifacts
+COPY --from=validate /validate.done /validate.done
