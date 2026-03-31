@@ -8,13 +8,9 @@ jobs:
   build:
     name: build
     runs-on: ubuntu-latest
-    container:
-      image: rancher/dapper:v0.6.0
     steps:
-    # Git is not in Dapper container image. Add it manually for dirty check.
-    - name: Add Git
-      run: apk add -U git
     - name: Checkout code
       uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
-    - name: Run dapper ci
-      run: dapper ci
+
+    - name: Run ci
+      run: make ci
