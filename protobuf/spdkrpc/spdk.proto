@@ -7,6 +7,7 @@ option go_package = "github.com/longhorn/types/pkg/generated/spdkrpc";
 import "google/protobuf/empty.proto";
 import "imrpc/common.proto";
 import "spdkrpc/ec.proto";
+import "spdkrpc/shard.proto";
 
 service SPDKService {
     rpc ReplicaCreate(ReplicaCreateRequest) returns (Replica);
@@ -44,6 +45,13 @@ service SPDKService {
     rpc ReplicaSnapshotCloneSrcStart(ReplicaSnapshotCloneSrcStartRequest) returns (google.protobuf.Empty){};
     rpc ReplicaSnapshotCloneSrcStatusCheck(ReplicaSnapshotCloneSrcStatusCheckRequest) returns (ReplicaSnapshotCloneSrcStatusCheckResponse){};
     rpc ReplicaSnapshotCloneSrcFinish(ReplicaSnapshotCloneSrcFinishRequest) returns (google.protobuf.Empty){};
+
+    rpc ShardCreate(ShardCreateRequest) returns (Shard);
+    rpc ShardDelete(ShardDeleteRequest) returns (google.protobuf.Empty);
+    rpc ShardGet(ShardGetRequest) returns (Shard);
+    rpc ShardList(google.protobuf.Empty) returns (ShardListResponse);
+    rpc ShardExpand(ShardExpandRequest) returns (google.protobuf.Empty);
+    rpc ShardWatch(google.protobuf.Empty) returns (stream google.protobuf.Empty) {};
 
     rpc EngineCreate(EngineCreateRequest) returns (Engine);
     rpc EngineDelete(EngineDeleteRequest) returns (google.protobuf.Empty);

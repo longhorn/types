@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package spdkrpc;
+
+option go_package = "github.com/longhorn/types/pkg/generated/spdkrpc";
+
+import "spdkrpc/ec.proto";
+
+// Shard represents one base-device slot in an EC volume.
+// It is the EC analogue of Replica: instead of holding a full copy of the
+// volume, each Shard holds one data or parity chunk of the EC array.
+message Shard {
+    // name is "<volume>-<slot>". It shares the instance-manager InstanceList
+    // namespace with ShardGroup.name, so the manager must keep volume names
+    // from colliding across these two forms.
+    string      name        = 1;
+    string      volume_name = 2;
+    uint32      slot_index  = 3;
+    EcSlotState state       = 4;
+    uint64      size_bytes  = 5;
+    string      lvs_name    = 6;
+    string      lvs_uuid    = 7;
+    string      bdev_name   = 8;
+    string      nvmf_nqn    = 9;
+    string      error_msg   = 10;
+    string      ip          = 11;
+    int32       port        = 12;
+    string      uuid        = 13;
+}
+
+// ShardCreateRequest provisions a new shard lvol on the target disk.
+// The role is not specified by the caller; the ShardGroup process assigns
+// roles based on slot index when it creates the EC bdev (the EC bdev lives
+// in the ShardGroup process, not the engine).
+// node_id is intentionally omitted - the SPDK server has no self-identity
+// field and the caller already knows which node it is scheduling on.
+message ShardCreateRequest {
+    string volume_name = 1;
+    uint32 slot_index  = 2;
+    uint64 size_bytes  = 3;
+    string lvs_name    = 4;
+    string lvs_uuid    = 5;
+    int32  port_count  = 6;
+}
+
+// cleanup_required is the close-vs-delete distinction (mirrors ReplicaDelete).
+//   false (detach): unexpose NVMe-oF + release port. The shard lvol is
+//                   preserved on disk so the shard can be re-attached.
+//   true  (delete): full destruction including the lvol.
+message ShardDeleteRequest {
+    string name             = 1;
+    bool   cleanup_required = 2;
+}
+
+message ShardGetRequest {
+    string name = 1;
+}
+
+message ShardListResponse {
+    map<string, Shard> shards = 1;
+}
+
+message ShardExpandRequest {
+    string name = 1;
+    uint64 size = 2;   // new total size in bytes to expand the shard to
+}
