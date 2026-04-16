@@ -230,6 +230,11 @@ class SPDKServiceStub(object):
                 request_serializer=spdkrpc_dot_spdk__pb2.EngineDeleteTargetRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
+        self.EngineSetTargetListenerANAState = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineSetTargetListenerANAState',
+                request_serializer=spdkrpc_dot_spdk__pb2.EngineSetTargetListenerANAStateRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
         self.EngineSnapshotCreate = channel.unary_unary(
                 '/spdkrpc.SPDKService/EngineSnapshotCreate',
                 request_serializer=spdkrpc_dot_spdk__pb2.SnapshotRequest.SerializeToString,
@@ -738,6 +743,12 @@ class SPDKServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def EngineDeleteTarget(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EngineSetTargetListenerANAState(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -1261,6 +1272,11 @@ def add_SPDKServiceServicer_to_server(servicer, server):
             'EngineDeleteTarget': grpc.unary_unary_rpc_method_handler(
                     servicer.EngineDeleteTarget,
                     request_deserializer=spdkrpc_dot_spdk__pb2.EngineDeleteTargetRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'EngineSetTargetListenerANAState': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineSetTargetListenerANAState,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.EngineSetTargetListenerANAStateRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'EngineSnapshotCreate': grpc.unary_unary_rpc_method_handler(
@@ -2250,6 +2266,23 @@ class SPDKService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineDeleteTarget',
             spdkrpc_dot_spdk__pb2.EngineDeleteTargetRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineSetTargetListenerANAState(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineSetTargetListenerANAState',
+            spdkrpc_dot_spdk__pb2.EngineSetTargetListenerANAStateRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

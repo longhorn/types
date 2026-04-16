@@ -52,6 +52,7 @@ service SPDKService {
     rpc EngineExpand(EngineExpandRequest) returns (google.protobuf.Empty);
     rpc EngineExpandPrecheck(EngineExpandPrecheckRequest) returns (EngineExpandPrecheckResponse);
     rpc EngineDeleteTarget(EngineDeleteTargetRequest) returns (google.protobuf.Empty);
+    rpc EngineSetTargetListenerANAState(EngineSetTargetListenerANAStateRequest) returns (google.protobuf.Empty);
     rpc EngineSnapshotCreate(SnapshotRequest) returns (SnapshotResponse);
     rpc EngineSnapshotDelete(SnapshotRequest) returns (google.protobuf.Empty);
     rpc EngineSnapshotRevert(SnapshotRequest) returns (google.protobuf.Empty);
@@ -434,6 +435,20 @@ message EngineReplicaRebuildStatusResponse {
     string src_replica_address = 7;
 }
 
+message EngineSetTargetListenerANAStateRequest {
+    string name = 1;
+    string ana_state = 2;
+}
+
+message EngineFrontendNvmeTcpPath {
+    string engine_name = 1;
+    string target_ip = 2;
+    int32 target_port = 3;
+    string nqn = 4;
+    string nguid = 5;
+    string ana_state = 6;
+}
+
 message EngineFrontend {
     string name = 1;
     string volume_name = 2;
@@ -448,10 +463,12 @@ message EngineFrontend {
     int32 ublk_id = 11;
     string uuid = 12;
     string engine_name = 13;
-    string engine_ip   = 14;
-    bool is_expanding = 15;
-    string last_expansion_error = 16;
-    string last_expansion_failed_at = 17;
+    bool is_expanding = 14;
+    string last_expansion_error = 15;
+    string last_expansion_failed_at = 16;
+    string active_path = 17;
+    string preferred_path = 18;
+    repeated EngineFrontendNvmeTcpPath paths = 19;
 }
 
 message EngineFrontendCreateRequest {
@@ -501,6 +518,13 @@ message EngineFrontendSwitchOverRequest {
     string name = 1;
     string engine_name = 2;
     string target_address = 3;
+    // switchover_phase controls which phase of the three-phase ANA transition
+    // to execute. Valid values:
+    //   "preparing"  — connect new multipath path, set new target ANA to non-optimized
+    //   "switching"  — set old target ANA to inaccessible
+    //   "promoting"  — set new target ANA to optimized, reload initiator state
+    //   ""           — (legacy) execute all phases atomically
+    string switchover_phase = 4;
 }
 
 message SnapshotRequest {

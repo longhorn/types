@@ -67,6 +67,15 @@ message InstanceSpec {
 	string engine_name = 13;
 }
 
+message EngineFrontendNvmeTcpPath {
+	string engine_name = 1;
+	string target_ip = 2;
+	int32 target_port = 3;
+	string nqn = 4;
+	string nguid = 5;
+	string ana_state = 6;
+}
+
 message InstanceStatus {
 	string state = 1;
 	string error_msg = 2;
@@ -80,9 +89,11 @@ message InstanceStatus {
 	int32 ublk_id = 10;
 	string uuid = 11;
 	string engine_name = 12;
-	string engine_ip = 13;
-	string endpoint = 14;
-	string frontend = 15;
+	string endpoint = 13;
+	string frontend = 14;
+	string active_path = 15;
+	string preferred_path = 16;
+	repeated EngineFrontendNvmeTcpPath paths = 17;
 }
 
 message InstanceCreateRequest {
@@ -150,6 +161,9 @@ message InstanceSwitchOverTargetRequest {
 	string type = 3;
 	string target_address = 4;
 	string engine_name = 5;
+	// switchover_phase controls which phase of the three-phase ANA transition
+	// to execute. See spdkrpc.EngineFrontendSwitchOverRequest for details.
+	string switchover_phase = 6;
 }
 
 message InstanceDeleteTargetRequest {
