@@ -83,6 +83,8 @@ message VolumeSnapshotRequest {
     // Freeze the filesystem on the root partition. May be implemented with fsfreeze -f,
     // dmsetup suspend without --nolockfs, or similar.
     bool freezeFilesystem = 3;
+    // When unset, downstream services should preserve the legacy default behavior.
+    optional bool user_created = 4;
 }
 
 message VolumeSnapshotReply {
