@@ -10,7 +10,7 @@ service ReplicaService {
   rpc ReplicaCreate(ReplicaCreateRequest) returns (ReplicaCreateResponse) {}
   rpc ReplicaDelete(google.protobuf.Empty) returns (google.protobuf.Empty) {}
   rpc ReplicaGet(google.protobuf.Empty) returns (ReplicaGetResponse) {}
-  rpc ReplicaOpen(google.protobuf.Empty) returns (ReplicaOpenResponse) {}
+  rpc ReplicaOpen(ReplicaOpenRequest) returns (ReplicaOpenResponse) {}
   rpc ReplicaClose(google.protobuf.Empty) returns (ReplicaCloseResponse) {}
   rpc ReplicaReload(google.protobuf.Empty) returns (ReplicaReloadResponse) {}
   rpc ReplicaRevert(ReplicaRevertRequest) returns (ReplicaRevertResponse) {}
@@ -44,6 +44,11 @@ message ReplicaCreateResponse {
 
 message ReplicaGetResponse {
   Replica replica = 1;
+}
+
+message ReplicaOpenRequest {
+  bool is_upgrade = 1;
+  int64 expected_backend_size = 2;
 }
 
 message ReplicaOpenResponse {
