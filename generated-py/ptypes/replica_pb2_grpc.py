@@ -32,7 +32,7 @@ class ReplicaServiceStub(object):
                 )
         self.ReplicaOpen = channel.unary_unary(
                 '/ptypes.ReplicaService/ReplicaOpen',
-                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                request_serializer=ptypes_dot_replica__pb2.ReplicaOpenRequest.SerializeToString,
                 response_deserializer=ptypes_dot_replica__pb2.ReplicaOpenResponse.FromString,
                 )
         self.ReplicaClose = channel.unary_unary(
@@ -238,7 +238,7 @@ def add_ReplicaServiceServicer_to_server(servicer, server):
             ),
             'ReplicaOpen': grpc.unary_unary_rpc_method_handler(
                     servicer.ReplicaOpen,
-                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    request_deserializer=ptypes_dot_replica__pb2.ReplicaOpenRequest.FromString,
                     response_serializer=ptypes_dot_replica__pb2.ReplicaOpenResponse.SerializeToString,
             ),
             'ReplicaClose': grpc.unary_unary_rpc_method_handler(
@@ -384,7 +384,7 @@ class ReplicaService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/ptypes.ReplicaService/ReplicaOpen',
-            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ptypes_dot_replica__pb2.ReplicaOpenRequest.SerializeToString,
             ptypes_dot_replica__pb2.ReplicaOpenResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
