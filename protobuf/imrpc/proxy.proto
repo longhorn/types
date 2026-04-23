@@ -220,6 +220,7 @@ message EngineBackupRestoreRequest {
     string target = 4;
     string volume_name = 5;
     int32 concurrent_limit = 6;
+    bool need_correct_encrypted_volume_size = 7;
 }
 
 message EngineBackupRestoreProxyResponse {
