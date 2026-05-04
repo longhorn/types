@@ -9,6 +9,7 @@ import "imrpc/common.proto";
 import "spdkrpc/ec.proto";
 import "spdkrpc/lvol.proto";
 import "spdkrpc/shard.proto";
+import "spdkrpc/shardgroup.proto";
 
 service SPDKService {
     rpc ReplicaCreate(ReplicaCreateRequest) returns (Replica);
@@ -53,6 +54,18 @@ service SPDKService {
     rpc ShardList(google.protobuf.Empty) returns (ShardListResponse);
     rpc ShardExpand(ShardExpandRequest) returns (google.protobuf.Empty);
     rpc ShardWatch(google.protobuf.Empty) returns (stream google.protobuf.Empty) {};
+
+    rpc ShardGroupCreate(ShardGroupCreateRequest) returns (ShardGroup);
+    rpc ShardGroupDelete(ShardGroupDeleteRequest) returns (google.protobuf.Empty);
+    rpc ShardGroupGet(ShardGroupGetRequest) returns (ShardGroup);
+    rpc ShardGroupList(google.protobuf.Empty) returns (ShardGroupListResponse);
+    rpc ShardGroupWatch(google.protobuf.Empty) returns (stream google.protobuf.Empty) {};
+    rpc ShardGroupExpand(ShardGroupExpandRequest) returns (google.protobuf.Empty);
+    rpc ShardGroupExpandPrecheck(ShardGroupExpandPrecheckRequest) returns (ShardGroupExpandPrecheckResponse);
+    rpc ShardGroupSnapshotCreate(ShardGroupSnapshotCreateRequest) returns (ShardGroupSnapshotCreateResponse) {};
+    rpc ShardGroupSnapshotDelete(ShardGroupSnapshotDeleteRequest) returns (google.protobuf.Empty) {};
+    rpc ShardGroupSnapshotRevert(ShardGroupSnapshotRevertRequest) returns (google.protobuf.Empty) {};
+    rpc ShardGroupSnapshotPurge(ShardGroupSnapshotPurgeRequest) returns (google.protobuf.Empty) {};
 
     rpc EngineCreate(EngineCreateRequest) returns (Engine);
     rpc EngineDelete(EngineDeleteRequest) returns (google.protobuf.Empty);
