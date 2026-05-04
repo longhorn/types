@@ -127,6 +127,102 @@ message ShardGroupExpandPrecheckResponse {
     bool expansion_required = 1;
 }
 
+// Hot-swap the backing bdev of a FAILED slot. The slot moves FAILED -> REPLACING
+// and the new bdev starts taking foreground writes immediately. This is the
+// first of two steps; ShardGroupShardRebuildStart is the second.
+//
+// shard_name is the shard-map key (`<volumeName>-<slotIndex>`) used to find the
+// target slot, not the NVMe controller name (that is derived internally via
+// GetShardLvolName). shard_address is the shard's "ip:port", not the NVMe NQN.
+message ShardGroupShardReplaceRequest {
+    string shard_group_name = 1;
+    string shard_name       = 2;
+    string shard_address    = 3;
+}
+
+message ShardGroupShardReplaceResponse {
+    EcSlotState slot_state = 1;
+}
+
+// Kicks off the background rebuild poller for all REPLACING slots. Idempotent:
+// calling it when a rebuild is already running returns success; calling it
+// when REPLACING slots exist but no rebuild is active starts the rebuild.
+message ShardGroupShardRebuildStartRequest {
+    string shard_group_name = 1;
+}
+
+message ShardGroupShardRebuildStartResponse {
+    string ec_name     = 1;
+    uint64 num_stripes = 2;
+    uint32 first_slot  = 3;
+}
+
+message ShardGroupShardRebuildProgressRequest {
+    string shard_group_name = 1;
+}
+
+message ShardGroupShardRebuildProgressResponse {
+    uint32 current_slot     = 1;
+    uint64 current_stripe   = 2;
+    uint64 num_stripes      = 3;
+    uint64 stripes_rebuilt  = 4;
+    uint32 slots_to_rebuild = 5;
+    uint32 percent_complete = 6;
+}
+
+// Stop a running rebuild. Returns -ENOENT if no rebuild is in progress.
+// The in-progress rebuild drains its current stripe I/O, then finishes with
+// -ECANCELED via ec_rebuild_finish. REPLACING slots are NOT reverted to
+// FAILED - they remain REPLACING with whatever stripes were rebuilt so far.
+// A subsequent ShardGroupShardRebuildStart resumes from stripe 0 (full re-rebuild).
+message ShardGroupShardRebuildStopRequest {
+    string shard_group_name = 1;
+}
+
+// Set rebuild rate limit in stripes/sec. max_stripes_per_sec = 0 means
+// unlimited. paused = true suspends the rebuild poller without cancelling
+// the rebuild. Applied immediately to any in-progress rebuild.
+//
+// The Longhorn manager's checkAndApplyRebuildQoS converts from the
+// Volume.Spec.ReplicaRebuildingBandwidthLimit (MB/s) to stripes/sec using
+//   stripes_per_sec = mbps * 1024 * 1024 / (strip_size_kb * 1024 * (k + m))
+message ShardGroupShardRebuildQosSetRequest {
+    string shard_group_name    = 1;
+    uint32 max_stripes_per_sec = 2;
+    bool   paused              = 3;
+}
+
+// Force a NORMAL slot to FAILED by detaching the upstream NVMe controller
+// synchronously, bypassing bdev_nvme's ctrlr_loss_timeout_sec wait.
+//
+// Used by the ShardGroup controller's intentional-delete fast path
+// (admin kubectl delete, eviction, drain): triggering BDEV_EVENT_REMOVE
+// directly cuts FAILED-detection latency from ~120s to ~1s and eliminates
+// the connect-refused log flood during the window. Real disk/node failures
+// still flow through the standard BDEV_EVENT_REMOVE path - this RPC is
+// only the trigger; failure accounting (failed_count, dirty regions,
+// degraded-mode gating) is unchanged.
+//
+// Idempotency / safety:
+//   - Slot already FAILED                  -> ok (handles reconcile retries).
+//   - Slot REPLACING                       -> FailedPrecondition
+//                                             (rebuild in flight; do not invalidate).
+//   - Slot NORMAL but shard_name mismatch  -> FailedPrecondition
+//                                             (stale request).
+//
+// shard_name selects the slot via the ShardGroup process's in-memory shard
+// map; the implementation resolves the local NVMe controller via
+// GetShardLvolName(volumeName, slotIndex) and calls bdev_nvme_detach_controller.
+// It does NOT call bdev_ec directly.
+message ShardGroupShardForceFailRequest {
+    string shard_group_name = 1;
+    string shard_name       = 2;
+}
+
+message ShardGroupShardForceFailResponse {
+    EcSlotState slot_state = 1;  // expected EC_SLOT_STATE_FAILED on success
+}
+
 // Snapshot operations on the head lvol. EngineSnapshot* forwards here for
 // EC volumes; the lvstore lives in the ShardGroup process.
 message ShardGroupSnapshotCreateRequest {

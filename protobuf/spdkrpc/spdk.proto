@@ -62,6 +62,12 @@ service SPDKService {
     rpc ShardGroupWatch(google.protobuf.Empty) returns (stream google.protobuf.Empty) {};
     rpc ShardGroupExpand(ShardGroupExpandRequest) returns (google.protobuf.Empty);
     rpc ShardGroupExpandPrecheck(ShardGroupExpandPrecheckRequest) returns (ShardGroupExpandPrecheckResponse);
+    rpc ShardGroupShardReplace(ShardGroupShardReplaceRequest) returns (ShardGroupShardReplaceResponse) {};
+    rpc ShardGroupShardRebuildStart(ShardGroupShardRebuildStartRequest) returns (ShardGroupShardRebuildStartResponse) {};
+    rpc ShardGroupShardRebuildProgress(ShardGroupShardRebuildProgressRequest) returns (ShardGroupShardRebuildProgressResponse) {};
+    rpc ShardGroupShardRebuildStop(ShardGroupShardRebuildStopRequest) returns (google.protobuf.Empty) {};
+    rpc ShardGroupShardRebuildQosSet(ShardGroupShardRebuildQosSetRequest) returns (google.protobuf.Empty) {};
+    rpc ShardGroupShardForceFail(ShardGroupShardForceFailRequest) returns (ShardGroupShardForceFailResponse) {};
     rpc ShardGroupSnapshotCreate(ShardGroupSnapshotCreateRequest) returns (ShardGroupSnapshotCreateResponse) {};
     rpc ShardGroupSnapshotDelete(ShardGroupSnapshotDeleteRequest) returns (google.protobuf.Empty) {};
     rpc ShardGroupSnapshotRevert(ShardGroupSnapshotRevertRequest) returns (google.protobuf.Empty) {};
