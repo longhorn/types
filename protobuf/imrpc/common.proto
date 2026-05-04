@@ -29,3 +29,30 @@ enum DataLayoutType {
     DATA_LAYOUT_TYPE_REPLICATED = 0;
     DATA_LAYOUT_TYPE_SHARDED    = 1;
 }
+
+// ShardEndpoint carries the transport address and pre-resolved slot index for
+// a shard, as passed to the instance manager for ShardGroup process creation.
+// address is "ip:port" - passed to connectNVMfBdev which calls
+// net.SplitHostPort; it is NOT the NVMe NQN string.
+// Mirrors spdkrpc.ShardEndpoint but defined here to keep imrpc and spdkrpc
+// packages decoupled.
+message ShardEndpoint {
+    string address    = 1;
+    uint32 slot_index = 2;
+}
+
+// ShardGroupSpec carries the EC creation parameters for a ShardGroup process
+// instance. Mirrors spdkrpc.ShardGroupSpec but defined here to keep imrpc and
+// spdkrpc decoupled. Set in SpdkInstanceSpec when the instance type is
+// "shardgroup"; nil for engine, replica, shard, and frontend instances.
+//
+// salvage_requested = true selects RecreateEC semantics inside the ShardGroup
+// process (re-discover existing lvstore via bdev_examine instead of creating
+// a fresh one). Used for ShardGroup process restart on engine-node failover.
+message ShardGroupSpec {
+    uint32                      data_chunks       = 1;
+    uint32                      parity_chunks     = 2;
+    uint32                      strip_size_kb     = 3;
+    map<string, ShardEndpoint>  shards            = 4;
+    bool                        salvage_requested = 5;
+}

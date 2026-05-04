@@ -42,11 +42,9 @@ message SpdkInstanceSpec {
 	//   Replica:         disk_name (2) + disk_uuid (3)
 	//   Shard:           slot_index (12) + lvs_name (13) + lvs_uuid (14)
 	//   ShardGroup:      shard_group_spec (15)
-	// EC and RAID1 engines are indistinguishable here - that is the structural
-	// property that prevents the EC detach data-loss bug class (Design 3).
-	// Layout discrimination for engines lives on InstanceCreateRequest
-	// (data_layout_type field), NOT inside this spec - the spec is what the
-	// delete path reads, and keeping it layout-blind preserves the invariant.
+	// Engine layout discriminator lives on InstanceCreateRequest.data_layout_type,
+	// not on this spec. The delete path reads this spec; keeping it layout-blind
+	// means EC and RAID1 detach behave the same.
 
 	// replica_address_map - RAID1 engine: maps replica name to address.
 	// EC engine: single entry, value = ShardGroup endpoint "ip:port".
@@ -61,6 +59,32 @@ message SpdkInstanceSpec {
 	int32 ublk_queue_depth = 9;
 	int32 ublk_number_of_queue = 10;
 	int32 snapshot_max_count = 11;
+
+	// slot_index - Shard instance: the EC array position (0-based) this shard
+	// occupies. Determines the shard's role (DATA or PARITY) inside the
+	// ShardGroup process when constructing the EC bdev.
+	// Zero for engine, replica, shardgroup, and frontend instances.
+	uint32 slot_index = 12;
+
+	// lvs_name - Shard instance: SPDK bdev name of the target lvstore
+	// (e.g. "block-diskn1", from node.Status.DiskStatus[*].DiskName).
+	// The SPDK shard Create() validates lvs_name against the UUID lookup.
+	// Empty for non-shard instances.
+	string lvs_name = 13;
+
+	// lvs_uuid - Shard instance: SPDK lvstore UUID. Distinct from disk_uuid
+	// (the Longhorn-level disk identifier). For V2 volumes the values are
+	// identical in practice, but separate fields avoid an implicit naming
+	// convention that could silently break if a future disk driver decouples
+	// the two identifiers.
+	// Empty for non-shard instances.
+	string lvs_uuid = 14;
+
+	// shard_group_spec - ShardGroup instance: bdev_ec + lvstore + head lvol +
+	// NVMe-oF expose creation parameters. Carries k+m shard endpoints, slot
+	// indices, and a salvage_requested flag for RecreateEC semantics.
+	// Nil for engine, replica, shard, and frontend instances.
+	ShardGroupSpec shard_group_spec = 15;
 }
 
 message InstanceSpec {
