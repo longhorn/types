@@ -1,0 +1,155 @@
+syntax = "proto3";
+
+package spdkrpc;
+
+option go_package = "github.com/longhorn/types/pkg/generated/spdkrpc";
+
+import "spdkrpc/ec.proto";
+import "spdkrpc/lvol.proto";
+
+// ShardEndpoint carries one shard's NVMe-oF transport address and its
+// slot position in the EC array. The ShardGroup process consumes a map of
+// these to assemble the EC backing stack.
+//
+// address is "ip:port" - passed directly to connectNVMfBdev which calls
+// net.SplitHostPort; it is NOT the NVMe NQN string.
+message ShardEndpoint {
+    string address    = 1;
+    uint32 slot_index = 2;
+}
+
+// ShardGroupSpec carries the EC creation parameters for a ShardGroup process.
+// The process owns the bdev_ec + lvstore + head lvol + NVMe-oF stack; the
+// engine just NVMe-connects to the resulting endpoint.
+//
+// shards maps each shard's external name (`<volumeName>-<slotIndex>`, e.g.
+// "vol0-3") to its endpoint and slot_index. That name is the shard-map key,
+// not the NVMe controller name; the controller name is derived internally as
+// GetShardLvolName (`shard-<volumeName>-<slotIndex>`).
+//
+// salvage_requested = true re-discovers an existing EC stack instead of
+// creating a fresh one: it tolerates missing slots and skips lvstore/head-lvol
+// creation, letting SPDK re-examine the encoded blocks. Used when the
+// ShardGroup process restarts after engine-node failover.
+message ShardGroupSpec {
+    uint32                      data_chunks       = 1;
+    uint32                      parity_chunks     = 2;
+    uint32                      strip_size_kb     = 3;
+    map<string, ShardEndpoint>  shards            = 4;
+    bool                        salvage_requested = 5;
+}
+
+// ShardGroup is the SPDK-side representation of a ShardGroup process.
+// It owns the persistent EC stack for one EC volume:
+//   bdev_nvme controllers (k+m) -> bdev_ec -> lvstore -> head lvol -> NVMe-oF
+//
+// name is the instance identity (the engine's shardGroupMap key); volume_name is
+// the namespace for all SPDK resource names (lvstore, bdev_ec, head lvol, NQN,
+// per-shard controllers). The manager sets them equal today, but they are kept
+// separate so identity and resource naming stay decoupled, mirroring Engine.
+//
+// ec_status carries the live EC array health (slot states, WIB, scrub,
+// rebuild) - lives here on the ShardGroup response because the engine
+// no longer owns the EC stack.
+//
+// actual_size, head, and snapshots mirror the same fields on Replica, so
+// callers can read EC and RAID1 the same way without per-snapshot RPCs.
+message ShardGroup {
+    string             name                = 1;
+    string             volume_name         = 2;
+    uint64             spec_size           = 3;
+    uint32             data_chunks         = 4;
+    uint32             parity_chunks       = 5;
+    uint32             strip_size_kb       = 6;
+    string             ec_bdev_name        = 7;
+    string             lvs_name            = 8;
+    string             lvs_uuid            = 9;
+    string             head_lvol_name      = 10;
+    string             head_lvol_uuid      = 11;
+    string             nvmf_nqn            = 12;
+    string             ip                  = 13;  // exposed lvol endpoint IP
+    int32              port                = 14;  // exposed lvol endpoint port
+    string             process_state       = 15;  // running | error | stopped
+    string             error_msg           = 16;
+    EcStatus           ec_status           = 17;
+    uint64             actual_size         = 18;  // sum of head + all snapshot lvols' allocated bytes
+    Lvol               head                = 19;  // current writable head lvol
+    map<string, Lvol>  snapshots           = 20;  // snapshot lineage (matches Replica.snapshots shape)
+}
+
+// name is the instance identity; volume_name is the namespace for SPDK resource
+// names. The manager sets them equal today, kept separate to mirror Engine.
+message ShardGroupCreateRequest {
+    string         name        = 1;
+    string         volume_name = 2;
+    uint64         spec_size   = 3;
+    int32          port_count  = 4;
+    ShardGroupSpec spec        = 5;
+}
+
+// cleanup_required is the close-vs-delete distinction (mirrors ReplicaDelete).
+//   false (detach): unexpose NVMe-oF + bdev_nvme_detach_controller x (k+m).
+//                   Do NOT call bdev_lvol_delete or bdev_lvol_delete_lvstore.
+//                   The lvstore + head lvol are preserved on the encoded blocks.
+//   true  (delete): full destruction including lvol/lvstore deletes.
+message ShardGroupDeleteRequest {
+    string name             = 1;
+    bool   cleanup_required = 2;
+}
+
+message ShardGroupGetRequest {
+    string name = 1;
+}
+
+message ShardGroupListResponse {
+    map<string, ShardGroup> shard_groups = 1;
+}
+
+// ShardGroupExpand grows the EC stack after each shard's lvol has been
+// expanded (via ShardExpand). Internally:
+//   bdev_ec_resize -> bdev_lvol_grow_lvstore -> bdev_lvol_resize (head lvol)
+// The engine subsequently calls EngineExpand to grow its raid1 view.
+message ShardGroupExpandRequest {
+    string name = 1;
+    uint64 size = 2;
+}
+
+message ShardGroupExpandPrecheckRequest {
+    string name = 1;
+    uint64 size = 2;
+}
+
+// expansion_required is true while the precheck observes a smaller current
+// size than the requested size and no rebuild/scrub/in-flight resize blocks
+// the operation. Used by the ShardGroup controller to gate ShardGroupExpand
+// idempotently across reconciles.
+message ShardGroupExpandPrecheckResponse {
+    bool expansion_required = 1;
+}
+
+// Snapshot operations on the head lvol. EngineSnapshot* forwards here for
+// EC volumes; the lvstore lives in the ShardGroup process.
+message ShardGroupSnapshotCreateRequest {
+    string shard_group_name = 1;
+    string snapshot_name    = 2;
+}
+
+message ShardGroupSnapshotCreateResponse {
+    string snapshot_uuid = 1;
+}
+
+message ShardGroupSnapshotDeleteRequest {
+    string shard_group_name = 1;
+    string snapshot_name    = 2;
+}
+
+message ShardGroupSnapshotRevertRequest {
+    string shard_group_name = 1;
+    string snapshot_name    = 2;
+}
+
+// ShardGroupSnapshotPurge deletes all removable snapshots, so it takes no
+// snapshot_name. Use ShardGroupSnapshotDelete to remove a specific one.
+message ShardGroupSnapshotPurgeRequest {
+    string shard_group_name = 1;
+}
