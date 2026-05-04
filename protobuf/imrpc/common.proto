@@ -21,3 +21,11 @@ enum CloneMode {
     // Snapshot-based; fast and space-efficient but depends on the source.
     CLONE_MODE_LINKED_CLONE = 1; // aka "linked-clone"
 }
+
+// DataLayoutType is the top-level storage topology selector forwarded from
+// InstanceCreateRequest to spdkrpc.EngineCreateRequest. Mirrors
+// spdkrpc.DataLayoutType but defined here to keep imrpc and spdkrpc decoupled.
+enum DataLayoutType {
+    DATA_LAYOUT_TYPE_REPLICATED = 0;
+    DATA_LAYOUT_TYPE_SHARDED    = 1;
+}

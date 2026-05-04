@@ -35,6 +35,21 @@ message ProcessInstanceSpec {
 }
 
 message SpdkInstanceSpec {
+	// Mode-discriminant field groups in SpdkInstanceSpec:
+	//   RAID1 engine:    replica_address_map (field 1) - N entries
+	//   EC engine:       replica_address_map (field 1) - single entry pointing
+	//                                                    at the ShardGroup endpoint
+	//   Replica:         disk_name (2) + disk_uuid (3)
+	//   Shard:           slot_index (12) + lvs_name (13) + lvs_uuid (14)
+	//   ShardGroup:      shard_group_spec (15)
+	// EC and RAID1 engines are indistinguishable here - that is the structural
+	// property that prevents the EC detach data-loss bug class (Design 3).
+	// Layout discrimination for engines lives on InstanceCreateRequest
+	// (data_layout_type field), NOT inside this spec - the spec is what the
+	// delete path reads, and keeping it layout-blind preserves the invariant.
+
+	// replica_address_map - RAID1 engine: maps replica name to address.
+	// EC engine: single entry, value = ShardGroup endpoint "ip:port".
 	map<string, string> replica_address_map = 1;
 	string disk_name = 2;
 	string disk_uuid = 3;
@@ -99,6 +114,13 @@ message InstanceStatus {
 
 message InstanceCreateRequest {
 	InstanceSpec spec = 1;
+
+	// data_layout_type - set when InstanceSpec.type == "engine". Forwarded
+	// to spdkrpc.EngineCreateRequest.data_layout_type so the engine selects
+	// Replica vs. ShardGroup dispatch. Kept on the request rather than
+	// SpdkInstanceSpec so the InstanceDelete path (which reads the spec)
+	// behaves the same for EC and RAID1.
+	DataLayoutType data_layout_type = 2;
 }
 
 message InstanceDeleteRequest {

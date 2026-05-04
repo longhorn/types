@@ -5,8 +5,6 @@ package spdkrpc;
 option go_package = "github.com/longhorn/types/pkg/generated/spdkrpc";
 
 import "google/protobuf/empty.proto";
-import "imrpc/common.proto";
-import "spdkrpc/ec.proto";
 import "spdkrpc/lvol.proto";
 import "spdkrpc/shard.proto";
 import "spdkrpc/shardgroup.proto";
@@ -376,6 +374,14 @@ message EngineCreateRequest {
     int32 ublk_queue_depth = 11;
     int32 ublk_number_of_queue = 12;
     int32 snapshot_max_count = 13;
+
+    // data_layout_type selects the engine's upstream-RPC dispatch:
+    //   REPLICATED -> ReplicaGet/ReplicaExpand/ReplicaSnapshot* per upstream
+    //   SHARDED    -> ShardGroupGet on the single upstream endpoint
+    // Engine create itself remains layout-blind - both topologies build raid1
+    // over replica_address_map (N entries for RAID1, 1 entry for EC pointing
+    // at the ShardGroup endpoint).
+    DataLayoutType data_layout_type = 14;
 }
 
 message EngineDeleteRequest {
@@ -720,6 +726,16 @@ message ReplicaRestoreStatusResponse {
 
 message RestoreStatusResponse {
     map<string, ReplicaRestoreStatusResponse> status = 1;
+}
+
+// DataLayoutType is the top-level storage topology of an engine.
+// Consumed by the engine on EngineCreateRequest to dispatch between
+// the replicaUpstream (RAID1) and shardGroupUpstream (EC) upstream-RPC
+// implementations. Not surfaced on EngineGet responses - the engine's
+// running layout is derived from the upstream connections it holds.
+enum DataLayoutType {
+    DATA_LAYOUT_TYPE_REPLICATED = 0; // RAID1: one full copy per replica
+    DATA_LAYOUT_TYPE_SHARDED    = 1; // EC: k data + m parity shards
 }
 
 message BackingImage {
