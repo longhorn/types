@@ -6,6 +6,7 @@ option go_package = "github.com/longhorn/types/pkg/generated/spdkrpc";
 
 import "google/protobuf/empty.proto";
 import "imrpc/common.proto";
+import "spdkrpc/ec.proto";
 
 service SPDKService {
     rpc ReplicaCreate(ReplicaCreateRequest) returns (Replica);

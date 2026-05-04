@@ -1,0 +1,181 @@
+syntax = "proto3";
+
+package spdkrpc;
+
+option go_package = "github.com/longhorn/types/pkg/generated/spdkrpc";
+
+// EcState is the overall health of an EC bdev.
+enum EcState {
+    EC_STATE_ONLINE   = 0;
+    EC_STATE_DEGRADED = 1;
+    EC_STATE_OFFLINE  = 2;
+}
+
+// EcSlotRole is the role of a base-device slot within an EC array.
+enum EcSlotRole {
+    EC_SLOT_ROLE_DATA   = 0;
+    EC_SLOT_ROLE_PARITY = 1;
+}
+
+// EcSlotState is the per-slot health within an EC array.
+enum EcSlotState {
+    EC_SLOT_STATE_NORMAL    = 0;
+    EC_SLOT_STATE_FAILED    = 1;
+    EC_SLOT_STATE_REPLACING = 2;
+}
+
+// EcSlot describes one base-device slot in an EC array.
+message EcSlot {
+    uint32      slot_index = 1;
+    EcSlotRole  role       = 2;
+    EcSlotState state      = 3;
+    string      bdev_name  = 4;
+}
+
+// EcWibStatus reports the state of the persistent Write-Intent Bitmap.
+message EcWibStatus {
+    uint32 num_regions     = 1;
+    uint32 dirty_regions   = 2;
+    uint64 generation      = 3;
+    bool   persist_pending = 4;
+}
+
+// EcUnmapBitmapStatus mirrors the bdev_ec_get_unmap_status JSON-RPC.
+//
+// Distinct from EcWibStatus: WIB tracks parity-dirty regions for
+// crash-scrub (m-tolerant, parity-disk tail); the unmap bitmap tracks
+// per-stripe allocation state for read-as-zero (n-1-tolerant, front of
+// every disk).
+message EcUnmapBitmapStatus {
+    uint64 generation      = 1;
+    uint64 blob_bytes      = 2;
+    uint64 num_stripes     = 3;
+    uint32 active_copy     = 4;
+    bool   persist_pending = 5;
+}
+
+// EcScrubProgress reports startup parity-scrub progress.
+message EcScrubProgress {
+    uint32 current_region      = 1;
+    uint32 num_regions         = 2;
+    uint32 total_dirty_regions = 3;
+    uint64 current_stripe      = 4;
+    uint64 stripes_scrubbed    = 5;
+    uint64 regions_scrubbed    = 6;
+    uint32 percent_complete    = 7;
+}
+
+// EcStatus reports the live state of an EC array (returned via ShardGroupGet,
+// not EngineGet - the engine is topology-agnostic and does not own EC state).
+message EcStatus {
+    EcState           state               = 1;
+    repeated EcSlot   slots               = 2;
+    EcWibStatus       wib_status          = 3;
+    EcScrubProgress   scrub_progress      = 4;
+    bool              rebuild_in_progress = 5;
+    EcRebuildProgress rebuild_progress    = 6;
+
+    // UNMAP counters mirror bdev_ec_get_bdevs output. Use them to watch
+    // UNMAP throughput, how often UNMAPs are retried, and how often per-disk
+    // dispatches fail.
+    //   unmaps_submitted       - UNMAP requests received by ec_submit_unmap.
+    //   unmaps_completed       - stripe-aligned UNMAPs that persisted the
+    //                            bitmap and finished dispatching to every
+    //                            base disk.
+    //   unmaps_deferred_busy   - UNMAPs that asked the caller to retry,
+    //                            either because the stripe was busy or
+    //                            because a bitmap persist was already in
+    //                            flight.
+    //   unmaps_via_write_zeros - sub-stripe UNMAPs routed through the
+    //                            WRITE_ZEROES path. This is alignment
+    //                            routing, not a capability fallback - the
+    //                            EC layer always supports UNMAP.
+    //   unmap_fanout_misses    - per-disk spdk_bdev_unmap_blocks failures.
+    //                            One UNMAP missing on 2 of 6 disks counts
+    //                            as 2 misses, not 1. Does not affect data
+    //                            correctness: the bitmap already records
+    //                            the stripe as unmapped, so reads return
+    //                            zeros without touching base disks. A
+    //                            non-zero count means physical space was
+    //                            not reclaimed on those disks - look at the
+    //                            base bdev I/O logs to find the cause.
+    //   unmapped_stripes       - count of stripes currently marked unmapped
+    //                            in the bitmap.
+    uint64 unmaps_submitted       = 7;
+    uint64 unmaps_completed       = 8;
+    uint64 unmaps_deferred_busy   = 9;
+    uint64 unmaps_via_write_zeros = 10;
+    uint64 unmap_fanout_misses    = 11;
+    uint64 unmapped_stripes       = 12;
+
+    // Live state of the in-band unmap bitmap. Populated from
+    // bdev_ec_get_unmap_status; see EcUnmapBitmapStatus.
+    EcUnmapBitmapStatus unmap_bitmap_status = 13;
+
+    // Degraded-read counters. Populated when reads hit slots in FAILED or
+    // REPLACING state and parity reconstruction runs.
+    //   degraded_read_eio_dirty       - ALERT-GRADE: read returned EIO during
+    //                                   scrub because the affected stripe was
+    //                                   still WIB-dirty (parity not yet
+    //                                   rebuilt). Non-zero indicates a
+    //                                   user-visible data loss risk window -
+    //                                   wire as Kubernetes Warning + Condition
+    //                                   in longhorn-manager.
+    //   degraded_reads_reconstructed  - reads served via parity reconstruction.
+    uint64 degraded_read_eio_dirty      = 14;
+    uint64 degraded_reads_reconstructed = 15;
+
+    // RMW (Read-Modify-Write) counters. Sub-stripe writes that read the
+    // existing stripe before writing back parity.
+    //   rmw_total             - RMW requests submitted.
+    //   rmw_deferred_scrub    - RMW deferred because the stripe is being
+    //                           scrubbed.
+    //   rmw_deferred_dirty    - RMW deferred because the array is degraded
+    //                           (failed_count > 0) and the region is dirty
+    //                           while no scrub is running. A degraded RMW
+    //                           would reconstruct from stale parity, so it
+    //                           waits.
+    //   rmw_deferred_inflight - RMW deferred behind another in-flight RMW on
+    //                           the same stripe.
+    uint64 rmw_total             = 16;
+    uint64 rmw_deferred_scrub    = 17;
+    uint64 rmw_deferred_dirty    = 18;
+    uint64 rmw_deferred_inflight = 19;
+
+    // Full-stripe write counters. Writes covering an entire stripe - bypass
+    // the RMW path entirely.
+    //   full_stripe_writes          - full-stripe writes submitted.
+    //   full_stripe_writes_deferred - full-stripe writes deferred on scrub.
+    uint64 full_stripe_writes          = 20;
+    uint64 full_stripe_writes_deferred = 21;
+
+    // UNMAP and write-into-unmapped counters (also from bdev_ec_get_bdevs).
+    //   unmaps_failed               - UNMAPs that failed. Not data loss: the
+    //                                 stripe stays marked unmapped, so reads
+    //                                 still return zeros. It only means physical
+    //                                 space was not reclaimed.
+    //   unmapped_reads_synthesized  - reads served as zeros because the stripe
+    //                                 was unmapped.
+    //   writes_into_unmapped        - writes into a previously unmapped stripe.
+    //   writes_into_unmapped_failed - ALERT-GRADE: a write reached disk but its
+    //                                 unmapped bit could not be cleared, so reads
+    //                                 return zeros over real data. Surface as a
+    //                                 warning. Some increments are harmless (the
+    //                                 write failed before any data landed), so
+    //                                 check the SPDK logs before alerting.
+    uint64 unmaps_failed               = 22;
+    uint64 unmapped_reads_synthesized  = 23;
+    uint64 writes_into_unmapped        = 24;
+    uint64 writes_into_unmapped_failed = 25;
+}
+
+// EcRebuildProgress reports background rebuild progress for REPLACING slots.
+// Mirrors the bdev_ec_get_rebuild_progress SPDK JSON-RPC response.
+message EcRebuildProgress {
+    uint32 current_slot     = 1;
+    uint64 current_stripe   = 2;
+    uint64 num_stripes      = 3;
+    uint64 stripes_rebuilt  = 4;
+    uint32 slots_to_rebuild = 5;
+    uint32 percent_complete = 6;
+}
