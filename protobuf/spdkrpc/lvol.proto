@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package spdkrpc;
+
+option go_package = "github.com/longhorn/types/pkg/generated/spdkrpc";
+
+// Lvol describes one SPDK lvol (head, snapshot, or clone). Used by Replica,
+// Engine, and ShardGroup responses to surface the upstream's lvstore-side
+// view (current head + snapshot lineage) to the engine and the manager.
+//
+// Defined in its own file so both spdk.proto (Replica/Engine consumers) and
+// shardgroup.proto (ShardGroup consumer) can import it without creating a
+// circular dependency between spdk.proto and shardgroup.proto.
+message Lvol {
+    string name = 1;
+    string uuid = 2;
+    uint64 spec_size = 3;
+    uint64 actual_size = 4;
+    string parent = 5;
+    map<string, bool> children = 6;
+    string creation_time = 7;
+    bool user_created = 8;
+    string snapshot_timestamp = 9;
+    string snapshot_checksum = 10;
+}
