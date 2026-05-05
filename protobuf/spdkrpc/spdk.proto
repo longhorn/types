@@ -7,6 +7,7 @@ option go_package = "github.com/longhorn/types/pkg/generated/spdkrpc";
 import "google/protobuf/empty.proto";
 import "imrpc/common.proto";
 import "spdkrpc/ec.proto";
+import "spdkrpc/lvol.proto";
 import "spdkrpc/shard.proto";
 
 service SPDKService {
@@ -120,19 +121,6 @@ service SPDKService {
 
     rpc VersionDetailGet(google.protobuf.Empty) returns(VersionDetailGetReply);
     rpc MetricsGet (MetricsRequest) returns (Metrics);
-}
-
-message Lvol {
-    string name = 1;
-    string uuid = 2;
-    uint64 spec_size = 3;
-    uint64 actual_size = 4;
-    string parent = 5;
-    map<string, bool> children = 6;
-    string creation_time = 7;
-    bool user_created = 8;
-    string snapshot_timestamp = 9;
-    string snapshot_checksum = 10;
 }
 
 message Replica {
