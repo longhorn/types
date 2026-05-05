@@ -2,7 +2,7 @@ module github.com/longhorn/types
 
 go 1.24.0
 
-toolchain go1.26.1
+toolchain go1.26.2
 
 require (
 	google.golang.org/grpc v1.80.0
