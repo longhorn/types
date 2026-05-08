@@ -3,6 +3,8 @@
 import grpc
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
+from spdkrpc import shard_pb2 as spdkrpc_dot_shard__pb2
+from spdkrpc import shardgroup_pb2 as spdkrpc_dot_shardgroup__pb2
 from spdkrpc import spdk_pb2 as spdkrpc_dot_spdk__pb2
 
 
@@ -188,6 +190,121 @@ class SPDKServiceStub(object):
         self.ReplicaSnapshotCloneSrcFinish = channel.unary_unary(
                 '/spdkrpc.SPDKService/ReplicaSnapshotCloneSrcFinish',
                 request_serializer=spdkrpc_dot_spdk__pb2.ReplicaSnapshotCloneSrcFinishRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.ShardCreate = channel.unary_unary(
+                '/spdkrpc.SPDKService/ShardCreate',
+                request_serializer=spdkrpc_dot_shard__pb2.ShardCreateRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_shard__pb2.Shard.FromString,
+                )
+        self.ShardDelete = channel.unary_unary(
+                '/spdkrpc.SPDKService/ShardDelete',
+                request_serializer=spdkrpc_dot_shard__pb2.ShardDeleteRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.ShardGet = channel.unary_unary(
+                '/spdkrpc.SPDKService/ShardGet',
+                request_serializer=spdkrpc_dot_shard__pb2.ShardGetRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_shard__pb2.Shard.FromString,
+                )
+        self.ShardList = channel.unary_unary(
+                '/spdkrpc.SPDKService/ShardList',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=spdkrpc_dot_shard__pb2.ShardListResponse.FromString,
+                )
+        self.ShardExpand = channel.unary_unary(
+                '/spdkrpc.SPDKService/ShardExpand',
+                request_serializer=spdkrpc_dot_shard__pb2.ShardExpandRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.ShardWatch = channel.unary_stream(
+                '/spdkrpc.SPDKService/ShardWatch',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.ShardGroupCreate = channel.unary_unary(
+                '/spdkrpc.SPDKService/ShardGroupCreate',
+                request_serializer=spdkrpc_dot_shardgroup__pb2.ShardGroupCreateRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_shardgroup__pb2.ShardGroup.FromString,
+                )
+        self.ShardGroupDelete = channel.unary_unary(
+                '/spdkrpc.SPDKService/ShardGroupDelete',
+                request_serializer=spdkrpc_dot_shardgroup__pb2.ShardGroupDeleteRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.ShardGroupGet = channel.unary_unary(
+                '/spdkrpc.SPDKService/ShardGroupGet',
+                request_serializer=spdkrpc_dot_shardgroup__pb2.ShardGroupGetRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_shardgroup__pb2.ShardGroup.FromString,
+                )
+        self.ShardGroupList = channel.unary_unary(
+                '/spdkrpc.SPDKService/ShardGroupList',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=spdkrpc_dot_shardgroup__pb2.ShardGroupListResponse.FromString,
+                )
+        self.ShardGroupWatch = channel.unary_stream(
+                '/spdkrpc.SPDKService/ShardGroupWatch',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.ShardGroupExpand = channel.unary_unary(
+                '/spdkrpc.SPDKService/ShardGroupExpand',
+                request_serializer=spdkrpc_dot_shardgroup__pb2.ShardGroupExpandRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.ShardGroupExpandPrecheck = channel.unary_unary(
+                '/spdkrpc.SPDKService/ShardGroupExpandPrecheck',
+                request_serializer=spdkrpc_dot_shardgroup__pb2.ShardGroupExpandPrecheckRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_shardgroup__pb2.ShardGroupExpandPrecheckResponse.FromString,
+                )
+        self.ShardGroupShardReplace = channel.unary_unary(
+                '/spdkrpc.SPDKService/ShardGroupShardReplace',
+                request_serializer=spdkrpc_dot_shardgroup__pb2.ShardGroupShardReplaceRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_shardgroup__pb2.ShardGroupShardReplaceResponse.FromString,
+                )
+        self.ShardGroupShardRebuildStart = channel.unary_unary(
+                '/spdkrpc.SPDKService/ShardGroupShardRebuildStart',
+                request_serializer=spdkrpc_dot_shardgroup__pb2.ShardGroupShardRebuildStartRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_shardgroup__pb2.ShardGroupShardRebuildStartResponse.FromString,
+                )
+        self.ShardGroupShardRebuildProgress = channel.unary_unary(
+                '/spdkrpc.SPDKService/ShardGroupShardRebuildProgress',
+                request_serializer=spdkrpc_dot_shardgroup__pb2.ShardGroupShardRebuildProgressRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_shardgroup__pb2.ShardGroupShardRebuildProgressResponse.FromString,
+                )
+        self.ShardGroupShardRebuildStop = channel.unary_unary(
+                '/spdkrpc.SPDKService/ShardGroupShardRebuildStop',
+                request_serializer=spdkrpc_dot_shardgroup__pb2.ShardGroupShardRebuildStopRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.ShardGroupShardRebuildQosSet = channel.unary_unary(
+                '/spdkrpc.SPDKService/ShardGroupShardRebuildQosSet',
+                request_serializer=spdkrpc_dot_shardgroup__pb2.ShardGroupShardRebuildQosSetRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.ShardGroupShardForceFail = channel.unary_unary(
+                '/spdkrpc.SPDKService/ShardGroupShardForceFail',
+                request_serializer=spdkrpc_dot_shardgroup__pb2.ShardGroupShardForceFailRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_shardgroup__pb2.ShardGroupShardForceFailResponse.FromString,
+                )
+        self.ShardGroupSnapshotCreate = channel.unary_unary(
+                '/spdkrpc.SPDKService/ShardGroupSnapshotCreate',
+                request_serializer=spdkrpc_dot_shardgroup__pb2.ShardGroupSnapshotCreateRequest.SerializeToString,
+                response_deserializer=spdkrpc_dot_shardgroup__pb2.ShardGroupSnapshotCreateResponse.FromString,
+                )
+        self.ShardGroupSnapshotDelete = channel.unary_unary(
+                '/spdkrpc.SPDKService/ShardGroupSnapshotDelete',
+                request_serializer=spdkrpc_dot_shardgroup__pb2.ShardGroupSnapshotDeleteRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.ShardGroupSnapshotRevert = channel.unary_unary(
+                '/spdkrpc.SPDKService/ShardGroupSnapshotRevert',
+                request_serializer=spdkrpc_dot_shardgroup__pb2.ShardGroupSnapshotRevertRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.ShardGroupSnapshotPurge = channel.unary_unary(
+                '/spdkrpc.SPDKService/ShardGroupSnapshotPurge',
+                request_serializer=spdkrpc_dot_shardgroup__pb2.ShardGroupSnapshotPurgeRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
         self.EngineCreate = channel.unary_unary(
@@ -700,6 +817,144 @@ class SPDKServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def ReplicaSnapshotCloneSrcFinish(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ShardCreate(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ShardDelete(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ShardGet(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ShardList(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ShardExpand(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ShardWatch(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ShardGroupCreate(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ShardGroupDelete(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ShardGroupGet(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ShardGroupList(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ShardGroupWatch(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ShardGroupExpand(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ShardGroupExpandPrecheck(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ShardGroupShardReplace(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ShardGroupShardRebuildStart(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ShardGroupShardRebuildProgress(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ShardGroupShardRebuildStop(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ShardGroupShardRebuildQosSet(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ShardGroupShardForceFail(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ShardGroupSnapshotCreate(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ShardGroupSnapshotDelete(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ShardGroupSnapshotRevert(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ShardGroupSnapshotPurge(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -1243,6 +1498,121 @@ def add_SPDKServiceServicer_to_server(servicer, server):
             'ReplicaSnapshotCloneSrcFinish': grpc.unary_unary_rpc_method_handler(
                     servicer.ReplicaSnapshotCloneSrcFinish,
                     request_deserializer=spdkrpc_dot_spdk__pb2.ReplicaSnapshotCloneSrcFinishRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'ShardCreate': grpc.unary_unary_rpc_method_handler(
+                    servicer.ShardCreate,
+                    request_deserializer=spdkrpc_dot_shard__pb2.ShardCreateRequest.FromString,
+                    response_serializer=spdkrpc_dot_shard__pb2.Shard.SerializeToString,
+            ),
+            'ShardDelete': grpc.unary_unary_rpc_method_handler(
+                    servicer.ShardDelete,
+                    request_deserializer=spdkrpc_dot_shard__pb2.ShardDeleteRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'ShardGet': grpc.unary_unary_rpc_method_handler(
+                    servicer.ShardGet,
+                    request_deserializer=spdkrpc_dot_shard__pb2.ShardGetRequest.FromString,
+                    response_serializer=spdkrpc_dot_shard__pb2.Shard.SerializeToString,
+            ),
+            'ShardList': grpc.unary_unary_rpc_method_handler(
+                    servicer.ShardList,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=spdkrpc_dot_shard__pb2.ShardListResponse.SerializeToString,
+            ),
+            'ShardExpand': grpc.unary_unary_rpc_method_handler(
+                    servicer.ShardExpand,
+                    request_deserializer=spdkrpc_dot_shard__pb2.ShardExpandRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'ShardWatch': grpc.unary_stream_rpc_method_handler(
+                    servicer.ShardWatch,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'ShardGroupCreate': grpc.unary_unary_rpc_method_handler(
+                    servicer.ShardGroupCreate,
+                    request_deserializer=spdkrpc_dot_shardgroup__pb2.ShardGroupCreateRequest.FromString,
+                    response_serializer=spdkrpc_dot_shardgroup__pb2.ShardGroup.SerializeToString,
+            ),
+            'ShardGroupDelete': grpc.unary_unary_rpc_method_handler(
+                    servicer.ShardGroupDelete,
+                    request_deserializer=spdkrpc_dot_shardgroup__pb2.ShardGroupDeleteRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'ShardGroupGet': grpc.unary_unary_rpc_method_handler(
+                    servicer.ShardGroupGet,
+                    request_deserializer=spdkrpc_dot_shardgroup__pb2.ShardGroupGetRequest.FromString,
+                    response_serializer=spdkrpc_dot_shardgroup__pb2.ShardGroup.SerializeToString,
+            ),
+            'ShardGroupList': grpc.unary_unary_rpc_method_handler(
+                    servicer.ShardGroupList,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=spdkrpc_dot_shardgroup__pb2.ShardGroupListResponse.SerializeToString,
+            ),
+            'ShardGroupWatch': grpc.unary_stream_rpc_method_handler(
+                    servicer.ShardGroupWatch,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'ShardGroupExpand': grpc.unary_unary_rpc_method_handler(
+                    servicer.ShardGroupExpand,
+                    request_deserializer=spdkrpc_dot_shardgroup__pb2.ShardGroupExpandRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'ShardGroupExpandPrecheck': grpc.unary_unary_rpc_method_handler(
+                    servicer.ShardGroupExpandPrecheck,
+                    request_deserializer=spdkrpc_dot_shardgroup__pb2.ShardGroupExpandPrecheckRequest.FromString,
+                    response_serializer=spdkrpc_dot_shardgroup__pb2.ShardGroupExpandPrecheckResponse.SerializeToString,
+            ),
+            'ShardGroupShardReplace': grpc.unary_unary_rpc_method_handler(
+                    servicer.ShardGroupShardReplace,
+                    request_deserializer=spdkrpc_dot_shardgroup__pb2.ShardGroupShardReplaceRequest.FromString,
+                    response_serializer=spdkrpc_dot_shardgroup__pb2.ShardGroupShardReplaceResponse.SerializeToString,
+            ),
+            'ShardGroupShardRebuildStart': grpc.unary_unary_rpc_method_handler(
+                    servicer.ShardGroupShardRebuildStart,
+                    request_deserializer=spdkrpc_dot_shardgroup__pb2.ShardGroupShardRebuildStartRequest.FromString,
+                    response_serializer=spdkrpc_dot_shardgroup__pb2.ShardGroupShardRebuildStartResponse.SerializeToString,
+            ),
+            'ShardGroupShardRebuildProgress': grpc.unary_unary_rpc_method_handler(
+                    servicer.ShardGroupShardRebuildProgress,
+                    request_deserializer=spdkrpc_dot_shardgroup__pb2.ShardGroupShardRebuildProgressRequest.FromString,
+                    response_serializer=spdkrpc_dot_shardgroup__pb2.ShardGroupShardRebuildProgressResponse.SerializeToString,
+            ),
+            'ShardGroupShardRebuildStop': grpc.unary_unary_rpc_method_handler(
+                    servicer.ShardGroupShardRebuildStop,
+                    request_deserializer=spdkrpc_dot_shardgroup__pb2.ShardGroupShardRebuildStopRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'ShardGroupShardRebuildQosSet': grpc.unary_unary_rpc_method_handler(
+                    servicer.ShardGroupShardRebuildQosSet,
+                    request_deserializer=spdkrpc_dot_shardgroup__pb2.ShardGroupShardRebuildQosSetRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'ShardGroupShardForceFail': grpc.unary_unary_rpc_method_handler(
+                    servicer.ShardGroupShardForceFail,
+                    request_deserializer=spdkrpc_dot_shardgroup__pb2.ShardGroupShardForceFailRequest.FromString,
+                    response_serializer=spdkrpc_dot_shardgroup__pb2.ShardGroupShardForceFailResponse.SerializeToString,
+            ),
+            'ShardGroupSnapshotCreate': grpc.unary_unary_rpc_method_handler(
+                    servicer.ShardGroupSnapshotCreate,
+                    request_deserializer=spdkrpc_dot_shardgroup__pb2.ShardGroupSnapshotCreateRequest.FromString,
+                    response_serializer=spdkrpc_dot_shardgroup__pb2.ShardGroupSnapshotCreateResponse.SerializeToString,
+            ),
+            'ShardGroupSnapshotDelete': grpc.unary_unary_rpc_method_handler(
+                    servicer.ShardGroupSnapshotDelete,
+                    request_deserializer=spdkrpc_dot_shardgroup__pb2.ShardGroupSnapshotDeleteRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'ShardGroupSnapshotRevert': grpc.unary_unary_rpc_method_handler(
+                    servicer.ShardGroupSnapshotRevert,
+                    request_deserializer=spdkrpc_dot_shardgroup__pb2.ShardGroupSnapshotRevertRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'ShardGroupSnapshotPurge': grpc.unary_unary_rpc_method_handler(
+                    servicer.ShardGroupSnapshotPurge,
+                    request_deserializer=spdkrpc_dot_shardgroup__pb2.ShardGroupSnapshotPurgeRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'EngineCreate': grpc.unary_unary_rpc_method_handler(
@@ -2146,6 +2516,397 @@ class SPDKService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ReplicaSnapshotCloneSrcFinish',
             spdkrpc_dot_spdk__pb2.ReplicaSnapshotCloneSrcFinishRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ShardCreate(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ShardCreate',
+            spdkrpc_dot_shard__pb2.ShardCreateRequest.SerializeToString,
+            spdkrpc_dot_shard__pb2.Shard.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ShardDelete(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ShardDelete',
+            spdkrpc_dot_shard__pb2.ShardDeleteRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ShardGet(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ShardGet',
+            spdkrpc_dot_shard__pb2.ShardGetRequest.SerializeToString,
+            spdkrpc_dot_shard__pb2.Shard.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ShardList(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ShardList',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            spdkrpc_dot_shard__pb2.ShardListResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ShardExpand(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ShardExpand',
+            spdkrpc_dot_shard__pb2.ShardExpandRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ShardWatch(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/spdkrpc.SPDKService/ShardWatch',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ShardGroupCreate(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ShardGroupCreate',
+            spdkrpc_dot_shardgroup__pb2.ShardGroupCreateRequest.SerializeToString,
+            spdkrpc_dot_shardgroup__pb2.ShardGroup.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ShardGroupDelete(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ShardGroupDelete',
+            spdkrpc_dot_shardgroup__pb2.ShardGroupDeleteRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ShardGroupGet(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ShardGroupGet',
+            spdkrpc_dot_shardgroup__pb2.ShardGroupGetRequest.SerializeToString,
+            spdkrpc_dot_shardgroup__pb2.ShardGroup.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ShardGroupList(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ShardGroupList',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            spdkrpc_dot_shardgroup__pb2.ShardGroupListResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ShardGroupWatch(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/spdkrpc.SPDKService/ShardGroupWatch',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ShardGroupExpand(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ShardGroupExpand',
+            spdkrpc_dot_shardgroup__pb2.ShardGroupExpandRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ShardGroupExpandPrecheck(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ShardGroupExpandPrecheck',
+            spdkrpc_dot_shardgroup__pb2.ShardGroupExpandPrecheckRequest.SerializeToString,
+            spdkrpc_dot_shardgroup__pb2.ShardGroupExpandPrecheckResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ShardGroupShardReplace(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ShardGroupShardReplace',
+            spdkrpc_dot_shardgroup__pb2.ShardGroupShardReplaceRequest.SerializeToString,
+            spdkrpc_dot_shardgroup__pb2.ShardGroupShardReplaceResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ShardGroupShardRebuildStart(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ShardGroupShardRebuildStart',
+            spdkrpc_dot_shardgroup__pb2.ShardGroupShardRebuildStartRequest.SerializeToString,
+            spdkrpc_dot_shardgroup__pb2.ShardGroupShardRebuildStartResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ShardGroupShardRebuildProgress(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ShardGroupShardRebuildProgress',
+            spdkrpc_dot_shardgroup__pb2.ShardGroupShardRebuildProgressRequest.SerializeToString,
+            spdkrpc_dot_shardgroup__pb2.ShardGroupShardRebuildProgressResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ShardGroupShardRebuildStop(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ShardGroupShardRebuildStop',
+            spdkrpc_dot_shardgroup__pb2.ShardGroupShardRebuildStopRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ShardGroupShardRebuildQosSet(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ShardGroupShardRebuildQosSet',
+            spdkrpc_dot_shardgroup__pb2.ShardGroupShardRebuildQosSetRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ShardGroupShardForceFail(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ShardGroupShardForceFail',
+            spdkrpc_dot_shardgroup__pb2.ShardGroupShardForceFailRequest.SerializeToString,
+            spdkrpc_dot_shardgroup__pb2.ShardGroupShardForceFailResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ShardGroupSnapshotCreate(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ShardGroupSnapshotCreate',
+            spdkrpc_dot_shardgroup__pb2.ShardGroupSnapshotCreateRequest.SerializeToString,
+            spdkrpc_dot_shardgroup__pb2.ShardGroupSnapshotCreateResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ShardGroupSnapshotDelete(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ShardGroupSnapshotDelete',
+            spdkrpc_dot_shardgroup__pb2.ShardGroupSnapshotDeleteRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ShardGroupSnapshotRevert(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ShardGroupSnapshotRevert',
+            spdkrpc_dot_shardgroup__pb2.ShardGroupSnapshotRevertRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ShardGroupSnapshotPurge(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/ShardGroupSnapshotPurge',
+            spdkrpc_dot_shardgroup__pb2.ShardGroupSnapshotPurgeRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
