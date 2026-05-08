@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12imrpc/common.proto\x12\x05imrpc*$\n\x12\x42\x61\x63kendStoreDriver\x12\x06\n\x02v1\x10\x00\x12\x06\n\x02v2\x10\x01*4\n\nDataEngine\x12\x12\n\x0e\x44\x41TA_ENGINE_V1\x10\x00\x12\x12\n\x0e\x44\x41TA_ENGINE_V2\x10\x01*B\n\tCloneMode\x12\x18\n\x14\x43LONE_MODE_FULL_COPY\x10\x00\x12\x1b\n\x17\x43LONE_MODE_LINKED_CLONE\x10\x01\x42/Z-github.com/longhorn/types/pkg/generated/imrpcb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12imrpc/common.proto\x12\x05imrpc\"4\n\rShardEndpoint\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\x12\n\nslot_index\x18\x02 \x01(\r\"\xe6\x01\n\x0eShardGroupSpec\x12\x13\n\x0b\x64\x61ta_chunks\x18\x01 \x01(\r\x12\x15\n\rparity_chunks\x18\x02 \x01(\r\x12\x15\n\rstrip_size_kb\x18\x03 \x01(\r\x12\x31\n\x06shards\x18\x04 \x03(\x0b\x32!.imrpc.ShardGroupSpec.ShardsEntry\x12\x19\n\x11salvage_requested\x18\x05 \x01(\x08\x1a\x43\n\x0bShardsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12#\n\x05value\x18\x02 \x01(\x0b\x32\x14.imrpc.ShardEndpoint:\x02\x38\x01*$\n\x12\x42\x61\x63kendStoreDriver\x12\x06\n\x02v1\x10\x00\x12\x06\n\x02v2\x10\x01*4\n\nDataEngine\x12\x12\n\x0e\x44\x41TA_ENGINE_V1\x10\x00\x12\x12\n\x0e\x44\x41TA_ENGINE_V2\x10\x01*B\n\tCloneMode\x12\x18\n\x14\x43LONE_MODE_FULL_COPY\x10\x00\x12\x1b\n\x17\x43LONE_MODE_LINKED_CLONE\x10\x01*O\n\x0e\x44\x61taLayoutType\x12\x1f\n\x1b\x44\x41TA_LAYOUT_TYPE_REPLICATED\x10\x00\x12\x1c\n\x18\x44\x41TA_LAYOUT_TYPE_SHARDED\x10\x01\x42/Z-github.com/longhorn/types/pkg/generated/imrpcb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -22,10 +22,20 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z-github.com/longhorn/types/pkg/generated/imrpc'
-  _globals['_BACKENDSTOREDRIVER']._serialized_start=29
-  _globals['_BACKENDSTOREDRIVER']._serialized_end=65
-  _globals['_DATAENGINE']._serialized_start=67
-  _globals['_DATAENGINE']._serialized_end=119
-  _globals['_CLONEMODE']._serialized_start=121
-  _globals['_CLONEMODE']._serialized_end=187
+  _SHARDGROUPSPEC_SHARDSENTRY._options = None
+  _SHARDGROUPSPEC_SHARDSENTRY._serialized_options = b'8\001'
+  _globals['_BACKENDSTOREDRIVER']._serialized_start=316
+  _globals['_BACKENDSTOREDRIVER']._serialized_end=352
+  _globals['_DATAENGINE']._serialized_start=354
+  _globals['_DATAENGINE']._serialized_end=406
+  _globals['_CLONEMODE']._serialized_start=408
+  _globals['_CLONEMODE']._serialized_end=474
+  _globals['_DATALAYOUTTYPE']._serialized_start=476
+  _globals['_DATALAYOUTTYPE']._serialized_end=555
+  _globals['_SHARDENDPOINT']._serialized_start=29
+  _globals['_SHARDENDPOINT']._serialized_end=81
+  _globals['_SHARDGROUPSPEC']._serialized_start=84
+  _globals['_SHARDGROUPSPEC']._serialized_end=314
+  _globals['_SHARDGROUPSPEC_SHARDSENTRY']._serialized_start=247
+  _globals['_SHARDGROUPSPEC_SHARDSENTRY']._serialized_end=314
 # @@protoc_insertion_point(module_scope)
