@@ -11,7 +11,7 @@ ENV PROTOBUF_VER_PY=4.24.3
 ENV PROTOC_GEN_GO_VER=v1.31.0
 ENV PROTOC_GEN_GO_GRPC_VER=v1.3.0
 
-RUN zypper -n addrepo --refresh https://download.opensuse.org/repositories/system:/snappy/SLE_15/system:snappy.repo && \
+RUN zypper -n addrepo --refresh https://download.opensuse.org/repositories/system:/snappy/openSUSE_Factory/system:snappy.repo && \
     zypper --gpg-auto-import-keys ref
 
 # TODO: replace python311 with python3 if SLE upgrade system python version to python3.10+
