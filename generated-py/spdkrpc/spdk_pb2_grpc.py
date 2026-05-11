@@ -280,6 +280,16 @@ class SPDKServiceStub(object):
                 request_serializer=spdkrpc_dot_spdk__pb2.EngineSnapshotCloneRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
+        self.EngineVolumeSnapshotMaxCountSet = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineVolumeSnapshotMaxCountSet',
+                request_serializer=spdkrpc_dot_spdk__pb2.EngineVolumeSnapshotMaxCountSetRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.EngineVolumeSnapshotMaxSizeSet = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineVolumeSnapshotMaxSizeSet',
+                request_serializer=spdkrpc_dot_spdk__pb2.EngineVolumeSnapshotMaxSizeSetRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
         self.EngineList = channel.unary_unary(
                 '/spdkrpc.SPDKService/EngineList',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
@@ -808,6 +818,18 @@ class SPDKServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def EngineVolumeSnapshotMaxCountSet(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EngineVolumeSnapshotMaxSizeSet(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def EngineList(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -1322,6 +1344,16 @@ def add_SPDKServiceServicer_to_server(servicer, server):
             'EngineSnapshotClone': grpc.unary_unary_rpc_method_handler(
                     servicer.EngineSnapshotClone,
                     request_deserializer=spdkrpc_dot_spdk__pb2.EngineSnapshotCloneRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'EngineVolumeSnapshotMaxCountSet': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineVolumeSnapshotMaxCountSet,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.EngineVolumeSnapshotMaxCountSetRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'EngineVolumeSnapshotMaxSizeSet': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineVolumeSnapshotMaxSizeSet,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.EngineVolumeSnapshotMaxSizeSetRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'EngineList': grpc.unary_unary_rpc_method_handler(
@@ -2436,6 +2468,40 @@ class SPDKService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineSnapshotClone',
             spdkrpc_dot_spdk__pb2.EngineSnapshotCloneRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineVolumeSnapshotMaxCountSet(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineVolumeSnapshotMaxCountSet',
+            spdkrpc_dot_spdk__pb2.EngineVolumeSnapshotMaxCountSetRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineVolumeSnapshotMaxSizeSet(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineVolumeSnapshotMaxSizeSet',
+            spdkrpc_dot_spdk__pb2.EngineVolumeSnapshotMaxSizeSetRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

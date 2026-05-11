@@ -62,6 +62,8 @@ service SPDKService {
     rpc EngineSnapshotHashCancel(SnapshotHashCancelRequest) returns (google.protobuf.Empty) {};
     rpc EngineSnapshotHashLockState(SnapshotHashLockStateRequest) returns (SnapshotHashLockStateResponse) {};
     rpc EngineSnapshotClone(EngineSnapshotCloneRequest) returns (google.protobuf.Empty) {};
+    rpc EngineVolumeSnapshotMaxCountSet(EngineVolumeSnapshotMaxCountSetRequest) returns (google.protobuf.Empty) {};
+    rpc EngineVolumeSnapshotMaxSizeSet(EngineVolumeSnapshotMaxSizeSetRequest) returns (google.protobuf.Empty) {};
     rpc EngineList(google.protobuf.Empty) returns (EngineListResponse);
     rpc EngineWatch(google.protobuf.Empty) returns (stream google.protobuf.Empty) {};
     rpc EngineReplicaList(EngineReplicaListRequest) returns (EngineReplicaListResponse) {};
@@ -848,4 +850,14 @@ message DiskHealthGetResponse {
 
     uint64 warning_temperature_time_minutes = 20;
     uint64 critical_composite_temperature_time_minutes = 21;
+}
+
+message EngineVolumeSnapshotMaxCountSetRequest {
+    string name = 1;
+    int32 count = 2;
+}
+
+message EngineVolumeSnapshotMaxSizeSetRequest {
+    string name = 1;
+    int64 size = 2;
 }

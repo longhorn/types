@@ -73,6 +73,8 @@ const (
 	SPDKService_EngineSnapshotHashCancel_FullMethodName                  = "/spdkrpc.SPDKService/EngineSnapshotHashCancel"
 	SPDKService_EngineSnapshotHashLockState_FullMethodName               = "/spdkrpc.SPDKService/EngineSnapshotHashLockState"
 	SPDKService_EngineSnapshotClone_FullMethodName                       = "/spdkrpc.SPDKService/EngineSnapshotClone"
+	SPDKService_EngineVolumeSnapshotMaxCountSet_FullMethodName           = "/spdkrpc.SPDKService/EngineVolumeSnapshotMaxCountSet"
+	SPDKService_EngineVolumeSnapshotMaxSizeSet_FullMethodName            = "/spdkrpc.SPDKService/EngineVolumeSnapshotMaxSizeSet"
 	SPDKService_EngineList_FullMethodName                                = "/spdkrpc.SPDKService/EngineList"
 	SPDKService_EngineWatch_FullMethodName                               = "/spdkrpc.SPDKService/EngineWatch"
 	SPDKService_EngineReplicaList_FullMethodName                         = "/spdkrpc.SPDKService/EngineReplicaList"
@@ -173,6 +175,8 @@ type SPDKServiceClient interface {
 	EngineSnapshotHashCancel(ctx context.Context, in *SnapshotHashCancelRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	EngineSnapshotHashLockState(ctx context.Context, in *SnapshotHashLockStateRequest, opts ...grpc.CallOption) (*SnapshotHashLockStateResponse, error)
 	EngineSnapshotClone(ctx context.Context, in *EngineSnapshotCloneRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	EngineVolumeSnapshotMaxCountSet(ctx context.Context, in *EngineVolumeSnapshotMaxCountSetRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	EngineVolumeSnapshotMaxSizeSet(ctx context.Context, in *EngineVolumeSnapshotMaxSizeSetRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	EngineList(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*EngineListResponse, error)
 	EngineWatch(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (SPDKService_EngineWatchClient, error)
 	EngineReplicaList(ctx context.Context, in *EngineReplicaListRequest, opts ...grpc.CallOption) (*EngineReplicaListResponse, error)
@@ -726,6 +730,24 @@ func (c *sPDKServiceClient) EngineSnapshotClone(ctx context.Context, in *EngineS
 	return out, nil
 }
 
+func (c *sPDKServiceClient) EngineVolumeSnapshotMaxCountSet(ctx context.Context, in *EngineVolumeSnapshotMaxCountSetRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, SPDKService_EngineVolumeSnapshotMaxCountSet_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *sPDKServiceClient) EngineVolumeSnapshotMaxSizeSet(ctx context.Context, in *EngineVolumeSnapshotMaxSizeSetRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, SPDKService_EngineVolumeSnapshotMaxSizeSet_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *sPDKServiceClient) EngineList(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*EngineListResponse, error) {
 	out := new(EngineListResponse)
 	err := c.cc.Invoke(ctx, SPDKService_EngineList_FullMethodName, in, out, opts...)
@@ -1221,6 +1243,8 @@ type SPDKServiceServer interface {
 	EngineSnapshotHashCancel(context.Context, *SnapshotHashCancelRequest) (*emptypb.Empty, error)
 	EngineSnapshotHashLockState(context.Context, *SnapshotHashLockStateRequest) (*SnapshotHashLockStateResponse, error)
 	EngineSnapshotClone(context.Context, *EngineSnapshotCloneRequest) (*emptypb.Empty, error)
+	EngineVolumeSnapshotMaxCountSet(context.Context, *EngineVolumeSnapshotMaxCountSetRequest) (*emptypb.Empty, error)
+	EngineVolumeSnapshotMaxSizeSet(context.Context, *EngineVolumeSnapshotMaxSizeSetRequest) (*emptypb.Empty, error)
 	EngineList(context.Context, *emptypb.Empty) (*EngineListResponse, error)
 	EngineWatch(*emptypb.Empty, SPDKService_EngineWatchServer) error
 	EngineReplicaList(context.Context, *EngineReplicaListRequest) (*EngineReplicaListResponse, error)
@@ -1429,6 +1453,12 @@ func (UnimplementedSPDKServiceServer) EngineSnapshotHashLockState(context.Contex
 }
 func (UnimplementedSPDKServiceServer) EngineSnapshotClone(context.Context, *EngineSnapshotCloneRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EngineSnapshotClone not implemented")
+}
+func (UnimplementedSPDKServiceServer) EngineVolumeSnapshotMaxCountSet(context.Context, *EngineVolumeSnapshotMaxCountSetRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EngineVolumeSnapshotMaxCountSet not implemented")
+}
+func (UnimplementedSPDKServiceServer) EngineVolumeSnapshotMaxSizeSet(context.Context, *EngineVolumeSnapshotMaxSizeSetRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EngineVolumeSnapshotMaxSizeSet not implemented")
 }
 func (UnimplementedSPDKServiceServer) EngineList(context.Context, *emptypb.Empty) (*EngineListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EngineList not implemented")
@@ -2523,6 +2553,42 @@ func _SPDKService_EngineSnapshotClone_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SPDKService_EngineVolumeSnapshotMaxCountSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EngineVolumeSnapshotMaxCountSetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SPDKServiceServer).EngineVolumeSnapshotMaxCountSet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SPDKService_EngineVolumeSnapshotMaxCountSet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SPDKServiceServer).EngineVolumeSnapshotMaxCountSet(ctx, req.(*EngineVolumeSnapshotMaxCountSetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SPDKService_EngineVolumeSnapshotMaxSizeSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EngineVolumeSnapshotMaxSizeSetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SPDKServiceServer).EngineVolumeSnapshotMaxSizeSet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SPDKService_EngineVolumeSnapshotMaxSizeSet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SPDKServiceServer).EngineVolumeSnapshotMaxSizeSet(ctx, req.(*EngineVolumeSnapshotMaxSizeSetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _SPDKService_EngineList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(emptypb.Empty)
 	if err := dec(in); err != nil {
@@ -3484,6 +3550,14 @@ var SPDKService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "EngineSnapshotClone",
 			Handler:    _SPDKService_EngineSnapshotClone_Handler,
+		},
+		{
+			MethodName: "EngineVolumeSnapshotMaxCountSet",
+			Handler:    _SPDKService_EngineVolumeSnapshotMaxCountSet_Handler,
+		},
+		{
+			MethodName: "EngineVolumeSnapshotMaxSizeSet",
+			Handler:    _SPDKService_EngineVolumeSnapshotMaxSizeSet_Handler,
 		},
 		{
 			MethodName: "EngineList",
