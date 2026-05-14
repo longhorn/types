@@ -49,6 +49,7 @@ service SPDKService {
     rpc EngineGet(EngineGetRequest) returns (Engine);
     rpc EngineSuspend(EngineSuspendRequest) returns (google.protobuf.Empty);
     rpc EngineResume(EngineResumeRequest) returns (google.protobuf.Empty);
+    rpc EngineSnapshotMaxCountSet(EngineSnapshotMaxCountSetRequest) returns (google.protobuf.Empty);
     rpc EngineExpand(EngineExpandRequest) returns (google.protobuf.Empty);
     rpc EngineExpandPrecheck(EngineExpandPrecheckRequest) returns (EngineExpandPrecheckResponse);
     rpc EngineDeleteTarget(EngineDeleteTargetRequest) returns (google.protobuf.Empty);
@@ -342,6 +343,7 @@ message Engine {
     bool is_expanding = 20;
     string last_expansion_error = 21;
     string last_expansion_failed_at = 22;
+    int32 snapshot_max_count = 23;
 }
 
 message EngineCreateRequest {
@@ -357,6 +359,7 @@ message EngineCreateRequest {
     bool salvage_requested = 10;
     int32 ublk_queue_depth = 11;
     int32 ublk_number_of_queue = 12;
+    int32 snapshot_max_count = 13;
 }
 
 message EngineDeleteRequest {
@@ -373,6 +376,11 @@ message EngineSuspendRequest {
 
 message EngineResumeRequest {
     string name = 1;
+}
+
+message EngineSnapshotMaxCountSetRequest {
+    string name = 1;
+    int32 count = 2;
 }
 
 message EngineExpandRequest{
