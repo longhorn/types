@@ -215,6 +215,11 @@ class SPDKServiceStub(object):
                 request_serializer=spdkrpc_dot_spdk__pb2.EngineResumeRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
+        self.EngineSnapshotMaxCountSet = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineSnapshotMaxCountSet',
+                request_serializer=spdkrpc_dot_spdk__pb2.EngineSnapshotMaxCountSetRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
         self.EngineExpand = channel.unary_unary(
                 '/spdkrpc.SPDKService/EngineExpand',
                 request_serializer=spdkrpc_dot_spdk__pb2.EngineExpandRequest.SerializeToString,
@@ -725,6 +730,12 @@ class SPDKServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def EngineResume(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EngineSnapshotMaxCountSet(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -1257,6 +1268,11 @@ def add_SPDKServiceServicer_to_server(servicer, server):
             'EngineResume': grpc.unary_unary_rpc_method_handler(
                     servicer.EngineResume,
                     request_deserializer=spdkrpc_dot_spdk__pb2.EngineResumeRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'EngineSnapshotMaxCountSet': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineSnapshotMaxCountSet,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.EngineSnapshotMaxCountSetRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'EngineExpand': grpc.unary_unary_rpc_method_handler(
@@ -2215,6 +2231,23 @@ class SPDKService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineResume',
             spdkrpc_dot_spdk__pb2.EngineResumeRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineSnapshotMaxCountSet(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineSnapshotMaxCountSet',
+            spdkrpc_dot_spdk__pb2.EngineSnapshotMaxCountSetRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
