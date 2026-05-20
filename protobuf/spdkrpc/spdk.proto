@@ -233,6 +233,7 @@ message ReplicaRebuildingDstStartRequest {
     string external_snapshot_name = 4;
     string external_snapshot_address = 5;
     repeated Lvol rebuilding_snapshot_list = 6;
+    string linked_clone_src_replica_name = 7;
 }
 
 message ReplicaRebuildingDstStartResponse {
@@ -416,6 +417,7 @@ message EngineReplicaAddRequest {
     bool fast_sync = 4;
     string engine_frontend_name = 5;
     string engine_frontend_address = 6;
+    string linked_clone_src_replica_name = 7;
 }
 
 message EngineReplicaListRequest {
@@ -524,6 +526,7 @@ message EngineFrontendReplicaAddRequest {
     string replica_name = 2;
     string replica_address = 3;
     bool fast_sync = 4;
+    string linked_clone_src_replica_name = 5;
 }
 
 message EngineFrontendSwitchOverRequest {
