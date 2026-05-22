@@ -158,7 +158,6 @@ message EngineSnapshotCloneRequest {
     string from_volume_name = 7;
     int64 grpc_timeout_seconds = 9;
     CloneMode clone_mode = 10;
-    map<string, string> dst_replica_src_replica_pair_map = 11; // dst replica name -> src replica name
 }
 
 message EngineSnapshotCloneStatusProxyResponse {

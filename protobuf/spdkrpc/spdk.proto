@@ -603,7 +603,6 @@ message EngineSnapshotCloneRequest {
     string src_engine_name = 3;
     string src_engine_address = 4;
     CloneMode clone_mode = 5;
-    map<string, string> dst_replica_src_replica_pair_map = 6; // dst replica name -> src replica name
 }
 
 message VersionOutput {
