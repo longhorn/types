@@ -156,6 +156,10 @@ message Replica {
     string error_msg = 13;
     string backing_image_name = 14;
     string uuid = 15;
+    bool is_clone_replica = 16;
+    string clone_source_replica_name = 17;
+    string clone_entrypoint_lvol_name = 18;
+    map<string, int32> clone_entrypoint_map = 19;
 }
 
 message ReplicaCreateRequest {
