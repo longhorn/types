@@ -260,6 +260,9 @@ message EngineReplicaAddRequest {
     string replica_name = 8;
     int64 grpc_timeout_seconds = 9;
     EngineReplicaLocalSync local_sync = 10;
+    string linked_clone_src_replica_name = 11;
+    string linked_clone_src_engine_name = 12;
+    string linked_clone_src_engine_address = 13;
 }
 
 message EngineReplicaLocalSync {
