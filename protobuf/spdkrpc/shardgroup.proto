@@ -109,14 +109,21 @@ message ShardGroupListResponse {
 // expanded (via ShardExpand). Internally:
 //   bdev_ec_resize -> bdev_lvol_grow_lvstore -> bdev_lvol_resize (head lvol)
 // The engine subsequently calls EngineExpand to grow its raid1 view.
+//
+// creation_size is the volume size when the ShardGroup was created. The
+// lvstore metadata region is sized at creation and never grows, so the
+// engine uses this to cap in-place expansion. Zero means unknown; the
+// engine then skips the check.
 message ShardGroupExpandRequest {
-    string name = 1;
-    uint64 size = 2;
+    string name          = 1;
+    uint64 size          = 2;
+    uint64 creation_size = 3;
 }
 
 message ShardGroupExpandPrecheckRequest {
-    string name = 1;
-    uint64 size = 2;
+    string name          = 1;
+    uint64 size          = 2;
+    uint64 creation_size = 3;
 }
 
 // expansion_required is true while the precheck observes a smaller current
