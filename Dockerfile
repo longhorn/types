@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.25.0@sha256:0adf442eae370b6087e08edc7c50b552d80ddf261576f4ebd6421006b2461f12
-FROM registry.suse.com/bci/golang:1.26@sha256:ecc1daa80df30a631d1e57ae512b9b2e2d99dcf8a8f77b8dadbbf8f73aa7852f AS base
+FROM registry.suse.com/bci/golang:1.26@sha256:f8e55755eb0254b1ce0874eb58b3862edb1f4ff5509df68b2fb3fbbbe6e0e8eb AS base
 
 ARG TARGETARCH
 ARG http_proxy
