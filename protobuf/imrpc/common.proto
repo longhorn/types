@@ -56,3 +56,11 @@ message ShardGroupSpec {
     map<string, ShardEndpoint>  shards            = 4;
     bool                        salvage_requested = 5;
 }
+
+// LinkedCloneSource identifies the source replica/engine for a linked-clone
+// rebuild or replica-add. Nil for non-clone operations.
+message LinkedCloneSource {
+    string replica_name = 1;      // the source replica
+    string engine_name = 2;       // the source engine (for mode verification)
+    string engine_address = 3;    // the source engine address
+}

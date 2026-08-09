@@ -156,10 +156,24 @@ message Replica {
     string error_msg = 13;
     string backing_image_name = 14;
     string uuid = 15;
-    bool is_clone_replica = 16;
-    string clone_source_replica_name = 17;
-    string clone_entrypoint_lvol_name = 18;
-    map<string, int32> clone_entrypoint_map = 19;
+    LinkedCloneInfo linked_clone_info = 16;
+    map<string, int32> clone_snapshot_usage = 17;
+}
+
+// LinkedCloneInfo describes a replica's own linked-clone identity.
+// Present (non-nil) only when the replica is a linked-clone replica.
+message LinkedCloneInfo {
+    string source_replica_name = 1;   // the src replica this was cloned from
+    string source_snapshot_name = 2;  // the snapshot used as clone entrypoint
+}
+
+// LinkedCloneSource identifies the source replica/engine/snapshot for a
+// linked-clone rebuild or replica-add. Nil for non-clone operations.
+message LinkedCloneSource {
+    string snapshot_name = 1;     // the source snapshot
+    string replica_name = 2;      // the source replica
+    string engine_name = 3;       // the source engine (for mode verification)
+    string engine_address = 4;    // the source engine address
 }
 
 message ReplicaCreateRequest {
@@ -247,10 +261,7 @@ message ReplicaRebuildingDstStartRequest {
     string external_snapshot_name = 4;
     string external_snapshot_address = 5;
     repeated Lvol rebuilding_snapshot_list = 6;
-    string linked_clone_src_snapshot_name = 7;
-    string linked_clone_src_replica_name = 8;
-    string linked_clone_src_engine_name = 9;
-    string linked_clone_src_engine_address = 10;
+    LinkedCloneSource linked_clone_source = 7;
 }
 
 message ReplicaRebuildingDstStartResponse {
@@ -442,9 +453,7 @@ message EngineReplicaAddRequest {
     bool fast_sync = 4;
     string engine_frontend_name = 5;
     string engine_frontend_address = 6;
-    string linked_clone_src_replica_name = 7;
-    string linked_clone_src_engine_name = 8;
-    string linked_clone_src_engine_address = 9;
+    LinkedCloneSource linked_clone_source = 7;
 }
 
 message EngineReplicaListRequest {
@@ -553,9 +562,7 @@ message EngineFrontendReplicaAddRequest {
     string replica_name = 2;
     string replica_address = 3;
     bool fast_sync = 4;
-    string linked_clone_src_replica_name = 5;
-    string linked_clone_src_engine_name = 6;
-    string linked_clone_src_engine_address = 7;
+    LinkedCloneSource linked_clone_source = 5;
 }
 
 message EngineFrontendSwitchOverRequest {
