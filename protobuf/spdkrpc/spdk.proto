@@ -183,6 +183,7 @@ message ReplicaCreateRequest {
     uint64 spec_size = 4;
     int32 port_count = 5;
     string backing_image_name = 6;
+    bool restrict_host_acl = 7;
 }
 
 message ReplicaDeleteRequest {
