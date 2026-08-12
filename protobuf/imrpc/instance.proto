@@ -85,6 +85,11 @@ message SpdkInstanceSpec {
 	// indices, and a salvage_requested flag for RecreateEC semantics.
 	// Nil for engine, replica, shard, and frontend instances.
 	ShardGroupSpec shard_group_spec = 15;
+
+	// nvme_tcp_nr_io_queues limits the number of I/O queues the kernel
+	// initiator creates when connecting the blockdev frontend over NVMe-TCP
+	// (0 means unspecified, kernel default).
+	int32 nvme_tcp_nr_io_queues = 16;
 }
 
 message InstanceSpec {
