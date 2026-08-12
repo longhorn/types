@@ -530,6 +530,11 @@ message EngineFrontendCreateRequest {
     string frontend = 6;
     int32 ublk_queue_depth = 7;
     int32 ublk_number_of_queue = 8;
+
+    // nvme_tcp_nr_io_queues limits the number of I/O queues the kernel
+    // initiator creates when connecting the blockdev frontend over NVMe-TCP
+    // (0 means unspecified, kernel default).
+    int32 nvme_tcp_nr_io_queues = 9;
 }
 
 message EngineFrontendDeleteRequest {
