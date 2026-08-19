@@ -90,6 +90,14 @@ message SpdkInstanceSpec {
 	// initiator creates when connecting the blockdev frontend over NVMe-TCP
 	// (0 means unspecified, kernel default).
 	int32 nvme_tcp_nr_io_queues = 16;
+
+	// data_engine_transport selects the NVMe-oF transport for the internal
+	// engine<->replica data fabric. Set on both engine and replica instances so
+	// the exporter (replica) and the connector (engine) agree. Forwarded to
+	// spdkrpc.EngineCreateRequest / ReplicaCreateRequest.data_engine_transport.
+	// Kept on the spec (not the request) because the delete path reads the spec
+	// and must tear down the same transport it created. Unset (0) == TCP.
+	DataEngineTransport data_engine_transport = 17;
 }
 
 message InstanceSpec {
