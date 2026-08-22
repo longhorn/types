@@ -184,10 +184,10 @@ message ReplicaCreateRequest {
     int32 port_count = 5;
     string backing_image_name = 6;
 
-    // data_engine_transport selects the NVMe-oF fabric this replica's bdev is
+    // transport_type selects the NVMe-oF fabric this replica's bdev is
     // exposed over so the engine can connect to it. Unset (0) == TCP preserves
     // the historical behavior.
-    DataEngineTransport data_engine_transport = 7;
+    TransportType transport_type = 7;
 }
 
 message ReplicaDeleteRequest {
@@ -407,10 +407,10 @@ message EngineCreateRequest {
     // at the ShardGroup endpoint).
     DataLayoutType data_layout_type = 14;
 
-    // data_engine_transport selects the NVMe-oF fabric the engine uses to
+    // transport_type selects the NVMe-oF fabric the engine uses to
     // connect to its upstream replica/shardgroup bdevs (controller->replica leg).
     // Unset (0) == TCP preserves the historical behavior.
-    DataEngineTransport data_engine_transport = 15;
+    TransportType transport_type = 15;
 }
 
 message EngineDeleteRequest {
@@ -775,12 +775,12 @@ enum DataLayoutType {
     DATA_LAYOUT_TYPE_SHARDED    = 1; // EC: k data + m parity shards
 }
 
-// DataEngineTransport selects the NVMe-oF transport used for the internal
+// TransportType selects the NVMe-oF transport used for the internal
 // engine<->replica (and engine<->shardgroup) data fabric. Unset defaults to
 // TCP, preserving the historical behavior for all existing volumes.
-enum DataEngineTransport {
-    DATA_ENGINE_TRANSPORT_TCP  = 0; // NVMe-oF over TCP (default)
-    DATA_ENGINE_TRANSPORT_RDMA = 1; // NVMe-oF over RDMA (RoCEv2 / InfiniBand)
+enum TransportType {
+    TRANSPORT_TYPE_TCP  = 0; // NVMe-oF over TCP (default)
+    TRANSPORT_TYPE_RDMA = 1; // NVMe-oF over RDMA (RoCEv2 / InfiniBand)
 }
 
 message BackingImage {
