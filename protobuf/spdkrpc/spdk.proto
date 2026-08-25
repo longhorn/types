@@ -158,6 +158,7 @@ message Replica {
     string uuid = 15;
     LinkedCloneInfo linked_clone_info = 16;
     map<string, int32> clone_snapshot_usage = 17;
+    string ip_family = 18;
 }
 
 // LinkedCloneInfo describes a replica's own linked-clone identity.
@@ -183,6 +184,7 @@ message ReplicaCreateRequest {
     uint64 spec_size = 4;
     int32 port_count = 5;
     string backing_image_name = 6;
+    string ip_family = 7;
 }
 
 message ReplicaDeleteRequest {
@@ -377,6 +379,7 @@ message Engine {
     string last_expansion_error = 21;
     string last_expansion_failed_at = 22;
     int32 snapshot_max_count = 23;
+    string ip_family = 24;
 }
 
 message EngineCreateRequest {
@@ -401,6 +404,7 @@ message EngineCreateRequest {
     // over replica_address_map (N entries for RAID1, 1 entry for EC pointing
     // at the ShardGroup endpoint).
     DataLayoutType data_layout_type = 14;
+    string ip_family = 15;
 }
 
 message EngineDeleteRequest {
@@ -519,6 +523,7 @@ message EngineFrontend {
     string active_path = 17;
     string preferred_path = 18;
     repeated EngineFrontendNvmeTcpPath paths = 19;
+    string ip_family = 20;
 }
 
 message EngineFrontendCreateRequest {
@@ -535,6 +540,7 @@ message EngineFrontendCreateRequest {
     // initiator creates when connecting the blockdev frontend over NVMe-TCP
     // (0 means unspecified, kernel default).
     int32 nvme_tcp_nr_io_queues = 9;
+    string ip_family = 10;
 }
 
 message EngineFrontendDeleteRequest {
@@ -576,10 +582,10 @@ message EngineFrontendSwitchOverRequest {
     string target_address = 3;
     // switchover_phase controls which phase of the three-phase ANA transition
     // to execute. Valid values:
-    //   "preparing"  — connect new multipath path, set new target ANA to non-optimized
-    //   "switching"  — set old target ANA to inaccessible
-    //   "promoting"  — set new target ANA to optimized, reload initiator state
-    //   ""           — (legacy) execute all phases atomically
+    //   "preparing"  - connect new multipath path, set new target ANA to non-optimized
+    //   "switching"  - set old target ANA to inaccessible
+    //   "promoting"  - set new target ANA to optimized, reload initiator state
+    //   ""           - (legacy) execute all phases atomically
     string switchover_phase = 4;
 }
 
