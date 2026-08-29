@@ -38,6 +38,10 @@ message Disk {
     string name = 12;
 
     string state = 13;
+
+    // message carries the reason of the current state, e.g. the error of an
+    // asynchronous disk creation failure.
+    string message = 14;
 }
 
 message ReplicaInstance {
