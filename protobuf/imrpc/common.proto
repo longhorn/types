@@ -30,6 +30,15 @@ enum DataLayoutType {
     DATA_LAYOUT_TYPE_SHARDED    = 1;
 }
 
+// TransportType is the NVMe-oF transport for the internal engine<->replica
+// data fabric, forwarded from SpdkInstanceSpec to spdkrpc.EngineCreateRequest /
+// ReplicaCreateRequest. Mirrors spdkrpc.TransportType but defined here to
+// keep imrpc and spdkrpc decoupled. Unset (0) == TCP preserves historical behavior.
+enum TransportType {
+    TRANSPORT_TYPE_TCP  = 0;
+    TRANSPORT_TYPE_RDMA = 1;
+}
+
 // ShardEndpoint carries the transport address and pre-resolved slot index for
 // a shard, as passed to the instance manager for ShardGroup process creation.
 // address is "ip:port" - passed to connectNVMfBdev which calls
