@@ -230,6 +230,9 @@ message EngineBackupRestoreProxyResponse {
 
 message EngineBackupRestoreStatusProxyResponse {
     map<string, EngineBackupRestoreStatus> status = 1;
+    // Engine-level restore error. Set only by the v2 data engine;
+    // the v1 path leaves it empty. Empty means no error.
+    string engine_error = 2;
 }
 
 message EngineBackupRestoreStatus {
