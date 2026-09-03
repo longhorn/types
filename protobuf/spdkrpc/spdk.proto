@@ -753,6 +753,10 @@ message ReplicaRestoreStatusResponse {
 
 message RestoreStatusResponse {
     map<string, ReplicaRestoreStatusResponse> status = 1;
+    // Engine-level restore error not attributed to any replica.
+    // Keep it on this wrapper, not on the per-replica message.
+    // Empty means no error.
+    string engine_error = 2;
 }
 
 // DataLayoutType is the top-level storage topology of an engine.
