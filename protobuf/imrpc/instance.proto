@@ -110,6 +110,7 @@ message InstanceSpec {
 	string initiator_address = 11;
 	string target_address = 12;
 	string engine_name = 13;
+	string ip_family = 14;
 }
 
 message EngineFrontendNvmeTcpPath {
@@ -139,6 +140,7 @@ message InstanceStatus {
 	string active_path = 15;
 	string preferred_path = 16;
 	repeated EngineFrontendNvmeTcpPath paths = 17;
+	string ip_family = 18;
 }
 
 message InstanceCreateRequest {
