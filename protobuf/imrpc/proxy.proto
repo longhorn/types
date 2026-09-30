@@ -19,6 +19,7 @@ service ProxyEngineService {
     rpc VolumeUnmapMarkSnapChainRemovedSet(EngineVolumeUnmapMarkSnapChainRemovedSetRequest) returns (google.protobuf.Empty);
     rpc VolumeSnapshotMaxCountSet(EngineVolumeSnapshotMaxCountSetRequest) returns (google.protobuf.Empty);
     rpc VolumeSnapshotMaxSizeSet(EngineVolumeSnapshotMaxSizeSetRequest) returns (google.protobuf.Empty);
+    rpc VolumeSnapshotRemoveOldestSet(EngineVolumeSnapshotRemoveOldestSetRequest) returns (google.protobuf.Empty);
 
     rpc VolumeSnapshot(EngineVolumeSnapshotRequest) returns (EngineVolumeSnapshotProxyResponse);
     rpc SnapshotList(ProxyEngineRequest) returns (EngineSnapshotListProxyResponse);
@@ -114,6 +115,12 @@ message EngineVolumeSnapshotMaxSizeSetRequest {
     ProxyEngineRequest proxy_engine_request = 1;
 
     ptypes.VolumeSnapshotMaxSizeSetRequest size = 2;
+}
+
+message EngineVolumeSnapshotRemoveOldestSetRequest {
+    ProxyEngineRequest proxy_engine_request = 1;
+
+    ptypes.VolumeSnapshotRemoveOldestSetRequest snapshot_remove_oldest = 2;
 }
 
 message EngineSnapshotListProxyResponse {

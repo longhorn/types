@@ -70,6 +70,11 @@ class ControllerServiceStub(object):
                 request_serializer=ptypes_dot_controller__pb2.VolumeSnapshotMaxSizeSetRequest.SerializeToString,
                 response_deserializer=ptypes_dot_controller__pb2.Volume.FromString,
                 )
+        self.VolumeSnapshotRemoveOldestSet = channel.unary_unary(
+                '/ptypes.ControllerService/VolumeSnapshotRemoveOldestSet',
+                request_serializer=ptypes_dot_controller__pb2.VolumeSnapshotRemoveOldestSetRequest.SerializeToString,
+                response_deserializer=ptypes_dot_controller__pb2.Volume.FromString,
+                )
         self.VolumeIO = channel.unary_unary(
                 '/ptypes.ControllerService/VolumeIO',
                 request_serializer=ptypes_dot_controller__pb2.VolumeIORequest.SerializeToString,
@@ -201,6 +206,12 @@ class ControllerServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def VolumeSnapshotMaxSizeSet(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def VolumeSnapshotRemoveOldestSet(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -340,6 +351,11 @@ def add_ControllerServiceServicer_to_server(servicer, server):
             'VolumeSnapshotMaxSizeSet': grpc.unary_unary_rpc_method_handler(
                     servicer.VolumeSnapshotMaxSizeSet,
                     request_deserializer=ptypes_dot_controller__pb2.VolumeSnapshotMaxSizeSetRequest.FromString,
+                    response_serializer=ptypes_dot_controller__pb2.Volume.SerializeToString,
+            ),
+            'VolumeSnapshotRemoveOldestSet': grpc.unary_unary_rpc_method_handler(
+                    servicer.VolumeSnapshotRemoveOldestSet,
+                    request_deserializer=ptypes_dot_controller__pb2.VolumeSnapshotRemoveOldestSetRequest.FromString,
                     response_serializer=ptypes_dot_controller__pb2.Volume.SerializeToString,
             ),
             'VolumeIO': grpc.unary_unary_rpc_method_handler(
@@ -600,6 +616,23 @@ class ControllerService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/ptypes.ControllerService/VolumeSnapshotMaxSizeSet',
             ptypes_dot_controller__pb2.VolumeSnapshotMaxSizeSetRequest.SerializeToString,
+            ptypes_dot_controller__pb2.Volume.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def VolumeSnapshotRemoveOldestSet(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ptypes.ControllerService/VolumeSnapshotRemoveOldestSet',
+            ptypes_dot_controller__pb2.VolumeSnapshotRemoveOldestSetRequest.SerializeToString,
             ptypes_dot_controller__pb2.Volume.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
