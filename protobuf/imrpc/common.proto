@@ -13,6 +13,7 @@ enum BackendStoreDriver {
 enum DataEngine {
     DATA_ENGINE_V1 = 0;
     DATA_ENGINE_V2 = 1;
+    DATA_ENGINE_LOCAL = 2;
 }
 
 enum CloneMode {
