@@ -105,6 +105,11 @@ class ReplicaServiceStub(object):
                 request_serializer=ptypes_dot_replica__pb2.SnapshotMaxSizeSetRequest.SerializeToString,
                 response_deserializer=ptypes_dot_replica__pb2.SnapshotMaxSizeSetResponse.FromString,
                 )
+        self.SnapshotRemoveOldestSet = channel.unary_unary(
+                '/ptypes.ReplicaService/SnapshotRemoveOldestSet',
+                request_serializer=ptypes_dot_replica__pb2.SnapshotRemoveOldestSetRequest.SerializeToString,
+                response_deserializer=ptypes_dot_replica__pb2.SnapshotRemoveOldestSetResponse.FromString,
+                )
 
 
 class ReplicaServiceServicer(object):
@@ -218,6 +223,12 @@ class ReplicaServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def SnapshotRemoveOldestSet(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ReplicaServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -310,6 +321,11 @@ def add_ReplicaServiceServicer_to_server(servicer, server):
                     servicer.SnapshotMaxSizeSet,
                     request_deserializer=ptypes_dot_replica__pb2.SnapshotMaxSizeSetRequest.FromString,
                     response_serializer=ptypes_dot_replica__pb2.SnapshotMaxSizeSetResponse.SerializeToString,
+            ),
+            'SnapshotRemoveOldestSet': grpc.unary_unary_rpc_method_handler(
+                    servicer.SnapshotRemoveOldestSet,
+                    request_deserializer=ptypes_dot_replica__pb2.SnapshotRemoveOldestSetRequest.FromString,
+                    response_serializer=ptypes_dot_replica__pb2.SnapshotRemoveOldestSetResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -624,5 +640,22 @@ class ReplicaService(object):
         return grpc.experimental.unary_unary(request, target, '/ptypes.ReplicaService/SnapshotMaxSizeSet',
             ptypes_dot_replica__pb2.SnapshotMaxSizeSetRequest.SerializeToString,
             ptypes_dot_replica__pb2.SnapshotMaxSizeSetResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SnapshotRemoveOldestSet(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ptypes.ReplicaService/SnapshotRemoveOldestSet',
+            ptypes_dot_replica__pb2.SnapshotRemoveOldestSetRequest.SerializeToString,
+            ptypes_dot_replica__pb2.SnapshotRemoveOldestSetResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
