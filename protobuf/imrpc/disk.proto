@@ -56,6 +56,15 @@ message ReplicaInstance {
 enum DiskType {
     filesystem = 0;
     block = 1;
+    lvm = 2;
+}
+
+// LVMStorageLayout is how the local data engine groups LVM disks into
+// volume groups: one VG per disk, or one shared VG per node.
+enum LVMStorageLayout {
+    LVM_STORAGE_LAYOUT_INVALID = 0;
+    LVM_STORAGE_LAYOUT_PER_DISK = 1;
+    LVM_STORAGE_LAYOUT_PER_NODE = 2;
 }
 
 message DiskCreateRequest{
@@ -66,6 +75,8 @@ message DiskCreateRequest{
     string disk_path = 4;
     int64 block_size = 5;
     string disk_driver = 6;
+    // Used only by lvm disks.
+    LVMStorageLayout storage_layout = 7;
 }
 
 message DiskGetRequest {
