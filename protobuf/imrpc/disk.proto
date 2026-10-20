@@ -56,6 +56,7 @@ message ReplicaInstance {
 enum DiskType {
     filesystem = 0;
     block = 1;
+    lvm = 2;
 }
 
 message DiskCreateRequest{

@@ -92,6 +92,17 @@ message SpdkInstanceSpec {
 	int32 nvme_tcp_nr_io_queues = 16;
 }
 
+message LocalInstanceSpec {
+	// Replica: LV size in bytes and the disk (VG) holding it.
+	uint64 size = 1;
+	string disk_name = 2;
+	string disk_uuid = 3;
+	// Engine: name of the replica LV to attach. Empty for replicas.
+	string replica_name = 4;
+	// Replica: thick or thin.
+	string provisioning_mode = 5;
+}
+
 message InstanceSpec {
 	// Deprecated: Replaced by `data_engine`.
 	BackendStoreDriver backend_store_driver = 1 [deprecated=true];
@@ -110,6 +121,7 @@ message InstanceSpec {
 	string initiator_address = 11;
 	string target_address = 12;
 	string engine_name = 13;
+	LocalInstanceSpec local_instance_spec = 14;
 }
 
 message EngineFrontendNvmeTcpPath {
