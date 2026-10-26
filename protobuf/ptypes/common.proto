@@ -9,3 +9,13 @@ message SyncFileInfo {
     string to_file_name = 2;
     int64 actual_size = 3;
 }
+
+// TransportType selects the NVMe-oF transport used for the internal
+// engine<->replica (and engine<->shardgroup) data fabric of a v2 volume.
+// Shared by imrpc (SpdkInstanceSpec) and spdkrpc (EngineCreateRequest,
+// ReplicaCreateRequest, Replica). Unset defaults to TCP, preserving the
+// historical behavior for all existing volumes.
+enum TransportType {
+    TRANSPORT_TYPE_TCP  = 0; // NVMe-oF over TCP (default)
+    TRANSPORT_TYPE_RDMA = 1; // NVMe-oF over RDMA (RoCEv2 / InfiniBand)
+}

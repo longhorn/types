@@ -7,6 +7,7 @@ option go_package = "github.com/longhorn/types/pkg/generated/imrpc";
 import "google/protobuf/empty.proto";
 import "imrpc/common.proto";
 import "imrpc/imrpc.proto";
+import "ptypes/common.proto";
 
 service InstanceService {
 	rpc InstanceCreate(InstanceCreateRequest) returns (InstanceResponse) {}
@@ -97,7 +98,7 @@ message SpdkInstanceSpec {
 	// spdkrpc.EngineCreateRequest / ReplicaCreateRequest.transport_type.
 	// Kept on the spec (not the request) because the delete path reads the spec
 	// and must tear down the same transport it created. Unset (0) == TCP.
-	TransportType transport_type = 17;
+	ptypes.TransportType transport_type = 17;
 }
 
 message InstanceSpec {
