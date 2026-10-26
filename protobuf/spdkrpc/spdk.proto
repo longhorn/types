@@ -8,6 +8,7 @@ import "google/protobuf/empty.proto";
 import "spdkrpc/lvol.proto";
 import "spdkrpc/shard.proto";
 import "spdkrpc/shardgroup.proto";
+import "ptypes/common.proto";
 
 service SPDKService {
     rpc ReplicaCreate(ReplicaCreateRequest) returns (Replica);
@@ -158,6 +159,11 @@ message Replica {
     string uuid = 15;
     LinkedCloneInfo linked_clone_info = 16;
     map<string, int32> clone_snapshot_usage = 17;
+
+    // transport_type is the NVMe-oF fabric this replica's bdev is exposed
+    // over, so an engine can verify it matches its own transport before
+    // connecting. Unset (0) == TCP.
+    ptypes.TransportType transport_type = 18;
 }
 
 // LinkedCloneInfo describes a replica's own linked-clone identity.
@@ -183,6 +189,11 @@ message ReplicaCreateRequest {
     uint64 spec_size = 4;
     int32 port_count = 5;
     string backing_image_name = 6;
+
+    // transport_type selects the NVMe-oF fabric this replica's bdev is
+    // exposed over so the engine can connect to it. Unset (0) == TCP preserves
+    // the historical behavior.
+    ptypes.TransportType transport_type = 7;
 }
 
 message ReplicaDeleteRequest {
@@ -401,6 +412,11 @@ message EngineCreateRequest {
     // over replica_address_map (N entries for RAID1, 1 entry for EC pointing
     // at the ShardGroup endpoint).
     DataLayoutType data_layout_type = 14;
+
+    // transport_type selects the NVMe-oF fabric the engine uses to
+    // connect to its upstream replica/shardgroup bdevs (controller->replica leg).
+    // Unset (0) == TCP preserves the historical behavior.
+    ptypes.TransportType transport_type = 15;
 }
 
 message EngineDeleteRequest {
