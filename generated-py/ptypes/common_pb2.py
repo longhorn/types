@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13ptypes/common.proto\x12\x06ptypes\"Q\n\x0cSyncFileInfo\x12\x16\n\x0e\x66rom_file_name\x18\x01 \x01(\t\x12\x14\n\x0cto_file_name\x18\x02 \x01(\t\x12\x13\n\x0b\x61\x63tual_size\x18\x03 \x01(\x03\x42\x33Z1github.com/longhorn/types/pkg/generated/enginerpcb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13ptypes/common.proto\x12\x06ptypes\"Q\n\x0cSyncFileInfo\x12\x16\n\x0e\x66rom_file_name\x18\x01 \x01(\t\x12\x14\n\x0cto_file_name\x18\x02 \x01(\t\x12\x13\n\x0b\x61\x63tual_size\x18\x03 \x01(\x03*@\n\rTransportType\x12\x16\n\x12TRANSPORT_TYPE_TCP\x10\x00\x12\x17\n\x13TRANSPORT_TYPE_RDMA\x10\x01\x42\x33Z1github.com/longhorn/types/pkg/generated/enginerpcb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -22,6 +22,8 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z1github.com/longhorn/types/pkg/generated/enginerpc'
+  _globals['_TRANSPORTTYPE']._serialized_start=114
+  _globals['_TRANSPORTTYPE']._serialized_end=178
   _globals['_SYNCFILEINFO']._serialized_start=31
   _globals['_SYNCFILEINFO']._serialized_end=112
 # @@protoc_insertion_point(module_scope)
