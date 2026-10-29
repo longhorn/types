@@ -90,6 +90,11 @@ message SpdkInstanceSpec {
 	// initiator creates when connecting the blockdev frontend over NVMe-TCP
 	// (0 means unspecified, kernel default).
 	int32 nvme_tcp_nr_io_queues = 16;
+
+	// qos_limit - Engine instance: frontend IO limits applied to the engine
+	// bdev at creation, so a recreated or standby engine starts limited.
+	// Nil or zero fields mean unlimited. Ignored for other instance types.
+	VolumeQosLimit qos_limit = 17;
 }
 
 message LocalInstanceSpec {
@@ -151,6 +156,8 @@ message InstanceStatus {
 	string active_path = 15;
 	string preferred_path = 16;
 	repeated EngineFrontendNvmeTcpPath paths = 17;
+	// qos_limit - v2 engine instance: frontend IO limits currently applied.
+	VolumeQosLimit qos_limit = 18;
 }
 
 message InstanceCreateRequest {

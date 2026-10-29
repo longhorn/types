@@ -19,6 +19,7 @@ service ProxyEngineService {
     rpc VolumeUnmapMarkSnapChainRemovedSet(EngineVolumeUnmapMarkSnapChainRemovedSetRequest) returns (google.protobuf.Empty);
     rpc VolumeSnapshotMaxCountSet(EngineVolumeSnapshotMaxCountSetRequest) returns (google.protobuf.Empty);
     rpc VolumeSnapshotMaxSizeSet(EngineVolumeSnapshotMaxSizeSetRequest) returns (google.protobuf.Empty);
+    rpc VolumeQosLimitSet(EngineVolumeQosLimitSetRequest) returns (google.protobuf.Empty);
 
     rpc VolumeSnapshot(EngineVolumeSnapshotRequest) returns (EngineVolumeSnapshotProxyResponse);
     rpc SnapshotList(ProxyEngineRequest) returns (EngineSnapshotListProxyResponse);
@@ -114,6 +115,14 @@ message EngineVolumeSnapshotMaxSizeSetRequest {
     ProxyEngineRequest proxy_engine_request = 1;
 
     ptypes.VolumeSnapshotMaxSizeSetRequest size = 2;
+}
+
+// EngineVolumeQosLimitSetRequest sets the frontend IO limits of a v2 volume
+// engine. Not supported for v1 volumes.
+message EngineVolumeQosLimitSetRequest {
+    ProxyEngineRequest proxy_engine_request = 1;
+
+    VolumeQosLimit qos_limit = 2;
 }
 
 message EngineSnapshotListProxyResponse {

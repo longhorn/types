@@ -77,6 +77,7 @@ service SPDKService {
     rpc EngineSuspend(EngineSuspendRequest) returns (google.protobuf.Empty);
     rpc EngineResume(EngineResumeRequest) returns (google.protobuf.Empty);
     rpc EngineSnapshotMaxCountSet(EngineSnapshotMaxCountSetRequest) returns (google.protobuf.Empty);
+    rpc EngineSetQosLimit(EngineSetQosLimitRequest) returns (google.protobuf.Empty);
     rpc EngineExpand(EngineExpandRequest) returns (google.protobuf.Empty);
     rpc EngineExpandPrecheck(EngineExpandPrecheckRequest) returns (EngineExpandPrecheckResponse);
     rpc EngineDeleteTarget(EngineDeleteTargetRequest) returns (google.protobuf.Empty);
@@ -377,6 +378,7 @@ message Engine {
     string last_expansion_error = 21;
     string last_expansion_failed_at = 22;
     int32 snapshot_max_count = 23;
+    VolumeQosLimit qos_limit = 24;
 }
 
 message EngineCreateRequest {
@@ -401,6 +403,10 @@ message EngineCreateRequest {
     // over replica_address_map (N entries for RAID1, 1 entry for EC pointing
     // at the ShardGroup endpoint).
     DataLayoutType data_layout_type = 14;
+
+    // qos_limit is applied to the engine bdev at creation. Nil or zero fields
+    // mean unlimited.
+    VolumeQosLimit qos_limit = 15;
 }
 
 message EngineDeleteRequest {
@@ -422,6 +428,19 @@ message EngineResumeRequest {
 message EngineSnapshotMaxCountSetRequest {
     string name = 1;
     int32 count = 2;
+}
+
+// VolumeQosLimit carries the frontend IO limits of a volume, applied to the
+// engine bdev via bdev_set_qos_limit. 0 means unlimited for each field.
+// Every set replaces the whole limit; there is no partial update.
+message VolumeQosLimit {
+    int64 rw_ios_per_sec = 1;
+    int64 rw_mbytes_per_sec = 2;
+}
+
+message EngineSetQosLimitRequest {
+    string name = 1;
+    VolumeQosLimit qos_limit = 2;
 }
 
 message EngineExpandRequest{
