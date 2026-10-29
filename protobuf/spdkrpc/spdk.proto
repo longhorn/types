@@ -551,6 +551,12 @@ message EngineFrontendListResponse {
 
 message EngineFrontendSuspendRequest {
     string name = 1;
+    // no_flush suspends without flushing outstanding I/O (dmsetup --noflush), which
+    // also skips freezing the filesystem. The kernel still waits for the I/O that is
+    // already in flight to complete.
+    bool no_flush = 2;
+    // no_lock_fs does not freeze the filesystem while suspending (dmsetup --nolockfs).
+    bool no_lock_fs = 3;
 }
 
 message EngineFrontendResumeRequest {
