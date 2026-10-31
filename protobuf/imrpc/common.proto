@@ -58,6 +58,16 @@ message ShardGroupSpec {
     bool                        salvage_requested = 5;
 }
 
+// VolumeQosLimit carries the frontend IO limits of a v2 volume, applied to the
+// engine bdev via SPDK bdev_set_qos_limit. 0 means unlimited for each field.
+// Every set replaces the whole limit; there is no partial update.
+// Mirrors spdkrpc.VolumeQosLimit but defined here to keep imrpc and spdkrpc
+// decoupled.
+message VolumeQosLimit {
+    int64 rw_ios_per_sec    = 1;
+    int64 rw_mbytes_per_sec = 2;
+}
+
 // LinkedCloneSource identifies the source replica/engine for a linked-clone
 // rebuild or replica-add. Nil for non-clone operations.
 message LinkedCloneSource {
