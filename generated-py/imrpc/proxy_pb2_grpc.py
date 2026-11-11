@@ -55,6 +55,11 @@ class ProxyEngineServiceStub(object):
                 request_serializer=imrpc_dot_proxy__pb2.EngineVolumeSnapshotMaxSizeSetRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
+        self.VolumeSnapshotRemoveOldestSet = channel.unary_unary(
+                '/imrpc.ProxyEngineService/VolumeSnapshotRemoveOldestSet',
+                request_serializer=imrpc_dot_proxy__pb2.EngineVolumeSnapshotRemoveOldestSetRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
         self.VolumeSnapshot = channel.unary_unary(
                 '/imrpc.ProxyEngineService/VolumeSnapshot',
                 request_serializer=imrpc_dot_proxy__pb2.EngineVolumeSnapshotRequest.SerializeToString,
@@ -263,6 +268,12 @@ class ProxyEngineServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def VolumeSnapshotMaxSizeSet(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def VolumeSnapshotRemoveOldestSet(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -502,6 +513,11 @@ def add_ProxyEngineServiceServicer_to_server(servicer, server):
             'VolumeSnapshotMaxSizeSet': grpc.unary_unary_rpc_method_handler(
                     servicer.VolumeSnapshotMaxSizeSet,
                     request_deserializer=imrpc_dot_proxy__pb2.EngineVolumeSnapshotMaxSizeSetRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'VolumeSnapshotRemoveOldestSet': grpc.unary_unary_rpc_method_handler(
+                    servicer.VolumeSnapshotRemoveOldestSet,
+                    request_deserializer=imrpc_dot_proxy__pb2.EngineVolumeSnapshotRemoveOldestSetRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'VolumeSnapshot': grpc.unary_unary_rpc_method_handler(
@@ -806,6 +822,23 @@ class ProxyEngineService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/imrpc.ProxyEngineService/VolumeSnapshotMaxSizeSet',
             imrpc_dot_proxy__pb2.EngineVolumeSnapshotMaxSizeSetRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def VolumeSnapshotRemoveOldestSet(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/imrpc.ProxyEngineService/VolumeSnapshotRemoveOldestSet',
+            imrpc_dot_proxy__pb2.EngineVolumeSnapshotRemoveOldestSetRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

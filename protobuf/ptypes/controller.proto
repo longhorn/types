@@ -19,6 +19,7 @@ service ControllerService {
     rpc VolumeUnmapMarkSnapChainRemovedSet(VolumeUnmapMarkSnapChainRemovedSetRequest) returns (Volume);
     rpc VolumeSnapshotMaxCountSet(VolumeSnapshotMaxCountSetRequest) returns (Volume);
     rpc VolumeSnapshotMaxSizeSet(VolumeSnapshotMaxSizeSetRequest) returns (Volume);
+    rpc VolumeSnapshotRemoveOldestSet(VolumeSnapshotRemoveOldestSetRequest) returns (Volume);
     rpc VolumeIO(VolumeIORequest) returns (VolumeIOResponse);
 
     rpc ReplicaList(google.protobuf.Empty) returns (ReplicaListReply);
@@ -53,6 +54,7 @@ message Volume {
     bool unmap_mark_snap_chain_removed = 10;
     int32 snapshot_max_count = 11;
     int64 snapshot_max_size = 12;
+    bool snapshot_remove_oldest = 13;
 }
 
 message ReplicaAddress {
@@ -111,6 +113,10 @@ message VolumeSnapshotMaxCountSetRequest {
 
 message VolumeSnapshotMaxSizeSetRequest {
     int64 size = 1;
+}
+
+message VolumeSnapshotRemoveOldestSetRequest{
+    bool enabled = 1;
 }
 
 message VolumePrepareRestoreRequest {

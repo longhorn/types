@@ -32,6 +32,8 @@ service ReplicaService {
     (SnapshotMaxCountSetResponse) {}
   rpc SnapshotMaxSizeSet(SnapshotMaxSizeSetRequest) returns
     (SnapshotMaxSizeSetResponse) {}
+  rpc SnapshotRemoveOldestSet(SnapshotRemoveOldestSetRequest) returns
+      (SnapshotRemoveOldestSetResponse) {}
 }
 
 message ReplicaCreateRequest {
@@ -165,6 +167,14 @@ message SnapshotMaxSizeSetResponse {
   Replica replica = 1;
 }
 
+message SnapshotRemoveOldestSetRequest{
+  bool enabled = 1;
+}
+
+message SnapshotRemoveOldestSetResponse{
+  Replica replica = 1;
+}
+
 message DiskInfo {
   string name = 1;
   string parent = 2;
@@ -196,6 +206,7 @@ message Replica {
   int32 snapshot_count_usage = 17;
   int64 snapshot_size_usage = 18;
   int32 snapshot_count_total = 19;
+  bool snapshot_remove_oldest = 20;
 }
 
 message PrepareRemoveAction {
