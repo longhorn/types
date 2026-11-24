@@ -20,6 +20,7 @@ service InstanceService {
 	rpc InstanceResume(InstanceResumeRequest) returns (google.protobuf.Empty) {}
 	rpc InstanceSwitchOverTarget(InstanceSwitchOverTargetRequest) returns (google.protobuf.Empty) {}
 	rpc InstanceDeleteTarget(InstanceDeleteTargetRequest) returns (google.protobuf.Empty) {}
+	rpc InstanceReservationCleanup(InstanceReservationCleanupRequest) returns (google.protobuf.Empty) {}
 
 	rpc LogSetLevel(LogSetLevelRequest) returns (google.protobuf.Empty);
 	rpc LogSetFlags(LogSetFlagsRequest) returns (google.protobuf.Empty);
@@ -90,6 +91,15 @@ message SpdkInstanceSpec {
 	// initiator creates when connecting the blockdev frontend over NVMe-TCP
 	// (0 means unspecified, kernel default).
 	int32 nvme_tcp_nr_io_queues = 16;
+
+	// shared_block - Engine and engine frontend instances: the engine target
+	// is shared by multiple engine frontends on different nodes (RWX block
+	// volume). False for replica, shard, and shardgroup instances.
+	bool shared_block = 17;
+
+	// reservation - Shared block engine instance only: the persisted NVMe
+	// reservation state to restore on the engine target.
+	InstanceReservationState reservation = 18;
 }
 
 message LocalInstanceSpec {
@@ -151,6 +161,35 @@ message InstanceStatus {
 	string active_path = 15;
 	string preferred_path = 16;
 	repeated EngineFrontendNvmeTcpPath paths = 17;
+	// reservation - Shared block engine instance only: the NVMe reservation
+	// state the engine target persists through power loss. Unset if unknown.
+	InstanceReservationState reservation = 18;
+}
+
+// InstanceReservationRegistrant is a host registered to the NVMe reservation of
+// a shared block volume namespace.
+message InstanceReservationRegistrant {
+	uint64 key = 1;
+	// host_id is the NVMe host identifier in UUID format.
+	string host_id = 2;
+}
+
+// InstanceReservationState is the NVMe reservation state of a shared block
+// volume namespace that persists through power loss. It is empty if no host
+// requested persistence.
+message InstanceReservationState {
+	// epoch identifies the generation of the state. It changes when the engine
+	// of the volume moves to another node.
+	uint64 epoch = 1;
+	// type is the reservation type (1 to 6), or 0 if there is no reservation.
+	uint32 type = 2;
+	uint64 holder_key = 3;
+	string holder_host_id = 4;
+	repeated InstanceReservationRegistrant registrants = 5;
+	// volume_uid identifies the lifetime of the volume, so that the state of
+	// a deleted volume is never restored to a new volume with the same name.
+	// It is set only when the state is restored.
+	string volume_uid = 6;
 }
 
 message InstanceCreateRequest {
@@ -234,6 +273,14 @@ message InstanceDeleteTargetRequest {
 	DataEngine data_engine = 1;
 	string name = 2;
 	string type = 3;
+}
+
+// InstanceReservationCleanupRequest removes the persisted NVMe reservation
+// state of a shared block volume on the node. It is required only when the
+// volume is deleted.
+message InstanceReservationCleanupRequest {
+	DataEngine data_engine = 1;
+	string volume_name = 2;
 }
 
 message LogSetLevelRequest {

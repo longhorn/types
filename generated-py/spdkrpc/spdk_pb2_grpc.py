@@ -352,9 +352,19 @@ class SPDKServiceStub(object):
                 request_serializer=spdkrpc_dot_spdk__pb2.EngineDeleteTargetRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
+        self.EngineReservationCleanup = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineReservationCleanup',
+                request_serializer=spdkrpc_dot_spdk__pb2.EngineReservationCleanupRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
         self.EngineSetTargetListenerANAState = channel.unary_unary(
                 '/spdkrpc.SPDKService/EngineSetTargetListenerANAState',
                 request_serializer=spdkrpc_dot_spdk__pb2.EngineSetTargetListenerANAStateRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.EngineRegisterFrontend = channel.unary_unary(
+                '/spdkrpc.SPDKService/EngineRegisterFrontend',
+                request_serializer=spdkrpc_dot_spdk__pb2.EngineRegisterFrontendRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
         self.EngineSnapshotCreate = channel.unary_unary(
@@ -1014,7 +1024,19 @@ class SPDKServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def EngineReservationCleanup(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def EngineSetTargetListenerANAState(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EngineRegisterFrontend(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -1660,9 +1682,19 @@ def add_SPDKServiceServicer_to_server(servicer, server):
                     request_deserializer=spdkrpc_dot_spdk__pb2.EngineDeleteTargetRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
+            'EngineReservationCleanup': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineReservationCleanup,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.EngineReservationCleanupRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
             'EngineSetTargetListenerANAState': grpc.unary_unary_rpc_method_handler(
                     servicer.EngineSetTargetListenerANAState,
                     request_deserializer=spdkrpc_dot_spdk__pb2.EngineSetTargetListenerANAStateRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'EngineRegisterFrontend': grpc.unary_unary_rpc_method_handler(
+                    servicer.EngineRegisterFrontend,
+                    request_deserializer=spdkrpc_dot_spdk__pb2.EngineRegisterFrontendRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'EngineSnapshotCreate': grpc.unary_unary_rpc_method_handler(
@@ -3065,6 +3097,23 @@ class SPDKService(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def EngineReservationCleanup(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineReservationCleanup',
+            spdkrpc_dot_spdk__pb2.EngineReservationCleanupRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def EngineSetTargetListenerANAState(request,
             target,
             options=(),
@@ -3077,6 +3126,23 @@ class SPDKService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineSetTargetListenerANAState',
             spdkrpc_dot_spdk__pb2.EngineSetTargetListenerANAStateRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EngineRegisterFrontend(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/spdkrpc.SPDKService/EngineRegisterFrontend',
+            spdkrpc_dot_spdk__pb2.EngineRegisterFrontendRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
